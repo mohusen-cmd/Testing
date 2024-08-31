@@ -1,0 +1,1172 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Contact</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Contact</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Create Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="' Create Contact'" cardTitle="Create Contact" [blockClass]="'tab-icon'">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form [formGroup]="registerForm" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group float-right">
+                                    <button
+                                        type="button"
+                                        (click)="SaveAndnew('savenew')"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        #SaveNew
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save & New
+                                    </button>
+                                    &nbsp;
+                                    <button
+                                        type="button"
+                                        (click)="SaveAndnew('save')"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        #SaveNew
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save</button
+                                    >&nbsp;
+                                    <button
+                                        type="button"
+                                        (click)="NavigateBackContactslist()"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                    >
+                                        <i class="fa fa-backward pr-1"></i>Back</button
+                                    >&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Contact Detail" cardTitle="Contact Detail" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <ng-container
+                                                        *ngIf="
+                                                            contactdetailslist.AccountObj.RoleID == 1 ||
+                                                                contactdetailslist.AccountObj.RoleName == 'Admin' ||
+                                                                contactdetailslist.AccountObj.RoleName == 'Master Admin';
+                                                            else second
+                                                        "
+                                                    >
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">
+                                                                    Company Owner :<span style="color: red">*</span></label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="input-group">
+                                                                    <input
+                                                                        type="text"
+                                                                        class="form-control"
+                                                                        formControlName="ownership"
+                                                                        [(ngModel)]="contactdetailslist.AccountObj.Ownership"
+                                                                        [ngClass]="{
+                                                                            'is-invalid':
+                                                                                (submitted && f.ownership.errors) ||
+                                                                                (!f.ownership.valid &&
+                                                                                    f.ownership.touched &&
+                                                                                    f.ownership.errors)
+                                                                        }"
+                                                                        disabled="true"
+                                                                    />
+                                                                    <span class="input-group-append">
+                                                                        <button
+                                                                            (click)="GetSearchUsersList($event)"
+                                                                            class="input-group-text"
+                                                                        >
+                                                                            <i class="fa fa-search"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                    <div
+                                                                        *ngIf="submitted && f.ownership.errors"
+                                                                        class="invalid-feedback"
+                                                                    ></div>
+                                                                    <div *ngIf="f.ownership.errors?.required" class="invalid-feedback">
+                                                                        OwnerName is required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #second>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Owner :<span style="color: red">*</span> </label>
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                formControlName="ownership"
+                                                                [(ngModel)]="contactdetailslist.AccountObj.Ownership"
+                                                                [ngClass]="{
+                                                                    'is-invalid':
+                                                                        (submitted && f.ownership.errors) ||
+                                                                        (!f.ownership.valid && f.ownership.touched && f.ownership.errors)
+                                                                }"
+                                                            />
+                                                            <div *ngIf="submitted && f.ownership.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.ownership.errors?.required" class="invalid-feedback">
+                                                                OwnerName is required
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">Company Name :</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="input-group">
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="companyName"
+                                                                    [(ngModel)]="contactdetailslist.AccountObj.CompanyName"
+                                                                    [ngClass]="{
+                                                                        'is-invalid':
+                                                                            (submitted && f.companyName.errors) ||
+                                                                            (!f.companyName.valid &&
+                                                                                f.companyName.touched &&
+                                                                                f.companyName.errors)
+                                                                    }"
+                                                                />
+                                                                <span class="input-group-append">
+                                                                    <button
+                                                                        (click)="GetSearchCompanyListModal($event)"
+                                                                        class="input-group-text"
+                                                                    >
+                                                                        <i class="fa fa-search"></i>
+                                                                    </button>
+                                                                </span>
+                                                                <span class="input-group-append">
+                                                                    <button
+                                                                        (click)="GetCreateCompanyModal($event)"
+                                                                        class="input-group-text"
+                                                                    >
+                                                                        <i class="fa fa-user-plus"></i>
+                                                                    </button>
+                                                                </span>
+                                                                <div
+                                                                    *ngIf="submitted && f.companyName.errors"
+                                                                    class="invalid-feedback"
+                                                                ></div>
+                                                                <div *ngIf="f.companyName.errors?.required" class="invalid-feedback">
+                                                                    Last Name is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">First Name :<span style="color: red">*</span></label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="firstName"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.FirstName"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.firstName.errors) ||
+                                                                    (!f.firstName.valid && f.firstName.touched && f.firstName.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.firstName.errors?.required" class="invalid-feedback">
+                                                            First Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Last Name :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="lastName"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.LastName"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.lastName.errors) ||
+                                                                    (!f.lastName.valid && f.lastName.touched && f.lastName.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.lastName.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Title :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="title"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Title"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.title.errors) ||
+                                                                    (!f.title.valid && f.title.touched && f.title.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.title.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.title.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Email :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="email"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Email"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.email.errors) ||
+                                                                    (!f.email.valid && f.email.touched && f.email.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.email.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                        <div *ngIf="f.email.errors?.email" class="invalid-feedback">Invalid email.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Phone :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            [textMask]="{ mask: maskUsMobile, guide: true }"
+                                                            placeholder="XXX-XXX-XXXX"
+                                                            formControlName="phone"
+                                                            (change)="onPhoneChange($event, 'phone')"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Phone"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.phone.errors) ||
+                                                                    (!f.phone.valid && f.phone.touched && f.phone.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.phone.errors?.required" class="invalid-feedback">
+                                                            Phone No is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Extension :</label>
+                                                        <input
+                                                            type="text"
+                                                            maxlength="5"
+                                                            class="form-control"
+                                                            formControlName="phoneExt"
+                                                            (keypress)="numberOnly($event)"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.PhoneExt"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.phoneExt.errors) ||
+                                                                    (!f.phoneExt.valid && f.phoneExt.touched && f.phoneExt.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.phoneExt.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.phoneExt.errors?.required" class="invalid-feedback">
+                                                            Last phoneExt is required
+                                                        </div>
+                                                        <!-- <div *ngIf="f.phoneExt.errors?.minlength" class="invalid-feedback">Minimum required number is 5.</div> 
+                                  <div *ngIf="f.phoneExt.errors?.maxlength" class="invalid-feedback">Maximum number can be 5.</div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Fax :</label>
+                                                        <input
+                                                            [textMask]="{ mask: maskUsMobile, guide: true }"
+                                                            placeholder="XXX-XXX-XXXX"
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="fax"
+                                                            (change)="onPhoneChange($event, 'fax')"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Fax"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.fax.errors) ||
+                                                                    (!f.fax.valid && f.fax.touched && f.fax.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.fax.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.fax.errors?.required" class="invalid-feedback">
+                                                            Last fax is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Mobile :</label>
+                                                        <input
+                                                            [textMask]="{ mask: maskUsMobile, guide: true }"
+                                                            placeholder="XXX-XXX-XXXX"
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="mobile"
+                                                            (change)="onPhoneChange($event, 'fax')"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Mobile"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.fax.errors) ||
+                                                                    (!f.fax.valid && f.fax.touched && f.fax.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.fax.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.fax.errors?.required" class="invalid-feedback">
+                                                            MObile No is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Website :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="website"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Website"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.website.errors) ||
+                                                                    (!f.website.valid && f.website.touched && f.website.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.website.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.website.errors?.required" class="invalid-feedback">
+                                                            Last website is required
+                                                        </div>
+                                                        <div *ngIf="f.website.errors?.pattern" class="invalid-feedback">
+                                                            Invalid Website.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">
+                                                            Lead Source :<span style="color: red">*</span></label
+                                                        >
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="leadSource"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.LeadSource"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.leadSource.errors) ||
+                                                                    (!f.leadSource.valid && f.leadSource.touched && f.leadSource.errors)
+                                                            }"
+                                                        >
+                                                            <option value="">--Please Select--</option>
+                                                            <option
+                                                                *ngFor="let type of contactdetailslist.LeadSourceList"
+                                                                value="{{ type.OSId }}"
+                                                            >
+                                                                {{ type.SourceName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.leadSource.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.leadSource.errors?.required" class="invalid-feedback">
+                                                            Lead Source is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Contact Type :</label>
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="contacttype"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.ContactTypeID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.contacttype.errors) ||
+                                                                    (!f.contacttype.valid && f.contacttype.touched && f.contacttype.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option
+                                                                *ngFor="let type of contactdetailslist.lstContactType"
+                                                                value="{{ type.ID }}"
+                                                            >
+                                                                {{ type.Name }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.contacttype.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.contacttype.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Department :</label>
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="department"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.DepartmentID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.department.errors) ||
+                                                                    (!f.department.valid && f.department.touched && f.department.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option
+                                                                *ngFor="let type of contactdetailslist.lstDepartment"
+                                                                value="{{ type.DepartmentID }}"
+                                                            >
+                                                                {{ type.DepartmentName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.department.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.department.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="form-group checkbox-color checkbox-primary">
+                                                            <input
+                                                                id="checkbox18"
+                                                                type="checkbox"
+                                                                formControlName="optemailout"
+                                                                [(ngModel)]="contactdetailslist.AccountObj.OptEmailOut"
+                                                                checked=""
+                                                                [ngClass]="{
+                                                                    'is-invalid':
+                                                                        (submitted && f.optemailout.errors) ||
+                                                                        (!f.optemailout.valid &&
+                                                                            f.optemailout.touched &&
+                                                                            f.optemailout.errors)
+                                                                }"
+                                                            />
+                                                            <label for="checkbox18" class="col-form-label pl-2"> Email Opt Out </label>
+                                                            <div *ngIf="submitted && f.optemailout.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.optemailout.errors?.required" class="invalid-feedback">
+                                                                Last Name is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Address Detail" cardTitle="Address Detail" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <b class="label label-primary">MAILING</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address 1 :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="mailingAddress"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.MailingAddress"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingAddress.errors) ||
+                                                                    (!f.mailingAddress.valid &&
+                                                                        f.mailingAddress.touched &&
+                                                                        f.mailingAddress.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.mailingAddress.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingAddress.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address 2 :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="mailingAddress2"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.MailingAddress2"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingAddress2.errors) ||
+                                                                    (!f.mailingAddress2.valid &&
+                                                                        f.mailingAddress2.touched &&
+                                                                        f.mailingAddress2.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.mailingAddress2.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingAddress2.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">City :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="mailingcity"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Mailingcity"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingcity.errors) ||
+                                                                    (!f.mailingcity.valid && f.mailingcity.touched && f.mailingcity.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.mailingcity.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingcity.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">State :</label>
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="mailingstateid"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.MailingstateID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingstateid.errors) ||
+                                                                    (!f.mailingstateid.valid &&
+                                                                        f.mailingstateid.touched &&
+                                                                        f.mailingstateid.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option *ngFor="let type of contactdetailslist.StateList" value="{{ type.ID }}">
+                                                                {{ type.StateName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.mailingstateid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingstateid.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Zip/Postal Code:</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="mailingzip"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Mailingzip"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingzip.errors) ||
+                                                                    (!f.mailingzip.valid && f.mailingzip.touched && f.mailingzip.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.mailingzip.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingzip.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Country :</label>
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="mailingcountryid"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.MailingcountryID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.mailingcountryid.errors) ||
+                                                                    (!f.mailingcountryid.valid &&
+                                                                        f.mailingcountryid.touched &&
+                                                                        f.mailingcountryid.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option
+                                                                *ngFor="let type of contactdetailslist.CountryList"
+                                                                value="{{ type.CountryId }}"
+                                                            >
+                                                                {{ type.CountryName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.mailingcountryid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.mailingcountryid.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group checkbox-color checkbox-primary">
+                                                            <input
+                                                                id="CopyMailingtoBilling"
+                                                                type="checkbox"
+                                                                (change)="onChangeCopyMailing($event.target.checked)"
+                                                                formControlName="copymailing"
+                                                            />
+                                                            <label for="CopyMailingtoBilling" class="pl-2"> Copy Mailing to Billing </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <b class="label label-primary">BILLING</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address 1 :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="billingaddress"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.BillingAddress"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingaddress.errors) ||
+                                                                    (!f.billingaddress.valid &&
+                                                                        f.billingaddress.touched &&
+                                                                        f.billingaddress.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.billingaddress.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingaddress.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Address 2 :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="billingaddress2"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.BillingAddress2"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingaddress2.errors) ||
+                                                                    (!f.billingaddress2.valid &&
+                                                                        f.billingaddress2.touched &&
+                                                                        f.billingaddress2.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.billingaddress2.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingaddress2.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">City :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="billingcity"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Billingcity"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingcity.errors) ||
+                                                                    (!f.billingcity.valid && f.billingcity.touched && f.billingcity.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.billingcity.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingcity.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">State :</label>
+
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="billingstateid"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.BillingstateID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingstateid.errors) ||
+                                                                    (!f.billingstateid.valid &&
+                                                                        f.billingstateid.touched &&
+                                                                        f.billingstateid.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option *ngFor="let type of contactdetailslist.StateList" value="{{ type.ID }}">
+                                                                {{ type.StateName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.billingstateid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingstateid.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Zip/Postal Code :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="billingzip"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.Billingzip"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingzip.errors) ||
+                                                                    (!f.billingzip.valid && f.billingzip.touched && f.billingzip.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.billingzip.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingzip.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Country :</label>
+                                                        <select
+                                                            class="form-control"
+                                                            formControlName="billingcountryid"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.BillingcountryID"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.billingcountryid.errors) ||
+                                                                    (!f.billingcountryid.valid &&
+                                                                        f.billingcountryid.touched &&
+                                                                        f.billingcountryid.errors)
+                                                            }"
+                                                        >
+                                                            <option value="0">--Please Select--</option>
+                                                            <option
+                                                                *ngFor="let type of contactdetailslist.CountryList"
+                                                                value="{{ type.CountryId }}"
+                                                            >
+                                                                {{ type.CountryName }}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.billingcountryid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.billingcountryid.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Social Information" cardTitle="Social Information" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Facebook User Name :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="facebookusername"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.FacebookUsername"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.facebookusername.errors) ||
+                                                                    (!f.facebookusername.valid &&
+                                                                        f.facebookusername.touched &&
+                                                                        f.facebookusername.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.facebookusername.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.facebookusername.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Twitter User Name :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="twitterusername"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.TwitterUsername"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.twitterusername.errors) ||
+                                                                    (!f.twitterusername.valid &&
+                                                                        f.twitterusername.touched &&
+                                                                        f.twitterusername.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.twitterusername.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.twitterusername.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Linkedin User Name :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="linkedinusername"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.LinkedInUsername"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.linkedinusername.errors) ||
+                                                                    (!f.linkedinusername.valid &&
+                                                                        f.linkedinusername.touched &&
+                                                                        f.linkedinusername.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.linkedinusername.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.linkedinusername.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Skype User Name :</label>
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="skypeusername"
+                                                            [(ngModel)]="contactdetailslist.AccountObj.SkypeUsername"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.skypeusername.errors) ||
+                                                                    (!f.skypeusername.valid &&
+                                                                        f.skypeusername.touched &&
+                                                                        f.skypeusername.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.skypeusername.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.skypeusername.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Notes" cardTitle="Notes" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <textarea
+                                                rows="5"
+                                                cols="5"
+                                                class="form-control"
+                                                formControlName="description"
+                                                [(ngModel)]="contactdetailslist.AccountObj.Description"
+                                                [ngClass]="{
+                                                    'is-invalid':
+                                                        (submitted && f.description.errors) ||
+                                                        (!f.description.valid && f.description.touched && f.description.errors)
+                                                }"
+                                            ></textarea>
+                                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback"></div>
+                                            <div *ngIf="f.description.errors?.required" class="invalid-feedback">Last Name is required</div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Attachment" cardTitle="Attachment" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label class="col-form-label">Attachment :</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input
+                                                            type="file"
+                                                            #myuploadInput
+                                                            formControlName="attachment"
+                                                            class="form-control"
+                                                            (change)="getFileDetails($event)"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.attachment.errors) ||
+                                                                    (!f.attachment.valid && f.attachment.touched && f.attachment.errors)
+                                                            }"
+                                                        />
+                                                        <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.attachment.errors?.required" class="invalid-feedback">
+                                                            Last Name is required
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6" >
+                                            <div class="form-group">
+                                                <button class="btn btn-success btn-round btn-sm waves-effect waves-light float-right" (click)="ClearFiles()"><i class="fa fa-eraser pr-1"></i>Clear
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card title="Additional Information" cardTitle="Additional Information" [classHeader]="true">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-3" *ngFor="let item of contactdetailslist.listCustomfields">
+                                                <div class="form-group" *ngIf="item.Column_Type == 'dropdown'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <select class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                        <option value="0">--Please Select--</option>
+                                                        <option *ngFor="let type of item.lstCustomOptions" value="{{ type.DrpValueId }}">
+                                                            {{ type.DrpValue }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textbox'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textarea'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                      
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textfield'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'date'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'numeric'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group form-radio" *ngIf="item.Column_Type == 'radiobutton'">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == true"
+                                                            >
+                                                                <label >
+                                                                    <input
+                                                                        type="radio"
+                                                                        checked="checked"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == false"
+                                                            >
+                                                                <label>
+                                                                    <input
+                                                                        type="radio"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'checkbox'">
+                                                    <div class="row" >
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == true">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    checked="checked"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == false">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<app-users-modal *ngIf="showSearchUsersmodal" (usersstatus)="usersStatus($event)" (status)="saveStatus($event)"></app-users-modal>
+<app-company-model
+    *ngIf="ShowCompanyListModal"
+    (companylistmodalstatus)="companylistmodalstatus($event)"
+    (status)="saveStatus($event)"
+></app-company-model>
+<app-create-company-modal
+    *ngIf="ShowCreateCompanyModal"
+    (companystatus)="CompanyStatus($event)"
+    (status)="saveStatus($event)"
+></app-create-company-modal>

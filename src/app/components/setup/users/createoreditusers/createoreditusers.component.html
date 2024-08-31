@@ -1,0 +1,538 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create User</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Setup</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Users</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Create User</a>
+                      </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<app-card title="Create User" cardTitle="Create User">
+
+   
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSaveClick()">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-right mb-3">
+                    <button type="submit" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" id="btnSave"><i class="fa fa-save pr-1"></i>Save
+                    </button> &nbsp;
+                    <button type="button"  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="onBacktoMain()"><i class="fa fa-backward pr-1"></i>Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        <app-card cardTitle="User Details">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">First Name :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.FirstName"
+                                [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors || !f['firstName'].valid  &&  f['firstName'].touched &&  f['firstName'].errors }"
+                                formControlName="firstName" class="form-control input-sm valid">
+                                        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['firstName'].errors['required']" style="font-size: 14px;">FirstName is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <label for="first_name" class="col-form-label">Middle Name :</label>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.MiddleInitial"
+                                formControlName="middlename" class="form-control input-sm valid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Last Name :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.LastName"
+                                        formControlName="lastName" class="form-control input-sm valid">
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Role :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select class="form-control input-sm valid" [(ngModel)] ="usersDetails.Users.RoleId"
+                                        [ngClass]="{ 'is-invalid': submitted && f['role'].errors || !f['role'].valid  &&  f['role'].touched &&  f['role'].errors }"
+                                        formControlName="role">
+                                        <option *ngFor="let Rolelist of usersDetails.Users.Rolelist"
+                                            value="{{Rolelist.RoleId}}">{{Rolelist.RoleName}}</option>
+                                        </select>
+                                        <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['role'].errors['required']" style="font-size: 14px;">Role is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Phone :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.     Users.Phone" [ngClass]="{ 'is-invalid': submitted && f['phone'].errors || !f['phone'].valid  &&  f['phone'].touched &&  f['phone'].errors }" class="form-control input-sm valid" formControlName="phone">
+                                        <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['phone'].errors['required']" style="font-size: 14px;">Phone is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Extension :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.PhoneExt"
+                                class="form-control input-sm valid" formControlName="phoneext">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Address1 :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.AddressLine1"  [ngClass]="{ 'is-invalid': submitted && f['address1'].errors || !f['address1'].valid  &&  f['address1'].touched &&  f['address1'].errors }" class="form-control input-sm valid" formControlName="address1">
+                                            <div *ngIf="submitted && f['address1'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['address1'].errors['required']" style="font-size: 14px;">Address1 is  required
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Address2 :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.AddressLine2"  class="form-control input-sm valid" formControlName="address2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Zip/Postal Code :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" class="form-control input-sm valid"
+                                [(ngModel)]="usersDetails.Users.PostalCode" formControlName="zipcode">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">State :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select class="form-control input-sm" formControlName="state"
+                                            [ngClass]="{ 'is-invalid': submitted && f['state'].errors || !f['state'].valid  &&  f['state'].touched &&  f['state'].errors }"
+                                            [(ngModel)]="usersDetails.Users.StateCode">
+                                            <option *ngFor="let StateList of usersDetails.Users.StateList"
+                                                value="{{StateList.AbbrevIation}}">
+                                                {{StateList.FullStateName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="submitted && f['state'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['state'].errors['required']" style="font-size: 14px;">State is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Country:<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select class="form-control input-sm" [(ngModel)]="usersDetails.Users.Country" [ngClass]="{ 'is-invalid': submitted && f['country'].errors || !f['country'].valid  &&  f['country'].touched &&  f['country'].errors }"  formControlName="country">
+                                            <option *ngFor="let CountryList of  usersDetails.Users.CountryList"
+                                                value="{{CountryList.CountryId}}">{{CountryList.CountryName}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['country'].errors['required']" style="font-size: 14px;">Country is  required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Email :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" [(ngModel)]="usersDetails.Users.Email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors || !f['email'].valid  &&  f['email'].touched &&  f['email'].errors }" (change)="onchange($event)" class="form-control input-sm valid" formControlName="email">
+                                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['email'].errors['required']" style="font-size: 14px;">Email is  required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Fax :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" formControlName="fax" [(ngModel)]="usersDetails.Users.Fax" class="form-control input-sm valid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Cell No. :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" formControlName="cellno"
+                                            [(ngModel)]="usersDetails.Users.Cellno" class="form-control input-sm valid">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Additional Email :</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" class="form-control input-sm valid" [(ngModel)]="usersDetails.Users.OutlookEmail" formControlName="additionalemail">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Login Id :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" class="form-control input-sm valid" [ngClass]="{ 'is-invalid': submitted && f['loginid'].errors || !f['loginid'].valid  &&  f['loginid'].touched &&  f['loginid'].errors }"  [(ngModel)]="usersDetails.Users.LoginId" formControlName="loginid">
+                                            <div *ngIf="submitted && f['loginid'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['loginid'].errors['required']" style="font-size: 14px;">Loginid is required
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Password :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" class="form-control input-sm valid" [ngClass]="{ 'is-invalid': submitted && f['password'].errors || !f['password'].valid  &&  f['password'].touched &&  f['password'].errors }" [(ngModel)]="usersDetails.Users.Password" formControlName="password">
+                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['password'].errors['required']" style="font-size: 14px;">Password is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Question :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <select class="form-control input-sm" formControlName="question"
+                                            [ngClass]="{ 'is-invalid': submitted && f['question'].errors || !f['question'].valid  &&  f['question'].touched &&  f['question'].errors }" [(ngModel)]="usersDetails.Users.QId">
+                                                <option *ngFor="let SecurityQueslist of  usersDetails.Users.SecurityQueslist"
+                                                    value="{{SecurityQueslist.QId}}">{{SecurityQueslist.QName}}
+                                                </option>
+                                        </select>
+                                        <div *ngIf="submitted && f['question'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['question'].errors['required']" style="font-size: 14px;">Question is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label for="first_name" class="col-form-label">Answer :<span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" name="first_name" formControlName="answer"
+                                            [ngClass]="{ 'is-invalid': submitted && f['answer'].errors || !f['answer'].valid  &&  f['answer'].touched &&  f['answer'].errors }"  [(ngModel)]="usersDetails.Users.Answer" class="form-control input-sm valid">
+                                            <div *ngIf="submitted && f['answer'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['answer'].errors['required']" style="font-size: 14px;">Answer is required
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label class="col-form-label"> City : <span style="color:red;">*</span></label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group">
+                                        <input type="text" [(ngModel)]="usersDetails.Users.City"        class="form-control" formControlName="city"
+                                        [ngClass]="{ 'is-invalid': submitted && f['city'].errors || !f['city'].valid  &&  f['city'].touched &&  f['city'].errors }" />
+                                        <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['city'].errors['required']" style="font-size: 14px;">City is required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-12">
+                            <div class="row mt-2">
+                                <div class="col-sm-12">
+                                    <label >Do you have Quickbook Account ?</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 mt-2 d-flex">
+                                    <div class="col-sm-1">
+                                        <input type="radio" formControlName="isCorporate"
+                                        [(ngModel)]="usersDetails.IsCorporate" id="qbAccountYes" [value]="true" />
+                                        <label for="qbAccountYes" class="pl-2">Yes</label>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="radio" [(ngModel)]="usersDetails.IsCorporate" id="qbAccountNo" [value]="false" formControlName="isCorporate"  />
+                                        <label for="qbAccountNo" class="pl-2">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container  *ngIf="!usersDetails.IsCorporate ||  usersDetails.IsCorporate == null ||  usersDetails.IsCorporate == undefined ; else otherContent">
+
+                    </ng-container>
+                    <ng-template #otherContent>
+                        <div class="row">
+                            <div class="col-sm-12" id="inputfields">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook ClientID:</label>
+                                            <input [(ngModel)]="usersDetails.QBClientID" formControlName="qbClientID"
+                                                id="txtQBuser" class="form-control input-sm" maxlength="50" tabindex="15"
+                                                name="QBClientID" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook ClientSecretID:</label>
+                                            <input [(ngModel)]="usersDetails.QBSecretID" id="txtQBpwd"
+                                                formControlName="qbSecretID" class="form-control input-sm" maxlength="50"
+                                                tabindex="16" name="QBSecretID" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Bank Account:</label>
+                                            <input [(ngModel)]="usersDetails.QBBankAccnt" id="txtBankAccnt"
+                                                class="form-control input-sm" maxlength="50" tabindex="15"
+                                                name="QBBankAccnt" formControlName="qbBankAccnt" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Bank Account No.:</label>
+                                            <input [(ngModel)]="usersDetails.BankAcctNum" id="txtBankAcctNum"
+                                                formControlName="qbBankAccntNum" class="form-control input-sm" type="number"
+                                                maxlength="50" tabindex="16" name="BankAcctNum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Receivable Account:</label>
+                                            <input [(ngModel)]="usersDetails.QBAcctReceivable" id="txtAcctReceivable"
+                                                formControlName="qbAcctReceivable" class="form-control input-sm"
+                                                maxlength="50" tabindex="15" name="QBAcctReceivable" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Receivable Account No.:</label>
+                                            <input [(ngModel)]="usersDetails.ReceivableAcctNum" id="txtAcctReceivableNum"
+                                                formControlName="qbReceivableAcctNum" class="form-control input-sm"
+                                                type="number" maxlength="50" tabindex="15" name="ReceivableAcctNum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook SalesTax Account:</label>
+                                            <input [(ngModel)]="usersDetails.QBSaleTaxAcct" id="txtQBSalTaxAcct"
+                                                formControlName="qbSaleTaxAcct" class="form-control input-sm" maxlength="50"
+                                                tabindex="15" name="QBSaleTaxAcct" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook SalesTax Account No.:</label>
+                                            <input [(ngModel)]="usersDetails.SalesTaxAcctNum" id="txtQBTaxAcctNum"
+                                                formControlName="qbSalesTaxAcctNum" class="form-control input-sm"
+                                                type="number" maxlength="50" tabindex="15" name="SalesTaxAcctNum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Income Account:</label>
+                                            <input [(ngModel)]="usersDetails.QBSalesAcct" id="txtQBSalesAcct"
+                                                class="form-control input-sm" maxlength="50" tabindex="15"
+                                                formControlName="qbSalesAcct" name="QBSalesAcct" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group ">
+                                            <label class="col-form-label">Quickbook Income Account No.:</label>
+                                            <input [(ngModel)]="usersDetails.SalesAcctNum" id="txtQBSalesAcctNum"
+                                                formControlName="salesAcctNum" class="form-control input-sm" type="number"
+                                                maxlength="50" tabindex="15" name="SalesAcctNum" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </app-card>
+    </form>
+</app-card>

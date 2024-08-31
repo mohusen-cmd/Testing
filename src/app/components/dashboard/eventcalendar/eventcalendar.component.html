@@ -1,0 +1,131 @@
+<!-- <div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Scheduler</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Scheduler</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="page-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <div id="calendar">
+                   <app-card cardTitle="Scheduler">
+                        <div class="row" >
+                            <div class="col-sm-12">
+                                <div class="row mb-2">
+                                    <label class="ml-3"> Activity Color Indicator </label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 ml-2">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <i class="fa fa-circle f-14 pr-2" 
+                                                style="color:orange;"></i>Completed Activity
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <i class="fa fa-circle f-14 pr-2" style="color:#F4C2C2;"></i>Open and Past Date Activity
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <i class="fa fa-circle f-14 pr-2" 
+                                                style="color: green;"></i>Open and Present/Future datenActivity
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-sm-12">
+                                <div class="panel panel-success panel-dark">
+                                    <div class="panel-heading ">
+                                        <span class="panel-title">Scheduler Summary</span>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="card-header">
+                                            <app-eventschedulerheader [(view)]="view"
+                                            [(viewDate)]="viewDate"></app-eventschedulerheader>
+                                        </div>
+                                        <div class="card-body">
+                                            <div [ngSwitch]="view">
+                                                <mwl-calendar-month-view
+                                                  *ngSwitchCase="'month'"
+                                                  [viewDate]="viewDate"
+                                                  [events]="events"
+                                                  [refresh]="refresh"
+                                                  [activeDayIsOpen]="activeDayIsOpen"
+                                                  (dayClicked)="dayClicked($event.day)"
+                                                  (eventClicked)="handleEvent('Clicked', $event.event)" 
+                                                  >
+                                                  <ng-template #eventTemplate let-event="event" style="
+                                                  background-color: bisque;" >
+                                                    <div class="cal-event" tyle="
+                                                    background-color: bisque;" [style.backgroundColor]="event.color">
+                                                     
+                                                      <p>{{ event.title }}</p>
+                                                      <p>Start Time: {{ event.start | date: 'hh:mm a' }}</p>
+                                                      <p>End Time: {{ event.end | date: 'hh:mm a' }}</p>
+                                                    </div>
+                                                  </ng-template>
+                                                </mwl-calendar-month-view>
+                                                <mwl-calendar-week-view
+                                                  *ngSwitchCase="'week'"
+                                                  [viewDate]="viewDate"
+                                                  [events]="events"
+                                                  [refresh]="refresh"
+                                                  (eventClicked)="handleEvent('Clicked', $event.event)"
+                                                  [eventTemplate]="eventTemplate"
+                                                  >
+                                                  <ng-template #eventTemplate let-event="event">
+                                                    <div class="cal-event" [style.backgroundColor]="event.color">
+                                                      <p>{{ event.title }}</p>
+                                                      <p>Start Time: {{ event.start | date: 'hh:mm a' }}</p>
+                                                      <p>End Time: {{ event.end | date: 'hh:mm a' }}</p>
+                                                    </div>
+                                                  </ng-template>
+                                                </mwl-calendar-week-view>
+                                                <mwl-calendar-day-view
+                                                  *ngSwitchCase="'day'"
+                                                  [viewDate]="viewDate"
+                                                  [events]="events"
+                                                  [refresh]="refresh"
+                                                  (eventClicked)="handleEvent('Clicked', $event.event)"
+                                                  >
+                                                  <ng-template #eventTemplate let-event="event">
+                                                    <div class="cal-event" [style.backgroundColor]="event.color">
+                                                      <p>{{ event.title }}</p>
+                                                      <p>Start Time: {{ event.start | date: 'hh:mm a' }}</p>
+                                                      <p>End Time: {{ event.end | date: 'hh:mm a' }}</p>
+                                                    </div>
+                                                  </ng-template>
+                                                </mwl-calendar-day-view>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </app-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

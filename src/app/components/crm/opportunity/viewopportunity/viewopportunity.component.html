@@ -1,0 +1,449 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">View Opportunity</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Lead</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>View Opportunity</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Edit {{oppdetails.AccountObj.Name}} - {{oppdetails.AccountObj.CompanyName}}" cardClass="tab-card" [title]="'OpportunityDetail'">
+           
+            <ul ngbNav #navPills="ngbNav" class="nav-pills"  [(activeId)]="selectedtab">
+                <li id="tab-Opportunity" ngbNavItem="tab-Opportunity" (click)="TabClickEvent('tab-Opportunity')">
+                    <a ngbNavLink>Opportunity Detail</a>
+                    <ng-template ngbNavContent>
+                        <div [@fadeInOutTranslate] class="m-t-15">
+                            <form   [formGroup]="registerForm"   novalidate>
+                               <div class="row"  *ngIf="showviewdetails">  
+                                  <div class="col-sm-12">
+                                           <div class="row" >                                
+                                               <div class="col-sm-12">
+                                                   <div class="form-group float-right" >
+                                                        <div ngbDropdown class="btn-group dropdown-split-primary" >
+                                                              <button type="button" class="btn btn-sm btn-round waves-effect waves-light btn-success" mdbRippleRadius>More Actions</button>
+                                                              <button ngbDropdownToggle type="button" class="btn btn-sm btn-round waves-effect waves-light btn-success" mdbRippleRadius>
+                                                                <span class="sr-only">More Actions</span>
+                                                              </button>
+                                                              <div ngbDropdownMenu>
+                                                                <a class="dropdown-item waves-light" (click)="OpportunityEmail()" mdbRippleRadius href="javascript:"><i class="fa fa-envelope pr-1"></i>Email</a>
+                                                                <a class="dropdown-item waves-light" mdbRippleRadius href="javascript:" (click)="CloneOpportunitiesDetails()" ><i class="fa fa-clone pr-1"></i>Clone</a>
+                                                                <a class="dropdown-item waves-light" mdbRippleRadius (click)="DeleteOpportunitys(oppdetails.AccountObj.ID)" href="javascript:"><i class="fa fa-trash-o pr-1"></i>Delete</a>
+                                                                <a class="dropdown-item waves-light" mdbRippleRadius (click)="NavigateAddOpportunity()" href="javascript:"><i class="fa fa-plus pr-1"></i>Add New</a>
+                                                                <a class="dropdown-item waves-light" mdbRippleRadius (click)="NavigateActivitiesList()"  href="javascript:"><i class="fa fa-list pr-1"></i>Activities List</a>
+                                                              </div>
+                                                            </div>&nbsp;
+                                                       <button type="button" (click)="EditOpportunityDetails()" class="btn btn-sm btn-round waves-effect waves-light btn-success"><i class="fa fa-pencil-square-o pr-1"></i>Edit</button>&nbsp;
+                                                       <button type="button" (click)="NavigateBackOpportunitylist()" class="btn btn-sm btn-round waves-effect waves-light btn-success"><i class="fa fa-backward pr-1"></i>Back</button>&nbsp;
+                                                  </div> 
+                                               </div>
+                                          </div>                              
+                                  </div> 
+                               </div> 
+                               <div class="row"  *ngIf="showeditdetails" >  
+                                  <div class="col-sm-12">
+                                           <div class="row" >                                
+                                               <div class="col-sm-12">
+                                                  <div class="form-group float-right">
+                                                      <button type="button" (click)="createOrUpdateOpportunity('savenew')" class="btn btn-sm btn-round waves-effect waves-light btn-success" #SaveNew ><i class="fa fa-floppy-o pr-1"></i>Save & New</button>&nbsp; 
+                                                      <button type="button" (click)="createOrUpdateOpportunity('save')"  class="btn btn-sm btn-round waves-effect waves-light btn-success" #Save ><i class="fa fa-floppy-o pr-1"></i>Save</button>&nbsp;
+                                                      <button type="button" (click)="NavigateBackOpportunitylist()" class="btn btn-sm btn-round waves-effect waves-light btn-success"><i class="fa fa-backward pr-1"></i>Back</button>&nbsp; 
+                                                 </div> 
+                                               </div>
+                                          </div>                              
+                                  </div> 
+                               </div> 
+                               <div class="row" *ngIf="showviewdetails">
+                                  <div class="col-sm-12">
+                                    <fieldset [disabled]="disabledata">
+                                     <app-card title='{{oppdetails.AccountObj.Name}}-{{oppdetails.AccountObj.CompanyName}}'
+                                     cardTitle="{{oppdetails.AccountObj.Name}}-{{oppdetails.AccountObj.CompanyName}}"
+                                     [classHeader]="true" [blockClass]="'p-b-5'">    
+                                      <div class="row">  
+                                          <div > 
+                                              <!-- class="table-responsive" -->
+                                              <table class="table ">                                         
+                                                <tbody>
+                                                <tr>
+                                                  <td><label >Opportunity Owner :</label></td>
+                                                  <td>{{ oppdetails.AccountObj.Ownership }}</td>                                            
+                                                </tr>
+                                                <tr>
+                                                  <td><label >Buying Stage :</label></td>
+                                                  <td>{{   oppdetails.AccountObj.Stage1}}</td>  
+                                                  
+                                                </tr>
+                                                <tr>
+                                                  <td><label >Probabilty:</label></td>
+                                                    <td>{{ oppdetails.AccountObj.Probability }}</td>                                           
+                                                </tr>
+                                                <tr>
+                                                  <td><label >Estimated Close Date:</label></td>
+                                                   <td>{{ oppdetails.AccountObj.CloseDate | date:'medium'}}</td>                                            
+                                                </tr>                                                                          
+                                               </tbody>
+                                              </table>
+                                            </div>                              
+                                      </div>
+                                     </app-card>
+                                    </fieldset>
+                                  
+                                  </div>
+                               </div>
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <fieldset [disabled]="editabledata">
+                                          <app-card title="Opportunity Detail" cardTitle="Opportunity Detail" [classHeader]="true">    
+                                                  <div class="row">   
+                                                      <div class="col-sm-12">
+                                                        <div class="row" >                                                           
+                                                             <div class="col-sm-3" > 
+                                                                <ng-container *ngIf="oppdetails.AccountObj.RoleID == 1;else second">
+                                                                      <div class="row">
+                                                                        <div class="col-sm-12" >
+                                                                            <label class="col-form-label">Opportunity Owner :</label>    
+                                                                        </div>
+                                                                      </div>
+                                                                      <div class="row">
+                                                                         <div class="col-sm-12" >
+                                                                            <div class="input-group">
+                                                                              <input type="text" class="form-control" formControlName="ownership"  name="owner" [(ngModel)]="oppdetails.AccountObj.Ownership" disabled='true' >
+                                                                              <span class="input-group-append"> 
+                                                                                    <button (click)="GetSearchUsersList()"  class="input-group-text"><i class="fa fa-search"></i></button> 
+                                                                              </span>
+                                                                             </div>
+                                                                          </div>
+                                                                      </div>  
+                                                                </ng-container>
+                                                                <ng-template #second>
+                                                                 <div class="row">
+                                                                  <div class="col-sm-12" >
+                                                                      <label class="col-form-label">Opportunity Owner :</label>    
+                                                                      <input type="text" class="form-control" formControlName="ownership"  name="owner" [(ngModel)]="oppdetails.AccountObj.Ownership" disabled='true' >
+                                                                  </div>
+                                                                 </div> 
+                                                                </ng-template>  
+                                                             </div>
+                                                             <div class="col-sm-3" >                
+                                                              <div class="row">
+                                                                <div class="col-sm-12" >
+                                                                    <label class="col-form-label">Opportunity Name  :<span style="color:red" >*</span></label>    
+                                                                    <input type="text" class="form-control" formControlName="oppname" name="oppname" [(ngModel)]="oppdetails.AccountObj.Name" [ngClass]="{ 'is-invalid': submitted && f.oppname.errors || !f.oppname.valid && f.oppname.touched && f.oppname.errors  }" >
+                                                                    
+                                                                    <div *ngIf="submitted && f.oppname.errors  || !f.valid && f.touched" class="invalid-feedback">
+                                   
+                                                                    </div> 
+                                                                    <div *ngIf="f.oppname.errors?.required"  class="invalid-feedback">Name is required</div> 
+                                                                  </div>
+                                                              </div>
+                                                              
+                                                           </div>
+                                                           <div class="col-sm-3" >                
+                                                            <div class="row">
+                                                              <div class="col-sm-12" >
+                                                                  <label class="col-form-label">Estimated Close Date  :</label>    
+                                                                  <input type="text" class="form-control" formControlName="oppclosedate"  name="oppCloseDate"                                                           
+                                                                  [value]="registerForm.get('oppclosedate').value  | date:'MM/dd/yyyy'">
+                                                              </div>
+                                                            </div>
+                                                            
+                                                         </div>
+                                                         <div class="col-sm-3" >                         
+                                                          <div class="row">
+                                                            <div class="col-sm-12" >
+                                                                <label class="col-form-label">Company Name:<span style="color:red">*</span></label>    
+                                                            </div>
+                                                          </div>
+                                                          <div class="row">
+                                                             <div class="col-sm-12" >
+                                                                 <div class="input-group">
+                                                                  <input type="text" class="form-control" formControlName="companyname" name="companyname" [(ngModel)]="oppdetails.AccountObj.CompanyName" >
+                                                                  <span class="input-group-append" > 
+                                                                        <button (click)="GetSearchCompanyListModal()"  class="input-group-text"><i class="fa fa-search"></i></button> 
+                                                                  </span>
+                                                                 </div>
+                                                              </div>
+                                                          </div>
+                                                       </div>                                         
+                                                        </div> 
+                                                        <div class="row" >                                                           
+                                                          <div class="col-sm-3" >                
+                                                             <div class="row">
+                                                               <div class="col-sm-12" >
+                                                                   <label class="col-form-label">Buying Stage :<span style="color:red" >*</span></label>    
+                                                                   <select class="form-control" formControlName="stage" name="stage" [(ngModel)]="oppdetails.AccountObj.StageID" [ngClass]="{ 'is-invalid': submitted && f.stage.errors }">
+                                                                    <option value="">--All--</option>
+                                                                    <option *ngFor="let stage of oppdetails.StageList"
+                                                                        value={{stage.StageId}}>
+                                                                        {{stage.StageName}}
+                                                                </select>
+                                                                  <div *ngIf="submitted && f.stage.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.stage.errors?.required">State is required</div>
+                                                                  </div>
+                                                               </div>
+                                                             </div>
+                                                             
+                                                          </div>
+                                                          <div class="col-sm-3" >                
+                                                           <div class="row">
+                                                             <div class="col-sm-12" >
+                                                                 <label class="col-form-label">Type  :<span style="color:red" >*</span></label>    
+                                                                 <select class="form-control" formControlName="businesstypeid" name="BusinessTypeID" [(ngModel)]="oppdetails.AccountObj.BusinessTypeID" [ngClass]="{ 'is-invalid': submitted && f.businesstypeid.errors }">
+                                                                  <option value="">--All--</option>
+                                                                  <option *ngFor="let opptype of oppdetails.OppotypeList"
+                                                                      value={{opptype.OTId}}>
+                                                                      {{opptype.TypeName}}
+                                                              </select>
+                                                              <div *ngIf="submitted && f.businesstypeid.errors" class="invalid-feedback">
+                                                                <div *ngIf="f.businesstypeid.errors?.required">Type is required</div>
+                                                              </div>
+                                                             </div>
+                                                           </div> 
+                                                        </div>
+                                                        <div class="col-sm-3" >                
+                                                         <div class="row">
+                                                           <div class="col-sm-12" >
+                                                               <label class="col-form-label">Probabilty: </label>    
+                                                               <input type="text"  class="form-control" formControlName="probability" name="probability" [(ngModel)]="oppdetails.AccountObj.Probability" >
+                                                           </div>
+                                                         </div>
+                                                         
+                                                      </div>
+                                                      <div class="col-sm-3" >                
+                                                       <div class="row">
+                                                         <div class="col-sm-12" >
+                                                             <label class="col-form-label">Expected Budget ($):</label>    
+                                                             <input type="text" class="form-control"  maxlength="16" (keypress)="numberOnly($event)" formControlName="revenue"  name="revenue" [(ngModel)]="oppdetails.AccountObj.ExpectedRevenue" >
+                                                         </div>
+                                                       </div>
+                                                    </div>                                                         
+                                                     </div> 
+                                                     <div class="row" >                                                           
+                                                      <div class="col-sm-3" >                
+                                                         <div class="row">
+                                                           <div class="col-sm-12" >
+                                                               <label class="col-form-label">Opportunity Source:</label>    
+                                                               <select class="form-control" formControlName="oppsource" name="oppsource" [(ngModel)]="oppdetails.AccountObj.OppurtunitySourceID" >
+                                                                <option value="0">--All--</option>
+                                                                <option *ngFor="let oppsource of oppdetails.LeadSourceList"
+                                                                    value={{oppsource.OSId}}>
+                                                                    {{oppsource.SourceName}}
+                                                            </select>
+                                                           </div>
+                                                         </div> 
+                                                      </div>
+                                                      <div class="col-sm-3" >                
+                                                       <!-- <div class="row">
+                                                         <div class="col-sm-12" >
+                                                             <label class="col-form-label">Contact :</label>    
+                                                             <input type="text" class="form-control" name="oppcontactName" [(ngModel)]="oppdetails.AccountObj.ContactName" >
+                                                         </div>
+                                                       </div> -->
+                                                        <div class="row">
+                                                        <div class="col-sm-12" >
+                                                            <label class="col-form-label"> Contact :<span style="color:red">*</span></label>    
+                                                        </div>
+                                                        </div>
+                                                        <div class="row">
+                                                          <div class="col-sm-12" >
+                                                             <div class="input-group">
+                                                                <input type="text" class="form-control" formControlName="oppcontactname" name="oppcontactName" [(ngModel)]="oppdetails.AccountObj.ContactName"  [ngClass]="{ 'is-invalid': submitted && f.oppcontactname.errors }" >
+                                                              
+                                                                <span class="input-group-append" > 
+                                                                      <button (click)="GetSearchContactListModal()"  class="input-group-text"><i class="fa fa-search"></i></button> 
+                                                                </span>
+                                                                <div *ngIf="submitted && f.oppcontactname.errors" class="invalid-feedback">
+                                                                  <div *ngIf="f.oppcontactname.errors?.required">Contact is required</div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    <div class="col-sm-3" >                
+                                                     <div class="row">
+                                                       <div class="col-sm-12" >
+                                                           <label class="col-form-label">Email: </label>    
+                                                           <input type="text" class="form-control" formControlName="email" name="email" [(ngModel)]="oppdetails.AccountObj.Email" readonly>
+                                                       </div>
+                                                     </div>
+                                                     
+                                                  </div>
+                                                  <div class="col-sm-3" >                
+                                                   <div class="row">
+                                                     <div class="col-sm-12" >
+                                                         <label class="col-form-label">Phone:</label>    
+                                                         <input   type="text" class="form-control" formControlName="phone" name="phone" [(ngModel)]="oppdetails.AccountObj.Phone"  readonly >
+                                                     </div>
+                                                   </div> 
+                                                </div>                                                           
+                                                 </div>
+        
+                                                 <div class="row" >                                                           
+                                                  <div class="col-sm-3" >                
+                                                     <div class="row">
+                                                       <div class="col-sm-12" >
+                                                           <label class="col-form-label">Extension :</label>    
+                                                           <input type="text" class="form-control" formControlName="ext" name="owner" [(ngModel)]="oppdetails.AccountObj.PhoneExt" readonly >
+                                                       </div>
+                                                     </div>
+                                                     
+                                                  </div>
+                                                  </div>
+                                                      </div>                         
+                                                  </div>
+                                                </app-card>
+                                    </fieldset>
+                                  </div>
+                               </div> 
+                             </form> 
+                            
+                               <div class="row">
+                                       <div class="col-sm-12">
+                                         <fieldset [disabled]="editabledata">
+                                          <app-card title="Additional Information" cardTitle="Additional Information" [classHeader]="true">    
+                                                  <div class="row">   
+                                                    <div class="col-sm-12" >
+                                                         <div class="row" >                                                           
+                                                            <div class="col-sm-3" *ngFor="let item of oppdetails.lstcustomVM">
+                                                                  <div class="form-group" *ngIf="item.Column_Type == 'dropdown'" >
+                                                                    <label class="col-form-label">{{ item.Column_Label}} :</label>                                                                             
+                                                                    <select class="form-control" name="DefaultValue"  [(ngModel)]="item.DefaultValue" >
+                                                                      <option value="0">--Please Select--</option>
+                                                                      <option *ngFor="let type of item.lstCustomOptionsVal" value={{type.DrpValueId}}>
+                                                                          {{type.DrpValue}}
+                                                                      </option>
+                                                                    </select>                                                    
+                                                                  </div> 
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'textbox'">
+                                                                       <label class="col-form-label">{{ item.Column_Label}} :</label>                       
+                                                                        <input type="text" class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">                                                    
+                                                                  </div> 
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'textarea'">
+                                                                    <label class="col-form-label">{{ item.Column_Label}} :</label>                       
+                                                                    <textarea class="form-control" style="height: 35px;" name="DefaultValue" [(ngModel)]="item.DefaultValue"> </textarea>                                                   
+                                                                  </div> 
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'textfield'">
+                                                                     <label class="col-form-label">{{ item.Column_Label}} :</label>                       
+                                                                     <input type="text" class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                                  </div> 
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'date'">
+                                                                     <label class="col-form-label">{{ item.Column_Label}} :</label>                       
+                                                                     <input type="text" class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                                  </div> 
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'numeric'">
+                                                                      <label class="col-form-label">{{ item.Column_Label}} :</label>                       
+                                                                       <input type="text" class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                                  </div>                                                          
+                                                                  <div class="form-group form-radio m-b-30" *ngIf="item.Column_Type == 'radiobutton'">
+                                                                     <div class="row" style="margin-left: -37px;">                                                                                          
+                                                                         <div class="col-sm-12">
+                                                                            <label class="col-form-label">{{ item.Column_Label}} :</label> 
+                                                                         </div>                                                  
+                                                                         <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptionsVal"  >                                                  
+                                                                            <div class="radio radiofill radio-primary radio-inline" *ngIf="item1.IsDefault == true"  >
+                                                                                <label style="margin-left: 15px;">
+                                                                                <input type="radio" checked="checked" name={{item.Column_Label}} value={{item1.DrpValueId}}  (change)="onChange(item1.FieldId,item1.DrpValueId, $event.target.checked)" >
+                                                                                <i class="helper"></i>{{ item1.DrpValue }}
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="radio radiofill radio-primary radio-inline" *ngIf="item1.IsDefault == false" >
+                                                                               <label style="margin-left: 15px;">
+                                                                               <input type="radio" name={{item.Column_Label}} value={{item1.DrpValueId}}  (change)="onChange(item1.FieldId,item1.DrpValueId, $event.target.checked)"  >
+                                                                               <i class="helper"></i>{{ item1.DrpValue }}
+                                                                               </label>
+                                                                            </div>
+                                                                         </div>
+                                                                      </div>
+                                                                  </div>  
+                                                                  <div class="form-group"  *ngIf="item.Column_Type == 'checkbox'">   
+                                                                     <div class="row" style="margin-left: -16px;">   
+                                                                        <div class="col-sm-12">
+                                                                            <label class="col-form-label">{{ item.Column_Label}} :</label> 
+                                                                         </div>     
+                                                                         <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptionsVal" >                                     
+                                                                               <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == true" >                                        
+                                                                                     <input [id]=item1.DrpValueId type="checkbox"  checked="checked" (change)="onChangeCheckBox(item1.FieldId,item1.DrpValueId, $event.target.checked)" >
+                                                                                     <label for={{item1.DrpValueId}} >
+                                                                                      {{ item1.DrpValue }}
+                                                                                     </label>
+                                                                               </div> 
+                                                                               <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == false" >                                        
+                                                                                <input [id]=item1.DrpValueId type="checkbox" (change)="onChangeCheckBox(item1.FieldId,item1.DrpValueId, $event.target.checked)" >
+                                                                                <label for={{item1.DrpValueId}}  >
+                                                                                   {{ item1.DrpValue }}
+                                                                                </label>
+                                                                              </div> 
+                                                                         </div>
+                                                                      </div>  
+                                                                  </div>                                                                                                                                                                                 
+                                                               </div>                                                                                                                     
+                                                         </div>                                                                                                                                                                                                                                                         
+                                                      </div>                         
+                                                   </div>
+                                          </app-card>
+                                         </fieldset>                          
+                                       </div>
+                               </div>
+                          </div>
+                    </ng-template>
+                </li>
+                <li id="tab-Activity" ngbNavItem="tab-Activity" (click)="TabClickEvent('tab-Activity')">
+                    <a ngbNavLink>Activity</a>
+                    <ng-template ngbNavContent>
+                        <app-activity-tab *ngIf="showActivity"    [activitysdata]="TabData" (valueChange)="LoadAtivities($event)"></app-activity-tab>
+                    </ng-template>
+                </li>
+                <li id="tab-Notes" ngbNavItem="tab-Notes" (click)="TabClickEvent('tab-Notes')">
+                    <a ngbNavLink>Notes</a>
+                    <ng-template ngbNavContent>
+                        <app-note-tab *ngIf="showNote" [Notes]="TabData" (valueChange)="LoadNotes($event)" ></app-note-tab>
+                    </ng-template>
+                </li>
+                <li id="tab-Attachments" ngbNavItem="tab-Attachments" (click)="TabClickEvent('tab-Attachments')">
+                    <a ngbNavLink>Attachments</a>
+                    <ng-template ngbNavContent>
+                        <app-attachments-tab  *ngIf="showAttachment" [moduletype]="modulename" [AttachmentsData]="TabData" (valueChange)="LoadAttachments($event)"></app-attachments-tab>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="navPills" class="mt-2"></div>
+        </app-card>
+    </div>
+</div>
+
+
+
+
+
+
+<app-company-model *ngIf="ShowCompanyListModal" (companylistmodalstatus)="companyliststatus($event)"
+    (status)="saveStatus($event)"></app-company-model>
+    <app-contact-list *ngIf="ShowContactListModal" [companyid]="oppdetails.AccountObj.CompanyID"
+    (activitydetailsStatus)="activitydetailsStatus($event)" (status)="saveStatus($event)"></app-contact-list>
+    
+<app-emailtemplate *ngIf="ShowEmail" [Id]="opporID" [FirstName]="oppdetails.AccountObj.Name" [Email]="oppdetails.AccountObj.Email"
+    (status)="OutPutStatus($event)"></app-emailtemplate>
+<app-users-modal *ngIf="showSearchUsersmodal" (usersstatus)="usersStatus($event)"
+    (status)="saveStatus($event)"></app-users-modal>
+

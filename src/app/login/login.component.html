@@ -1,0 +1,127 @@
+<!-- Pre-loader end -->
+
+
+<!-- Container-fluid starts -->
+<div class="container" *ngIf="isLoginForm">
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Authentication card start -->
+
+            <form class="md-float-material form-material" (keydown)="keyDownFunction($event)" [formGroup]="form"
+                (ngSubmit)="submitForm()">
+
+                <div class="text-center">
+                    <!-- <img src="./assets/images/logo.png" alt="logo.png"> -->
+                </div>
+                <div class="auth-box card">
+                    <div class="card-block">
+                        <div class="row m-b-10 ">
+                            <div class="col-sm-12" id="text-center">
+                                <!-- <h3 class="text-center">Sign In</h3> -->
+                                <div class="text-center">
+                                    <img src="./assets/images/{{companylog}}" alt="{{companylog}}" class="img-fluid" style="height: 100px;">
+                                </div>
+                                <!-- //  <div appAlert [error]="loginError" *ngIf="loginError"></div> -->
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mb-2">
+                            <h5>Sign In To Your Account</h5>
+                        </div>
+                        <div class="form-group form-primary">
+                            <input type="text" [formControlName]="'clientId'" placeholder="Client ID"
+                                (ngModelChange)="valuechange($event)" class="form-control" id="client" />
+                            <span class="form-bar"
+                                *ngIf="form.get('clientId').errors?.required && form.get('clientId').touched"
+                                style="color: red;">Please Enter a Client Id</span>
+                            <label class="float-label"></label>
+                        </div>
+                        <div class="form-group form-primary">
+                            <input type="text" [formControlName]="'username'" placeholder="User ID" name="username"
+                                id="user" class="form-control" />
+                            <span class="form-bar"
+                                *ngIf="form.get('username').errors?.required && form.get('username').touched"
+                                style="color:red">Please Enter a User name</span>
+                            <label class="float-label"></label>
+                        </div>
+
+                        <div class="form-group form-primary">
+                            <div class="input-container">
+                                <input type="{{ showPassword ? 'text' : 'password' }}" [formControlName]="'password'"
+                                    placeholder="password" id="pwd" class="form-control" />
+                                <i class="eye-icon fas mr-2"
+                                    [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"
+                                    (click)="togglePasswordVisibility()"></i>
+                            </div>
+
+                            <span class="form-bar"
+                                *ngIf="form.get('password').errors?.required && form.get('password').touched"
+                                style="color: red;">Please Enter a Password </span>
+                            <label class="float-label"></label>
+                            <!-- <div *ngIf="form.get('password')">
+                                    password is a required field
+                                </div> -->
+                        </div>
+                        <div class="signin-with">
+                            <div class="visible">
+                                <span class="lbl" >Don't have a CRM Account ? <a class="lbl"
+                                    style="color: #3a913f; cursor: pointer;" id="Registration"  (click)="onRegisration()" ><b>Sign Up</b></a> </span>
+                            </div>
+                        </div>
+
+                        <div class="row m-t-25 text-left">
+                            <div class="col-sm-6">
+                                <label class="checkbox-fade fade-in-primary">
+                                    <input type="checkbox" [checked]="rememberMe" value={{rememberMe}}
+                                        (change)="onRember($event.target.checked)">
+                                    <!-- <span class="cr"><i
+                                                class="cr-icon icofont icofont-ui-check txt-primary"></i></span> -->
+                                    <span class="text-inverse pl-2 ">Remember Me</span>
+                                </label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="forgot-phone text-right float-right">
+                                    <a class="text-right" (click)="OnForgetpassword()" style="cursor: pointer;"><b>Forgot Password ?</b></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-t-30">
+                            <div class="col-md-12">
+                                <button
+                                    type="submit"
+                                    class="btn btn-success btn-round text-capitalize f-w-500 btn-sm btn-block waves-effect waves-light text-center m-b-20"
+                                >
+                                    <ng-container *ngIf="!isLoading; else loadingTemplate">Sign in</ng-container>
+                                </button>
+                                <ng-template #loadingTemplate>
+                                    <span class="spinner-border spinner-border-sm ml-2" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                </ng-template>
+                            </div>
+                        </div>
+                       
+                        <!-- <div class="row">
+                                <div class="col-md-10">
+                                    
+                                    <p class="text-inverse text-left"><a routerLink="/register"  ><b>Register for new user</b></a>
+                                    </p>
+                                </div>
+                                <div class="col-md-2">
+                                    <img src="assets/images/logo-dark.png"
+                                        alt="small-logo.png">
+                                </div>
+                            </div> -->
+                    </div>
+                </div>
+            </form>
+            <!-- end of form -->
+        </div>
+        <!-- end of col-sm-12 -->
+    </div>
+    <!-- end of row -->
+</div>
+<!-- end of container-fluid -->
+
+
+<app-registration-form *ngIf="ShowRegisrationForm" (status)="onstatus($event)"> </app-registration-form>
+<app-forget-password *ngIf="ShowForgetpassword" (status)="onstatus($event)"></app-forget-password>

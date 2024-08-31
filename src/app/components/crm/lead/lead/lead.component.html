@@ -1,0 +1,146 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Leads</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Leads</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Leads" cardTitle="Leads">
+            <div class="row align-items-center" id="content">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-2 form-group">
+                            <app-reusable-text-input
+                                type="text"
+                                placeholder="Keyword"
+                                [(value)]="leadkeyword"
+                                required="true"
+                                (valueChange)="onInputChange($event, 'Keyword')"
+                            >
+                            </app-reusable-text-input>
+                        </div>
+                        <div class="col-sm-2 form-group">
+                            <app-reusable-text-input
+                                type="text"
+                                placeholder="OwnerName"
+                                [(value)]="leadownername"
+                                required="true"
+                                (valueChange)="onInputChange($event, 'OwnerName')"
+                            >
+                            </app-reusable-text-input>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group float-right">
+                                <button
+                                    type="button"
+                                    (click)="searchEventHandler()"
+                                    class="btn btn-sm   btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-search pr-1"></i>Search</button
+                                >&nbsp;
+
+                                <button
+                                    type="button"
+                                    (click)="OnLeadClear()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-eraser pr-1"></i>Clear</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="NavigateImportHistory()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-anchor pr-1"></i>Import History</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="NavigateImport()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-upload pr-1"></i>Import</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="NavigateAddNewLeads()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-plus-circle pr-1"></i>Add New</button
+                                >&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)" ></app-alphasearch>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table #tblLead datatable [dtOptions]="dtOptions" class="table  mb-2 " id="tblLead">
+                            <tbody *ngIf="leadslist?.length != 0">
+                                <tr *ngFor="let leads of leadslist">
+                                    <td>
+                                        <a class="btn btn-danger btn-sm  has-ripple waves-effect waves-light"
+                                            href="javascript:"
+                                            *ngIf="leads.IsActivity == 0"
+                                            (click)="DeleteLeadConfirmation(leads.ContactID, leads.APIContactID)"
+                                            ><i  class="feather icon-trash-2 text-white "></i
+                                        ></a>
+                                        <a href="javascript:" class="isDisabled btn btn-success btn-sm  has-ripple waves-effect waves-light text-center"  *ngIf="leads.IsActivity != 0"
+                                            ><i class="feather icon-trash-2 text-white"></i
+                                        ></a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            class="btn btn-info btn-sm  has-ripple waves-effect waves-light "
+                                            (click)="CompanyCrudEventHandler(leads.ContactID, 'view')"
+                                            href="javascript:void(0)"
+                                            ><i class="feather icon-edit text-white"></i
+                                        ></a>
+                                    </td>
+                                    <td>{{ leads.LeadFullName }}</td>
+                                    <td>{{ leads.CompanyName }}</td>
+                                    <td>{{ leads.LeadSourceText }}</td>
+                                    <td>{{ leads.OwnerFirstName }} {{ leads.OwnerLastName }}</td>
+                                    <td>{{ leads.BuyingStageText }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="leadslist?.length == 0">
+                                <tr>
+                                    <td colspan="7" class="no-data-available" style="text-align: center;">No data!</td>
+                                </tr>
+                            </tbody>
+    
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

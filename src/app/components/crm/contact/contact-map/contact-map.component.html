@@ -1,0 +1,11 @@
+<agm-map [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom"[mapTypeControl]="true" [mapTypeId]="'roadmap'" [disableDefaultUI]="true" [zoomControl]="true">
+    <agm-marker 
+      *ngFor="let m of markers; let i = index"     
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [title]="m.label"
+      [markerDraggable]="m.draggable"
+     >
+       
+  </agm-marker>
+</agm-map>

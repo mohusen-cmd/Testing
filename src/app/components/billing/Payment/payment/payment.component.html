@@ -1,0 +1,988 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Invoice List for Payments</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Billing</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Invoice List for Payments</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row btn-page" #printContents>
+    <div class="col-sm-12">
+        <app-card title="Invoice List for Payments" cardTitle="Invoice List for Payments">
+            <div class="row">
+                <div class="col-sm-4">
+                    <select class="form-control form-group" (change)="Onsearch($event.target.value)">
+                        <option *ngFor="let inc of Invoicelist" value="{{ inc.Value }}">{{ inc.Text }}</option>
+                    </select>
+                </div>
+                <div class="col-sm-8">
+                    <div class="float-right mb-2">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="generatePDF()">
+                            <i class="fa fa-download pr-1"></i>Download</button
+                        >&nbsp;
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                            <i class="fa fa-credit-card pr-1"></i>Make Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <label> Items Per Page :</label>
+                <mat-select [(value)]="jtPageSize" (valueChange)="pagevaluechange(jtPageSize)">
+                    <mat-option [value]="5">5</mat-option>
+                    <mat-option [value]="10">10</mat-option>
+                    <mat-option [value]="20">20</mat-option>
+                </mat-select>
+            </div>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" class="table  mb-2">
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <input
+                                type="checkbox"
+                                (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                            />
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <input
+                                type="checkbox"
+                                (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle() : null"
+                                [checked]="selection.isSelected(row)"
+                                (click)="activeInActiveToggle($event.target.checked, row)"
+                            />
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="invoicenumber">
+                        <th mat-header-cell *matHeaderCellDef>INVOICE NUMBER</th>
+                        <td mat-cell *matCellDef="let element">
+                            <a href="javascript:void" (click)="GetList(element.InvoiceID)"
+                                >{{ element.InvoiceNo }}<span class="fa fa-download pl-2"> </span
+                            ></a>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="customer">
+                        <th mat-header-cell *matHeaderCellDef>Company</th>
+                        <td mat-cell *matCellDef="let element">{{ element.Companyname }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="amount">
+                        <th mat-header-cell *matHeaderCellDef>Invoice AMOUNT ($)</th>
+                        <td mat-cell *matCellDef="let element">${{ element.GrandTotal }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="trans">
+                        <th mat-header-cell *matHeaderCellDef>Trans AMOUNT ($)</th>
+                        <td mat-cell *matCellDef="let element">${{ element.InvoiceAmount }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="balance">
+                        <th mat-header-cell *matHeaderCellDef>Balance AMOUNT ($)</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.BalanceAmount == '0'; then content; else other_content"></div>
+                            <ng-template #content> <span class="badge badge-warning mb-2">-Nill-</span></ng-template>
+                            <ng-template #other_content> ${{ element.BalanceAmount }}</ng-template>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="duedate">
+                        <th mat-header-cell *matHeaderCellDef>DUE DATE</th>
+                        <td mat-cell *matCellDef="let element">{{ element.DueDate | date : 'MM/dd/yyyy' }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="invoice">
+                        <th mat-header-cell *matHeaderCellDef>INVOICE TYPE</th>
+                        <td mat-cell *matCellDef="let element">
+                            <span class="badge badge-secondary mb-2">{{ element.InvoiceType }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>STATUS</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.BalanceAmount == '0'"><span class="badge badge-success mb-2">Paid</span></div>
+                            <div *ngIf="element.BalanceAmount != '0'"><span class="badge badge-danger mb-2">UnPaid</span></div>
+                            <!-- <div *ngIf="element.BalanceAmount "><span  class="badge badge-warning">Partially Paid</span></div>  -->
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="recurrence">
+                        <th mat-header-cell *matHeaderCellDef>Payments</th>
+                        <ng-container *matCellDef="let element">
+                            <td mat-cell *ngIf="element.BalanceAmount > 0; else notpaid">
+                                <a
+                                    href="javascript:"
+                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"
+                                    (click)="onPayment(element)"
+                                >
+                                    <i class=""></i>Pay</a
+                                >
+                            </td>
+                            <ng-template #notpaid>
+                                <td mat-cell>
+                                    <span class="badge badge-info mb-2">Invoice Cleared</span>
+                                </td>
+                            </ng-template>
+                        </ng-container>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                        mat-row
+                        *matRowDef="
+                            let row;
+                            columns: displayedColumns | paginate : { itemsPerPage: size, currentPage: p, totalItems: resultLength - 1 }
+                        "
+                    ></tr>
+                </table>
+            </div>
+
+            <div class="nc" *ngIf="resultLength === 0" class="text-center mt-2 mb-2">
+                <b>No Data Found</b>
+            </div>
+
+            <div class="text-right mt-2">
+                <pagination-controls (pageChange)="p = $event; paginate(p)"></pagination-controls>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<app-ui-modal #editInvoice [dialogClass]="'modal-xl'" title=" Payment Details of {{ INVno }}" cardTitle="Payment Details of {{ INVno }}">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5>Payment Details of {{ INVno }}</h5>
+                    <h5>Customer : {{ Fname }}</h5>
+                </div>
+                <button
+                    type="button"
+                    class="btn btn-light btn-sm  has-ripple waves-effect waves-light float-right"
+                    (click)="editInvoice.hide()"
+                >
+                    <span aria-hidden="true" (click)="paymentmodal.hide()"> <i class="fa fa-close"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered mb-2">
+                        <thead>
+                            <tr>
+                                <th>Invoice Amount ($)</th>
+                                <th>Trans Amount ($)</th>
+                                <th>Invoice Balance Amount ($)</th>
+                                <th>Payment Date</th>
+                                <th>Payment Mode</th>
+                                <th>Amount Paid ($)</th>
+                                <th>Ref#/Ck#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of Invoiceeditlist; let i = index">
+                                <td>
+                                    <input type="text" class="form-control" value=" {{ item.GrandTotal }}" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="{{ item.InvoiceAmount }}" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="{{ item.BalanceAmount }}" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="{{ item.CreatedDate | date : 'MM/dd/yyyy' }}" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="Cash" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="{{ item.InvoiceAmount }}" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" value="" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</app-ui-modal>
+
+<app-ui-modal #paymentmodal [dialogClass]="' modal-xl '">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5>Customer : {{ Fname }}</h5>
+                </div>
+                <button
+                    type="button"
+                    class="btn btn-light btn-sm  has-ripple waves-effect waves-light float-right"
+                    (click)="paymentmodal.hide()"
+                >
+                    <span aria-hidden="true" (click)="paymentmodal.hide()"> <i class="fa fa-close"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <form [formGroup]="paymentForm">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-2">
+                            <thead>
+                                <tr>
+                                    <th>Invoice no</th>
+                                    <th>Invoice Amount ($)</th>
+                                    <th>Trans Amount ($)</th>
+                                    <th>Balance Amount ($)</th>
+                                    <th>Due Date</th>
+                                    <th>Payment Type ($)</th>
+                                    <th>Ref#/Ck#</th>
+                                    <th>Amount Pay ($)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of PaymentList; let i = index">
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [ngModel]="item.InvvoiceObj.InvoiceNo"
+                                            class="form-control"
+                                            readonly
+                                            formControlName="invoiceNo"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [ngModel]="item.InvvoiceObj.GrandTotal"
+                                            class="form-control"
+                                            readonly
+                                            formControlName="grandTotal"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [ngModel]="item.InvvoiceObj.MaterialAmount"
+                                            class="form-control"
+                                            readonly
+                                            formControlName="materialAmount"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [ngModel]="item.InvvoiceObj.BalanceAmount"
+                                            class="form-control"
+                                            readonly
+                                            formControlName="balanceAmount"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [ngModel]="item.InvvoiceObj.DueDate | date"
+                                            class="form-control"
+                                            readonly
+                                            formControlName="dueDate"
+                                        />
+                                    </td>
+                                    <td>
+                                        <select
+                                            class="form-control"
+                                            [(ngModel)]="item.PaymentMode"
+                                            formControlName="paymentMode"
+                                            (change)="onupdateform(item)"
+                                        >
+                                            <option *ngFor="let mode of paymentModeslist" value="{{ mode.Value }}">{{ mode.Text }}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [(ngModel)]="item.CheckNo"
+                                            class="form-control"
+                                            formControlName="checkNo"
+                                            [ngClass]="{
+                                                'is-invalid':
+                                                    (submitted && f.checkNo.errors) ||
+                                                    (!f.checkNo.valid && f.checkNo.touched && f.checkNo.errors)
+                                            }"
+                                        />
+                                    </td>
+                                    <td>
+                                        <input
+                                            type="text"
+                                            [(ngModel)]="item.AmountPaid"
+                                            class="form-control"
+                                            formControlName="amountPaid"
+                                            #amountpaid
+                                        />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-footer">
+        <div class="row">
+            <div class="col-sm-12">
+                <button
+                    type="button"
+                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right"
+                    (click)="Paynow()">Pay now
+                </button>
+            </div>
+        </div>
+    </div>
+</app-ui-modal>
+
+<app-ui-modal #creditcardmodal [dialogClass]="' modal-lg '">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5 class="modal-title">Card Information</h5>
+                </div>
+                <button
+                    type="button"
+                    class="btn btn-light btn-sm has-ripple waves-effect waves-light float-right"
+                    (click)="creditcardmodal.hide()"
+                >
+                    <span aria-hidden="true"> <i class="fa fa-close"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <form [formGroup]="cardForm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Name On Card :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="nameOnCard"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && h.nameOnCard.errors) ||
+                                            (!h.nameOnCard.valid && h.nameOnCard.touched && h.nameOnCard.errors)
+                                    }"
+                                    [(ngModel)]="cardData.NameOnCard"
+                                />
+                                <div *ngIf="submitted && h.nameOnCard.errors" class="invalid-feedback">
+                                    <div *ngIf="h.nameOnCard.errors?.required" style="font-size: 13px">Name On Card is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Card Number :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="cardNumber"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && h.cardNumber.errors) ||
+                                            (!h.cardNumber.valid && h.cardNumber.touched && h.cardNumber.errors)
+                                    }"
+                                    [(ngModel)]="cardData.CardNumber"
+                                />
+                                <div *ngIf="submitted && h.cardNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="h.cardNumber.errors?.required" style="font-size: 13px">Card Number is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Expiration Date :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <select type="text" class="form-control" formControlName="expirationfrom" [(ngModel)]="cardData.Month">
+                                    <option *ngFor="let from of expiredateForm" value="{{ from.Value }}" [selected]="from.Selected">
+                                        {{ from.Text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <select type="text" class="form-control" formControlName="expirationto" [(ngModel)]="cardData.Year">
+                                    <option *ngFor="let to of duedate" value="{{ to.Value }}" [selected]="to.Selected">
+                                        {{ to.Text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">CVV :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="cvv"
+                                    [(ngModel)]="cardData.CVV"
+                                    [ngClass]="{
+                                        'is-invalid': (submitted && h.cvv.errors) || (!h.cvv.valid && h.cvv.touched && h.cvv.errors)
+                                    }"
+                                />
+                                <div *ngIf="submitted && h.cvv.errors" class="invalid-feedback">
+                                    <div *ngIf="h.cvv.errors?.required" style="font-size: 13px">CVV is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Zip Code :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="zipCode"
+                                    [(ngModel)]="cardData.ZipCode"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && h.zipCode.errors) || (!h.zipCode.valid && h.zipCode.touched && h.zipCode.errors)
+                                    }"
+                                />
+                                <div *ngIf="submitted && h.zipCode.errors" class="invalid-feedback">
+                                    <div *ngIf="h.zipCode.errors?.required" style="font-size: 13px">Zip Code is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Total Amount :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="totalamount" [(ngModel)]="paymentObj.AmountPaid" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Transaction Type :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select
+                                    class="form-control input-sm valid"
+                                    class="form-control"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && h.transactionType.errors) ||
+                                            (!h.transactionType.valid && h.transactionType.touched && h.transactionType.errors)
+                                    }"
+                                    [(ngModel)]="paymentObj.TransactionId"
+                                    formControlName="transactionType"
+                                >
+                                    <option value="null">Select</option>
+                                    <option value="1">Sale</option>
+                                    <option value="2">Refund</option>
+                                </select>
+                                <div *ngIf="submitted && h.transactionType.errors" class="invalid-feedback">
+                                    <div *ngIf="h.transactionType.errors?.required" style="font-size: 13px">
+                                        Transaction Type is required
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Email Client :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="emailClient" [(ngModel)]="paymentObj.Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right" type="button" (click)="onPayCreditCard()">
+                            Process
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        
+    </div>
+</app-ui-modal>
+
+<app-ui-modal>
+    <div class="app-modal-header" #pdftable>
+        <!-- <div class="app-modal-body" #myParagraph> -->
+        <div style="width: 640px; margin: auto; padding: 15px; background: #fff">
+            <table class="content-div" width="640" cellpadding="0" cellspacing="0" style="width: 100%; margin: auto; background: #fff">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" style="line-height: 10px">
+                            <img src="./assets/images/{{ companylogo }}" alt="{{ companylogo }}" class="img" />
+                            <p style="white-space: nowrap">{{ model.CompanyName }}</p>
+                            <p style="white-space: nowrap">{{ userDetails.AddressLine1 }}</p>
+                            <p style="white-space: nowrap">{{ userDetails.AddressLine2 }}</p>
+                            <p style="white-space: nowrap">{{ userDetails.City }},{{ userDetails.StateName }} {{ userDetails.Zipcode }}</p>
+                            <br />
+                        </td>
+                        <td align="left" valign="top" style="width: 80%; padding-left: 40px">
+                            <table width="100%" style="width: 100%" cellpadding="7" cellspacing="0" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight: bold">Invoice Number:</td>
+                                        <td width="50%" align="left">
+                                            {{ InvoceObj.InvoiceNo }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight: bold">PO#:</td>
+                                        <td width="50%" align="left">
+                                            {{ InvoceObj.PurchaseOrder }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight: bold">Invoice Date:</td>
+                                        <td width="50%" align="left">
+                                            {{ InvoceObj.CreatedDate | date : 'MM/dd/yyyy' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight: bold">Terms:</td>
+                                        <td width="50%" align="left">
+                                            {{ InvoceObj.TermsText }}
+                                            <!-- <select tabindex="14" class="form-control input-sm valid"
+                                                [(ngModel)]="InvoceObj.TermsID">
+
+                                                <option *ngFor="let team of teams" value="{{team.Value}}">{{team.Text}}
+                                                </option>
+                                            </select> -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight: bold">Due Date:</td>
+                                        <td width="50%" align="left">
+                                            {{ InvoceObj.DueDate | date : 'MM/dd/yyyy' }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-bottom: 40px">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="left" valign="top" style="font-weight: bold; width: 100px">
+                                        Bill To:
+                                        {{ billingadrees }}
+                                        <br />
+                                    </td>
+                                    <td align="left" valign="top" style="line-height: 10px">
+                                        <p style="white-space: nowrap"></p>
+                                        <p style="white-space: nowrap"></p>
+                                        <p style="white-space: nowrap"></p>
+                                        <p style="white-space: nowrap"></p>
+
+                                        <p style="white-space: nowrap"></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <table class="table itemtable">
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Sale Price ($)</th>
+                            <th>Amount&nbsp;($)</th>
+                            <th></th>
+                        </tr>
+
+                        <tr *ngFor="let item of InvoceObj.Listinvoiceitems; let i = index">
+                            <td>{{ item.ItemName }}</td>
+                            <td>{{ item.Quantity }}</td>
+                            <td>{{ item.RatePerUnit }}</td>
+                            <td>{{ item.ItemTotal }}</td>
+                        </tr>
+                    </table>
+                    <tr>
+                        <td colspan="2">
+                            <div style="border: 0px solid #ccc; width: 100%; margin-bottom: 30px"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom: 15px" colspan="2">
+                            <div id="dvAmount">
+                                <div style="font-weight: bold; padding-bottom: 15px">
+                                    A&nbsp;convenience&nbsp;fee&nbsp;of&nbsp;3.5%&nbsp;will&nbsp;apply&nbsp;to&nbsp;all&nbsp;credit&nbsp;card&nbsp;transactions.
+                                </div>
+                                <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="right">Sub Total Amount:</td>
+                                            <td id="lblBalanceamount" width="28%" align="right">${{ InvoceObj.InvoiceAmount }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td align="right">Discount:</td>
+                                            <td id="lblBalanceamount" width="28%" align="right">${{ InvoceObj.Discount }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Tax:</td>
+                                            <td id="lblBalanceamount" width="28%" align="right">${{ InvoceObj.TaxAmount }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Convenience Fee ($):</td>
+                                            <td id="lblBalanceamount" width="28%" align="right">${{ InvoceObj.MiscellaneousAmount }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">Total due if paid by credit card:</td>
+                                            <td id="lblBalanceamount" width="28%" align="right">${{ InvoceObj.GrandTotal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="padding-top: 25px">
+                                                Total due if paying with any other accepted method:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right" style="padding-top: 25px">
+                                                ${{ InvoceObj.MaterialAmount }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table cellpadding="5" cellspacing="0" border="0" style="width: 100%">
+                                    <tr>
+                                        <td style="padding-top: 35px; font-weight: bold">
+                                            <label id="lblmsg">Click here to Pay Invoice!</label><br />
+
+                                            <a
+                                                id="quick_link"
+                                                style="text-decoration: none !important"
+                                                href="https://crm.psplhyd.com/QuickPayment?InvoiceID={{ InvoceObj.InvoiceID }}&AmountPaid={{
+                                                    paymentObj.AmountPaid
+                                                }}&BearerToken={{ BearerToken }}&ApiUsername={{ clientObj.ApiUsername }}&ApiPassword={{
+                                                    clientObj.ApiPassword
+                                                }}&UserId={{ UserId }}&ClientID={{ clientObj.ClientID }}"
+                                                >QuickPayments</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="font-weight: bold; padding-top: 20px">Please make checks payable to:</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left" style="line-height: 10px; padding-bottom: 30px">
+                                            <p style="white-space: nowrap">{{ model.CompanyName }}</p>
+                                            <p style="white-space: nowrap">{{ userDetails.AddressLine1 }}</p>
+                                            <p style="white-space: nowrap">{{ userDetails.AddressLine2 }}</p>
+                                            <p style="white-space: nowrap">
+                                                {{ userDetails.City }},{{ userDetails.StateName }} {{ userDetails.Zipcode }}
+                                            </p>
+                                            <br />
+                                            <br />
+                                            <br />
+                                        </td>
+                                        <td align="right" valign="top" style="line-height: 20px">
+                                            <a href="https://inugocrm.com/inugo-billing/">
+                                                <img
+                                                    style="width: 300px; height: 90px"
+                                                    src="https://dev.psplhyd.com/CRM/Content/CompanyLogos/inugologoorangeinvoice.png"
+                                                /><br /><br />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left" style="background: #ccc; text-align: center; padding: 10px">
+                                            Thank you for your business!
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</app-ui-modal>
+
+<!-- Assuming this is your Angular component HTML template -->
+<app-ui-modal #achpayment [dialogClass]="' modal-lg '">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5 class="modal-title">ACH Information</h5>
+                </div>
+                <button
+                    type="button"
+                    class="btn btn-light btn-sm  has-ripple waves-effect waves-light float-right"
+                    (click)="achpayment.hide()"
+                >
+                    <span aria-hidden="true"> <i class="fa fa-close"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <form [formGroup]="MipaymentObjForm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">NameOnCheck:<span style="color: red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="NameOnCheck"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && m.NameOnCheck.errors) ||
+                                            (!m.NameOnCheck.valid && m.NameOnCheck.touched && m.NameOnCheck.errors)
+                                    }"
+                                    [(ngModel)]="ComViewModel.MipaymentObj.NameOnCheck"
+                                />
+                                <div *ngIf="submitted && m.NameOnCheck.errors" class="invalid-feedback">
+                                    <div *ngIf="m.NameOnCheck.errors?.required" style="font-size: 13px">NameOnCheck is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">CheckNumber:</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="CheckNumber"
+                                    maxlength="6"
+                                    tabindex="2"
+                                    required
+                                    [(ngModel)]="ComViewModel.MipaymentObj.CheckNumber"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">AmountPaid :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="AmountPaid"
+                                    [(ngModel)]="ComViewModel.AmountPaid"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && m.AmountPaid.errors) ||
+                                            (!m.AmountPaid.valid && m.AmountPaid.touched && m.AmountPaid.errors)
+                                    }"
+                                />
+                                <div *ngIf="submitted && m.AmountPaid.errors" class="invalid-feedback">
+                                    <div *ngIf="m.AmountPaid.errors?.required" style="font-size: 13px">AmountPaid is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">RoutingNumber :<span style="color: red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="RoutingNumber"
+                                    maxlength="17"
+                                    tabindex="1"
+                                    required
+                                    [(ngModel)]="ComViewModel.MipaymentObj.RoutingNumber"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && m.RoutingNumber.errors) ||
+                                            (!m.RoutingNumber.valid && m.RoutingNumber.touched && m.RoutingNumber.errors)
+                                    }"
+                                />
+                                <div *ngIf="submitted && m.RoutingNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="m.RoutingNumber.errors?.required" style="font-size: 13px">RoutingNumber is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">AccountNumber:<span style="color: red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="AccountNumber"
+                                    maxlength="19"
+                                    tabindex="2"
+                                    [(ngModel)]="ComViewModel.MipaymentObj.AccountNumber"
+                                    [ngClass]="{
+                                        'is-invalid':
+                                            (submitted && m.AccountNumber.errors) ||
+                                            (!m.AccountNumber.valid && m.AccountNumber.touched && m.AccountNumber.errors)
+                                    }"
+                                />
+                                <div *ngIf="submitted && m.AccountNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="m.AccountNumber.errors?.required" style="font-size: 13px">AccountNumber is required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="accountType">Account Type :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <select
+                                    class="form-control"
+                                    formControlName="AccountType"
+                                    id="accountType"
+                                    [(ngModel)]="ComViewModel.MipaymentObj.AccountType"
+                                >
+                                    <option *ngFor="let item of accountTypes" [value]="item.value" [seleted]="item.Selected">
+                                        {{ item.text }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Transaction Type :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select
+                                    class="form-control input-sm valid"
+                                    [(ngModel)]="ComViewModel.MipaymentObj.TransactionType"
+                                    formControlName="TransactionType"
+                                >
+                                    <option *ngFor="let item of transactionTypes" [value]="item.value">{{ item.text }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Email Client :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" formControlName="Email" [(ngModel)]="ComViewModel.Email" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right" type="button" (click)="ACHPaymentPost(ComViewModel)">Process</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  
+</app-ui-modal>

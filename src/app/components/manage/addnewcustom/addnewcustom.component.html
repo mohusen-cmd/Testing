@@ -1,0 +1,273 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Add New Custom Field</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Manage</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Custom Fields</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Add New Custom Field</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row btn-page">
+    <div class="col-sm-12">
+        <app-card title="Custom Field Detail" cardTitle="Custom Field Detail">
+    
+            <!-- Page header, center on small screens -->
+            <!-- <h6 class="col-xs-6 col-sm-4 text-left text-left-sm panel-title"><i
+                    class="fa fa-users page-header-icon"></i> <label>Create User</label></h6> -->
+        
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-right mb-3">
+                        <button type="button" (click)="Save()" class="btn btn-sm btn-round waves-effect waves-light btn-success" 
+                        id="btnSave"><i class="fa fa-save pr-1"></i>Save
+                        </button>&nbsp;
+                        <button class="btn btn-sm btn-round waves-effect waves-light btn-success" [routerLink]="['/CustomField/ViewCustomFields']"><i class="fa fa-backward pr-1"></i>Back
+                        </button>
+                    </div>
+                </div>
+            </div>       
+        
+            <form [formGroup]="customTypeForm">
+                <app-card cardTitle="Create New Customer ">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Module:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.Module" formControlName="Module"
+                                            placeholder="Module" required>
+                                        <mat-error *ngIf="submitted && f['Module'].errors">Module is required</mat-error>
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Column Type:</mat-label>
+                                        <mat-select [(ngModel)]="customdetails.Column_Type" formControlName="ColumnType"
+                                            (selectionChange)="onChangeCustom($event)">
+                                            <mat-option *ngFor="let type of ddlcolumntype"
+                                                [value]="type.Value">{{type.Text}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Status:</mat-label>
+                                        <mat-select id="Country" name="Status" formControlName="Status"
+                                            [(ngModel)]="customdetails.IsActive">
+                                            <mat-option *ngFor="let type of ddlstatus" [value]="type.Value"
+                                                [selected]="type.Selected">{{type.Text}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Column Id:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.Column_Id" formControlName="ColumnId">
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Column Description:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.Column_Description"
+                                            formControlName="ColumnDescription">
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Default Value:</mat-label>
+                                        <ng-container *ngIf="customdetails.Column_Type != 'date'">
+                                            <input matInput [(ngModel)]="customdetails.DefaultValue"
+                                                formControlName="DefaultValue">
+                                        </ng-container>
+                                        <ng-container *ngIf="customdetails.Column_Type == 'date'">
+                                            <input matInput type="date" formControlName="DefaultValue">
+                                        </ng-container>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Actual Column Name:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.ActualColumnName"
+                                            formControlName="ActualColumnName">
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Is Required:</mat-label>
+                                        <mat-select id="Country" [(ngModel)]="customdetails.RequiredField"
+                                            formControlName="IsRequired">
+                                            <mat-option *ngFor="let type of ddlisrequired"
+                                                [value]="type.Value">{{type.Text}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline"
+                                        *ngIf="customdetails.Column_Type != 'date'">
+                                        <mat-label>MaxLength:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.MaxLength" formControlName="MaxLength">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-3">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Column Label:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.Column_Label" formControlName="ColumnLabel"
+                                            required>
+                                        <mat-error *ngIf="submitted && f['ColumnLabel'].errors">ColumnLabel is
+                                            required</mat-error>
+                                    </mat-form-field>
+            
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Mouse Hover Text:</mat-label>
+                                        <input matInput [(ngModel)]="customdetails.HoverText" formControlName="MouseHoverText">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </app-card>
+
+            </form>
+
+            <app-card title="Custom Field Add Options" cardTitle="Custom Field Add Options" *ngIf="IsCustomFieldAddOptions">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right"  (click)="addcontoles()"><i class="fa fa-circle-plus pr-1"></i>Add More Fields</button>
+                    </div>
+                </div>
+        
+                <!-- <div class="row">
+                    <div class="col-sm-12">
+                        <div [formGroup]="
+                        ">
+                            <ng-container formArrayName="lstCustomOptions">
+                                <ng-container *ngFor="let lstCustomOptionsForm of lstCustomOptions.controls;let i=index">
+                                    <div [formGroup]="lstCustomOptionsForm" class="col-sm-6">
+                                        <div>
+                                            <label for="value" style="margin: 2px;">Value:</label>
+                                            <input type="text" formControlName="DrpValue" style="margin: 2px;"
+                                                (change)="textUpdate($event.target.value,i)">
+                                            <label for="Default" class="form-check-label" style="margin: 10px;">Default:</label>
+                                            <input type="checkbox" (change)="onChangeCheckbox($event.target.checked,i)"
+                                                formControlName="IsDefault" value="true" />
+                                            <label for="Remove" style="margin: 3px; " (click)="DeleteContols(i)">Remove:</label>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div> -->
+        
+                <div [formGroup]="customTypeForm">
+                    <ng-container formArrayName="lstCustomOptions">
+                        <div class="row mt-2">
+                            <ng-container *ngFor="let lstCustomOptionsForm of lstCustomOptions.controls;let i=index">
+                                <div [formGroupName]="i" class="col-sm-6">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex">
+                                            <div class="col-sm-7  d-flex form-group">
+                                                <label for="value" class="col-form-label">Value:</label>
+                                                <div class="input-group pl-2">
+                                                    <input type="text" formControlName="DrpValue" class="form-control"
+                                                    (change)="textUpdate($event.target.value,i)">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <label for="Default" class="col-form-label pr-2">
+                                                    Default :</label>
+                                                <input type="checkbox" (change)="onChangeCheckbox($event.target.checked,i)"formControlName="IsDefault"value="true"/>
+                                                <button type="button" class="btn btn-sm btn-danger float-right" 
+                                                (click)="DeleteContols(i)">Remove</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </app-card>
+        
+            <app-card title="Custom Field Options List" cardTitle="Custom Field Options List" *ngIf="IsCustomFieldAddOptions">
+                <div class="table-responsive ">
+                    <table mat-table [dataSource]="dataSource" class="table  mb-2">
+        
+                        <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <input type="checkbox" (change)="$event ? masterToggle() : null"
+                                    [checked]="selection.hasValue() && isAllSelected()"
+                                    [indeterminate]="selection.hasValue() && !isAllSelected()" />
+        
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <input type="checkbox" (click)="$event.stopPropagation()"
+                                    (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+                                    (click)="deleteMsg(row)" />
+        
+                            </td>
+        
+                        </ng-container>
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell *matHeaderCellDef class="sorting sorting_asc" mat-sort-header="delete">
+                                DELETE </th>
+                            <td mat-cell *matCellDef="let element;let i=index">
+                                <a href="javascript:" class=" btn btn-danger btn-sm  has-ripple waves-effect waves-light">
+                                    <i class="feather icon-trash-2 text-white" (click)="DeleteCustomOptionById(element.DrpValueId,i)"></i>
+                                </a>
+                            </td>
+                        </ng-container>
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="username">
+                            <th mat-header-cell *matHeaderCellDef> Value </th>
+                            <td mat-cell *matCellDef="let element"> <a>{{element.DrpValue}}</a> </td>
+                        </ng-container>
+        
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> IsDefault</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div *ngIf="element.IsDefault || !element.IsDefault;then content else other_content"></div>
+                                <ng-template #content><input class="check-box" [checked]="element.IsDefault" disabled="disabled"
+                                        name="{{element.IsDefault}}" [ngModel]="element.IsDefault"
+                                        type="checkbox"></ng-template>
+                                <ng-template #other_content></ng-template>
+        
+                            </td>
+                        </ng-container>
+        
+                        <!-- Weight Column -->
+        
+        
+                        <!-- Symbol Column -->
+        
+        
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        
+                        <tr mat-row *matRowDef="let element; columns: displayedColumns " class="example-element-row">
+                        </tr>
+                    </table>
+        
+        
+        
+                </div>
+            </app-card>
+        </app-card>
+    </div>
+</div>

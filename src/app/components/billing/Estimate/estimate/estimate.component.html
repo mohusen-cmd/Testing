@@ -1,0 +1,102 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Estimate Invoice</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Billing</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Estimate Invoice</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-card title="Estimate Invoice" cardTitle="Estimate Invoice">
+  <div class="row btn-page">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="float-right mb-2">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " 
+              [routerLink]="['/Invoice/CreateEstimateInvoice']">
+              <i class="fa fa-plus-circle pr-1"></i>Create Estimate Invoice
+            </button>&nbsp;
+            <button class="btn btn-success btn-sm  btn-round has-ripple waves-effect waves-light  " (click)="Delete()">
+              <i class="icon fa fa-trash pr-1"></i>Delete Estimate Invoice
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table #tblest datatable [dtOptions]="dtOptions" class="table mb-2" id="tblest">
+              <tbody *ngIf="Estlist?.length != 0">
+                  <tr *ngFor="let item of Estlist">
+                    <td> <input type="checkbox" class="editor-active"  (change)="activeInActiveToggle($event,item)"></td>
+                    <td> 
+                      <a href="javascript:void(0)" class=" btn btn-danger btn-sm has-ripple waves-effect waves-light" >
+                        <i  (click)="deletemsg(item.EstInvoiceID)"  class="feather icon-trash-2 text-white" ></i>
+                      </a>
+                    
+                      <a href="javascript:" class="btn btn-info btn-sm  has-ripple waves-effect waves-light">
+                        <i class=" feather icon-edit text-white " [routerLink]="['/Invoice/EditEstimateInvoice']"
+                          [queryParams]="{EstInvoiceId:item.EstInvoiceID,type:'edit'}"></i>
+                      </a>
+                    </td>
+                    <td><a>{{item.EstInvoiceNo}}</a></td>
+                    <td>{{item.Name}}</td>
+                    <td>{{ item.GrandTotal }}</td>
+                    <td  *ngIf="(item.Posted == 0); else noReplies">
+                        <a class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" style="color:white" (click)="ConverttoInvoicesid(item,'ConverttoInvoice');">
+                         Convert toInvoice</a>
+                    </td>
+                    <ng-template #noReplies>
+                      <td> Invoiced </td>
+                    </ng-template>
+                    <td> 
+                      <a  (click)="OnEmail(item)" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" style="color:white">Email
+                      </a>
+                    </td>
+                  </tr>
+              </tbody>
+              <tbody *ngIf="Estlist?.length == 0">
+                <tr>
+                  <td colspan="7" class="no-data-available" style="text-align: center;">No data!</td>
+                </tr>
+              <tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+     
+      
+    </div>
+
+  </div>
+
+ 
+  
+  
+</app-card>
+
+
+
+<app-onepoint-mailingtemplate  
+    [companylogo]="companylogo"
+    [model]="model"
+    [userDetails]="userDetails"
+    [estInvoicedetails]="estinvoicedetails"
+    [billingaddress]="billingadrees">
+</app-onepoint-mailingtemplate>

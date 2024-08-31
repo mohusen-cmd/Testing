@@ -1,0 +1,279 @@
+
+// table {
+//     width: 100%;
+//   }
+//   .mat-form-field {
+//     font-size: 14px;
+//     width: 100%;
+//   }
+// .table-hover{
+//     color: #fff;
+// }
+// .text-muted:hover{
+//     color: blue !important;
+// }
+// .example-full-width{
+//     background-color: whitesmoke !important;
+//     height: 50px !important;
+//     width: 300px !important;
+// }
+// .spinner-container {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #fafafa;
+//     box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+//   }
+// .mat-header-cell{
+//     cursor: pointer;
+//     color: #fff;
+//     background: #ecf0f5;;
+//     color:black;
+//     row-gap: 100px;
+//     margin-bottom: 10%;
+//     outline:none;
+//     border-collapse: separate;
+//     text-indent: initial;
+//     border-spacing: 2px;
+//     vertical-align: top;
+//     border-radius: 5px;
+//     font-family: "Open Sans", sans-serif;
+//     border-top: 1px solid #e2e5e8;
+
+//     display: table-cell;
+// }
+// .nc{
+//     text-align: center;
+// }
+// th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+//     padding: 1.05rem 0.75rem;
+//     border-color: #e2e5e8;
+//     box-sizing: border-box;
+//     row-gap: 20px;
+//     border-radius: 0%;
+
+// }
+// .mat-cell {
+//     padding: 1.05rem 0.75rem;
+//     border-color: #e2e5e8;
+
+// }
+// #filter{
+//   justify-content: center;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-weight: bold;
+// }
+
+
+// .mat-table{
+//     border: 0px solid gray;
+// }
+// .search{
+//         margin: 4px;
+// }
+// .content{
+//     justify-content: center;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+// .example-element-row td {
+//     border-bottom-width: 0;
+//   }
+  
+//   .example-element-detail {
+//     overflow: hidden;
+//     display: flex;
+//   }
+  
+//   .example-element-diagram {
+//     min-width: 80px;
+//     border: 2px solid black;
+//    // padding: 8px;
+//     font-weight: lighter;
+//    // margin: 8px 0;
+//     height: 104px;
+//   }
+  
+//   .example-element-symbol {
+//     font-weight: bold;
+//     font-size: 40px;
+//     line-height: normal;
+//   }
+  
+//   .example-element-description {
+//     padding: 0px;
+//    // margin-top: -10px;
+//   }
+  
+//   .example-element-description-attribution {
+//     opacity: 0.5;
+//   }
+ 
+  
+//   tr.example-element-row:not(.example-expanded-row):hover {
+//     background: whitesmoke;
+//   }
+  
+//   tr.example-element-row:not(.example-expanded-row):active {
+//     background: #efefef;
+//   }
+  
+//   .example-element-row td {
+//     border-bottom-width: 0;
+//   }
+  
+// tr.example-detail-row {
+//     height: 0px;
+//     margin-top: -30px;
+//   }
+//   tr.mat-row, tr.mat-footer-row{
+// height: 0 !important;
+//   }
+
+//   .cdk-column-expandedDetail{
+//     padding: 0px !important
+//     ;
+//   } 
+//   .btn-sm .alapha{
+//     background: #2199e8 !important;
+    
+//   }
+//   .btn-info:hover,
+//   .btn-info:focus{
+//     background:yellow;
+//     color: black ! important;
+//     cursor: pointer;
+//     user-select: text;
+//   }
+  
+//   app-ui-modal ::ng-deep .basic ::ng-deep .modal-lg {
+//     // max-height: 583px !important;
+//     max-width: 600px !important;
+//     // overflow: auto !important;
+// }
+
+// .btn-success {
+//   margin-right: 10px;
+// }
+
+// /* General Styles */
+// .page-body {
+//   padding: 20px;
+// }
+
+// .row {
+//   margin-bottom: 15px;
+// }
+
+// /* Button Styles */
+// .btn {
+//   margin-bottom: 15px;
+// }
+
+// /* Card Styles */
+// .card {
+//   border: 1px solid #ddd;
+//   border-radius: 5px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+// }
+
+// .card-header {
+//   background-color: #007bff;
+//   color: white;
+//   padding: 10px;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .card-header h5 {
+//   margin: 0;
+// }
+
+// .card-body {
+//   padding: 15px;
+// }
+
+// /* Table Styles */
+// .table-responsive {
+//   margin-top: 15px;
+// }
+
+// #attachmentsTable {
+//   width: 100% !important;
+//   border-collapse: collapse;
+// }
+
+// #attachmentsTable thead th {
+//   background-color: #007bff;
+//   color: white;
+//   padding: 10px;
+//   text-align: left;
+//   border-bottom: 2px solid #ddd;
+// }
+
+// #attachmentsTable tbody td {
+//   padding: 10px;
+//   vertical-align: middle;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// #attachmentsTable tbody tr:nth-child(even) {
+//   background-color: #f9f9f9;
+// }
+
+// #attachmentsTable tbody tr:hover {
+//   background-color: #f1f1f1;
+// }
+
+// /* Pagination Styles */
+// .dataTables_wrapper .dataTables_paginate .paginate_button {
+//   padding: 5px 10px;
+//   margin: 0 2px;
+//   cursor: pointer;
+//   background-color: #007bff;
+//   color: white;
+//   border: none;
+//   border-radius: 3px;
+// }
+
+// .dataTables_wrapper .dataTables_paginate .paginate_button.current,
+// .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+//   background-color: #0056b3;
+// }
+
+// /* Modal Styles */
+// .app-modal-header {
+//   background-color: #007bff;
+//   color: white;
+//   padding: 10px;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .app-modal-body {
+//   padding: 15px;
+// }
+
+// .app-modal-header .close {
+//   color: white;
+// }
+
+// .app-card {
+//   border: 1px solid #ddd;
+//   padding: 15px;
+//   border-radius: 5px;
+//   background-color: #fff;
+// }
+
+// .app-card .card-header {
+//   background-color: #007bff;
+//   color: white;
+//   padding: 10px;
+//   border-bottom: 1px solid #ddd;
+// }
+
+// .app-card .card-body {
+//   padding: 10px;
+// }

@@ -1,0 +1,46 @@
+<div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-12">
+        <div class="row">
+            <div class="col-sm-12">
+                <app-card [hidHeader]="true" cardClass="support-bar overflow-hidden" blockClass="p-0"
+                    [isCardFooter]="true" footerClass="bg-primary text-white">
+                    <div class="p-20 pb-0">
+                        <span class="text-c-blue">Support Requests</span>
+                        <p class="mb-3 mt-3">Total number of support requests that come in.</p>
+                    </div>
+                    <div id="chart">
+                        <apx-chart [series]="supportChartData.series" [chart]="supportChartData.chart"
+                            [colors]="supportChartData.colors" [stroke]="supportChartData.stroke"
+                            [tooltip]="supportChartData.tooltip"></apx-chart>
+                    </div>
+
+                    <div class="app-card-footer">
+                        <div class="row text-center">
+                            <div class="col">
+                                <h4 class="m-0 text-white">{{this.data[0]}}</h4>
+                                <span>Leads</span>
+                            </div>
+                            <div class="col">
+                                <h4 class="m-0 text-white">{{this.data[1]}}</h4>
+                                <span>Contacts</span>
+                            </div>
+                            <div class="col">
+                                <h4 class="m-0 text-white">{{this.data[2]}}</h4>
+                                <span>Companies</span>
+                            </div>
+                            <div class="col">
+                                <h4 class="m-0 text-white">{{this.data[3]}}</h4>
+                                <span>Opportunities</span>
+                            </div>
+                        </div>
+                    </div>
+                </app-card>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>

@@ -1,0 +1,109 @@
+.SaveEI{
+    margin:5px;
+    margin-bottom: 5px;
+
+}
+.mat-form-field-appearance-fill .mat-form-field-infix {
+    padding: 0.25em 0 0.75em 0;
+    display: contents;
+}
+// .form-group .form-control {
+//     padding-left: 0;
+//     padding-right: 0;
+//     margin-top: -1px;
+
+// }
+.btnBack{
+    margin-bottom: 5px;
+}
+// button{
+//     margin-bottom: 8px;
+// }
+.customer{
+    color: red;
+}
+textarea{
+    border: 1px solid #ccc;
+}
+
+.cdk-global-overlay-wrapper {
+    overflow-y: scroll;
+}
+
+.itemtable tr th{
+background: #fff;
+}
+.form-control1{
+    border: 1px solid #ccc !important;
+    /* border-bottom: 1px solid #ced4da; */
+    background: none !important;
+    /* background-size: 0 100%, 100% 100%; */
+    transition: background none;
+    height: 25px;
+    margin-bottom: 12px;
+}
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+    box-shadow:0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12)
+  }
+  .m-b-10{
+    color:white;
+    font-weight: 400;
+}
+.mat-header-cell{
+    cursor: pointer;
+    color: #fff;
+    background: #ecf0f5;;
+    color:black;
+    row-gap: 100px;
+    margin-bottom: 10%;
+    outline:none;
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 2px;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-family: "Open Sans", sans-serif;
+    border-top: 1px solid #e2e5e8;
+
+    display: table-cell;
+}
+
+
+// .mat-cell {
+//     padding: 1.05rem 0.75rem;
+//     border-color: #e2e5e8;
+    
+// }
+// .btn.btn-sm {
+//     border-bottom-width: 3px;
+//     padding: 3px 12px !important;
+// }
+
+.border-bottom {
+    border-bottom: 2px solid #e2e5e8 !important;
+}
+.table thead th {
+    border-bottom: 2px solid #e2e5e8;
+    border-top: 2px solid #e2e5e8;
+    font-size: 14px;
+    color: #37474f;
+    background: #ecf0f5;
+    text-transform: uppercase;
+    padding: 10px !important;
+    vertical-align: middle;
+}
+.table tbody td {
+    border-bottom: 2px solid #e2e5e8;
+    padding: 10px !important;
+    vertical-align: middle;
+}
+.form-group {
+    margin-bottom: 6px;
+}
+.table-bordered td, .table-bordered th {
+    border: 2px solid #e2e5e8 !important;
+}

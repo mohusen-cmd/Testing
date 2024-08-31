@@ -1,0 +1,59 @@
+<!-- <div class="row">
+    <div class="col-sm-12">
+        <!-- Tab variant tab card start -->
+
+        <!-- <app-card [blockClass]="'tab-icon'" cardTitle="Create New List" >
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <div class="md-tabs">
+
+
+                        <ul ngbNav #navPills="ngbNav" class="nav-pills" style="margin: 8px;">
+                            <!-- <li [ngbNavItem]="1">
+                                <a ngbNavLink>Lead Detail</a>
+                                <ng-template ngbNavContent>
+                                    <app-editlist-tab [Id]="Id"></app-editlist-tab>
+                                </ng-template>
+                            </li> -->
+                            <!-- <li [ngbNavItem]="2">
+                                <a ngbNavLink>Contacts</a>
+                                <ng-template ngbNavContent>
+                                    <app-editcontact-list [Id]="Id"></app-editcontact-list>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="3">
+                                <a ngbNavLink>Opportunities</a>
+                                <ng-template ngbNavContent>
+                                    <app-editopperlist [Id]="Id"></app-editopperlist>
+                                </ng-template>
+                            </li>
+
+                        </ul>
+                        <div [ngbNavOutlet]="navPills" class="mt-2"></div> -->
+                    <!-- </div> -->
+                <!-- </div>
+            </div>
+        <!-- </app-card> -->
+    <!-- </div>
+</div> --> 
+
+
+<!-- <ul ngbNav #navPills="ngbNav" class="nav-pills" style="margin: 8px;">
+    <li *ngFor="let tab of tabs; let i = index"(click)="loadTabContent(i)" [ngbNavItem]="i + 1">
+        <a ngbNavLink class="active">{{ tab.title }}</a>
+        <ng-template ngbNavContent>
+            
+            <div #tabContainer></div>
+        </ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="navPills" class="mt-2"></div>   -->
+
+<div>
+    <!-- <ul>
+        <li *ngFor="let tab of tabs; let i = index"  (click)="loadTabContent(i)">
+            {{ tab.title }}
+        </li>
+    </ul> -->
+    <div #tabContainer></div>
+</div>

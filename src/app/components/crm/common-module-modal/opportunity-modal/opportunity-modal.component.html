@@ -1,0 +1,57 @@
+
+
+<ng-template #content let-modal>
+    <div class="row btn-page">
+        <div class="col-sm-12">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="float-left">
+                            <h5 >Opportunities List</h5>
+                        </div>
+                        <button type="button" class=" btn btn-light btn-sm  has-ripple waves-effect waves-light float-right" (click)="close()">
+                            <i class="fa fa-close"></i></button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-body">
+                <div class="app-modal-body">
+                    <div class="col-sm-12">
+                        <div class="page-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <!-- <app-alphasearch (Searchstatus)="OnSearchstatus($event)"> </app-alphasearch> -->
+                                     <div class="table-responsive">
+                                        <table #tblOpportunity datatable [dtOptions]="dtOptions" class="table mb-2" id="tblOpportunity">
+                                            <tbody *ngIf="oppList?.length != 0">
+                                                <tr *ngFor="let opp of oppList">
+                                                    <td>{{ opp.opporID }}</td>
+                                                    <td><a  href="javascript:" (click)="emitopper(opp)">{{ opp.OpporName }}</a></td>
+                                                    <td>{{ opp.OpporContactName }}</td>
+                                                    <td>{{ opp.CompanyName }}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="oppList?.length == 0">
+                                              <tr>
+                                                <td colspan="3" class="no-data-available">No data!</td>
+                                              </tr>
+                                            <tbody>
+                                      </table>
+                                     </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+        
+                    
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    
+   
+</ng-template>

@@ -1,0 +1,385 @@
+<!-- [ navigation menu ] start -->
+<ul class="nav pcoded-inner-navbar">
+
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="nav-link" href="javascript:void(0)" [routerLink]="['Home']" *ngIf="isHome" (click)="navCollapse($event)"><span class="pcoded-micon"><i class="feather icon-home"></i></span>
+            <span class="pcoded-mtext">Home</span>
+        </a>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" class="nav-link" *ngIf="isDash"
+        (click)="navCollapse($event)">
+        <span class="pcoded-micon"><i class="menu-icon fa fa-inbox"></i></span>
+        <!-- <span class="pcoded-mtext"></span> -->
+        DashBoard
+        <!-- <span class="pcoded-badge label label-warning">NEW</span> -->
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a href="javascript:void(0)" [routerLink]="['/DashBoard/DashboardIndex']"
+                    class="nav-link">
+                    <span class="pcoded-mtext">Main DashBoard</span>
+                </a>
+
+            </li>
+
+
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a href="javascript:void(0)" [routerLink]="['/DashBoard/AdminDashboard']"
+                    class="nav-link">
+                    <span class="pcoded-mtext">Admin DashBoard</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a href="javascript:void(0)" [routerLink]="['/DashBoard/InvoiceDashboardIndex']"
+                    class="nav-link">
+                    <span class="pcoded-mtext">Invoice DashBoard</span>
+                </a>
+
+            </li>
+        </ul>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" class="nav-link" *ngIf="isCRM"
+                (click)="navCollapse($event)">
+                <span class="pcoded-micon">
+                    <i class="feather icon-layers"></i>
+                </span>
+                CRM
+                <!-- <span class="pcoded-mtext"></span> -->
+                <!-- <span class="pcoded-badge label label-danger">100+</span> -->
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" *ngIf="isLeads" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['CRM/leads']" class="nav-link">
+                    <span class="pcoded-mtext" routerLinkActive="active">Leads</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isCompanies" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['CRM/companies']" class="nav-link">
+                    <span class="pcoded-mtext">Companies</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isContacts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['CRM/contacts']" class="nav-link">
+                    <span class="pcoded-mtext"> Contacts</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isOpportunities" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/CRM/opportunities']" class="nav-link">
+                    <span class="pcoded-mtext">Opportunities</span>
+                    <!-- <span class="pcoded-badge label label-info">25+</span> -->
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isActivities" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/CRM/activities']" class="nav-link">
+                    <span class="pcoded-mtext"> Activities</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isNotifications" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/CRM/DashBoard/GetNotificationList']" class="nav-link">
+                    <span class="pcoded-mtext"> Notifications</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" [routerLinkActive]="['linkActive']" class="nav-link"
+                *ngIf="isSetup" (click)="navCollapse($event)">
+                <span class="pcoded-micon">
+                    <i class="feather icon-box"></i>
+                </span>
+                Setup
+                <!-- <span class="pcoded-mtext"></span> -->
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" *ngIf="isUsers" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/User/UserList" class="nav-link">
+                    <span class="pcoded-mtext">Users</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isAMS" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/AccessMenus/AccessMenuSetUp" class="nav-link">
+                    <span class="pcoded-mtext">Access Menu Setup</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isUserRoles" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/UserRoles/UserRolesList" class="nav-link">
+                    <span class="pcoded-mtext">User Roles</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isLeadSources" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/LeadSource/LeadSourceList" class="nav-link">
+                    <span class="pcoded-mtext">Lead sources/Opportunity source</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isBuyingStage" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/Stage/StageList" class="nav-link">
+                    <span class="pcoded-mtext">Buying stage/Lead Status</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isOppType" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/OpportunityType/OpportunityList" class="nav-link">
+                    <span class="pcoded-mtext">Opportunity Type</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isPriority" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/Priority/PriorityList" class="nav-link">
+                    <span class="pcoded-mtext">Priority</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isContactType" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/ContactType/ContactTypeList" class="nav-link">
+                    <span class="pcoded-mtext">Contact Type</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isActivityType" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/ActivityType/ActivityTypeList" class="nav-link">
+                    <span class="pcoded-mtext">Activity Type</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isCompanyType" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/CompanyType/CompanyTypeList" class="nav-link">
+                    <span class="pcoded-mtext">Company Type</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isCompanyIndustry" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/CompanyIndustry/CompanyIndustryList" class="nav-link">
+                    <span class="pcoded-mtext">Company Industry</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isStatus" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/Status/StatusList" class="nav-link">
+                    <span class="pcoded-mtext">Status</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isCompanyOwnershipType" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/CompanyOwnership/CompanyOwnershipList" class="nav-link">
+                    <span class="pcoded-mtext">Company Ownership Type</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isCampaignEmails" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/Common/CampaignEmailIndex" class="nav-link">
+                    <span class="pcoded-mtext">Campaign Email</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isDepartment" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Setup/User/DepartmentIndex" class="nav-link">
+                    <span class="pcoded-mtext">Department</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" class="nav-link" *ngIf="isManage"
+            (click)="navCollapse($event)">
+            <span class="pcoded-micon">
+                <i class="feather icon-gitlab"></i>
+            </span>
+            Manage
+            <!-- <span class="pcoded-mtext"></span> -->
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/CustomField/ViewCustomFields" class="nav-link">
+                    <span class="pcoded-mtext">Custom Fields</span>
+                </a>
+            </li>
+            <!-- <li class="nav-item">
+                                    <a href="bs-grid.html" class="nav-link">
+                                    <span class="pcoded-mtext">Grid Stack</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="light-box.html" class="nav-link">
+                                    <span class="pcoded-mtext">Light Box</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="modal.html" class="nav-link">
+                                    <span class="pcoded-mtext">Modal</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="notification.html" class="nav-link">
+                                    <span class="pcoded-mtext">Notifications</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="notify.html" class="nav-link">
+                                    <span class="pcoded-mtext">PNOTIFY</span>
+                                    <span class="pcoded-badge label label-info">NEW</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="rating.html" class="nav-link">
+                                    <span class="pcoded-mtext">Rating</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="range-slider.html" class="nav-link">
+                                    <span class="pcoded-mtext">Range Slider</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="slider.html" class="nav-link">
+                                    <span class="pcoded-mtext">Slider</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="syntax-highlighter.html" class="nav-link">
+                                    <span class="pcoded-mtext">Syntax Highlighter</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="tour.html" class="nav-link">
+                                    <span class="pcoded-mtext">Tour</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="treeview.html" class="nav-link">
+                                    <span class="pcoded-mtext">Tree View</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="nestable.html" class="nav-link">
+                                    <span class="pcoded-mtext">Nestable</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="toolbar.html" class="nav-link">
+                                    <span class="pcoded-mtext">Toolbar</span>
+                                </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="x-editable.html" class="nav-link">
+                                    <span class="pcoded-mtext">X-Editable</span>
+                                </a>
+                                </li> -->
+        </ul>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" class="nav-link" *ngIf="isBilling"
+            (click)="navCollapse($event)">
+            <span class="pcoded-micon">
+                <i class="feather icon-package"></i>
+            </span>
+            Billing
+            <!-- <span class="pcoded-mtext"></span> -->
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" *ngIf="isEstimateInvoice" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/Invoice/EstimateInvoice']" class="nav-link">
+                    <span class="pcoded-mtext">Estimate Invoice</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isInvoice" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/Invoice/InvoiceList']" class="nav-link">
+                    <span class="pcoded-mtext">Invoice</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isPayments" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a [routerLink]="['/Invoice/PaymentsIndex']" class="nav-link">
+                    <span class="pcoded-mtext">Payments</span>
+                </a>
+            </li>
+            <li class="nav-item" *ngIf="isItems" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Invoice/Inventory" class="nav-link">
+                    <span class="pcoded-mtext">Items</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <li class="nav-item ">
+        <a class="nav-link" [routerLink]="['CRM','Reports']" *ngIf="isReports">
+            <span class="pcoded-micon">
+                <i class="feather icon-aperture rotate-refresh"></i>
+            </span>
+            <!-- <span class="pcoded-mtext"></span> -->
+            Reports
+        </a>
+    </li>
+
+    <li class="nav-item pcoded-hasmenu">
+        <a href="javascript:void(0)" class="nav-link" *ngIf="isEmail"
+            (click)="navCollapse($event)">
+            <span class="pcoded-micon">
+                <i class="feather icon-package"></i>
+            </span>
+            <!-- <span class="pcoded-mtext"></span> -->
+            Email
+        </a>
+        <ul class="pcoded-submenu">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Email/EmailDashBoard" class="nav-link" *ngIf="isEmailDashBoard">
+                    <span class="pcoded-mtext">Email Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Email/TriggeredCampaigns" class="nav-link"
+                    *ngIf="isTriggeredCampaigns">
+                    <span class="pcoded-mtext">Triggered Campaigns</span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a routerLink="/Email/Lists" class="nav-link" *ngIf="isLists">
+                    <span class="pcoded-mtext">Lists</span>
+                </a>
+            </li>
+
+        </ul>
+    </li>
+
+</ul>
+    
+  
+<!-- <div class="main-menu-header">
+    <img class="img-menu-user img-radius" src="../assets/files/assets/images/avatar-4.jpg" alt="User-Profile-Image">
+    <div class="user-details">
+        <p id="more-details">John Doe<i class="feather icon-chevron-down m-l-10"></i></p>
+    </div>
+</div> -->
+
+<!-- <div class="main-menu-content">
+    <ul>
+        <li class="more-details">
+            <a href="user-profile.html">
+            <i class="feather icon-user"></i>View Profile
+        </a>
+            <a routerLink="/">
+            <i class="feather icon-settings"></i>Settings
+        </a>
+            <a  class="dropdown-item" >
+            <i class="feather icon-log-out"></i>Logout
+        </a>
+        </li>
+    </ul>
+</div> -->
+  
+
+<!-- <div class="pcoded-navigation-label">Navigation</div> -->
+
+<!-- <div class="pcoded-navigation-label">UI Element</div> -->

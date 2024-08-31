@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" style="float: right">
+            <button type="button" (click)="UploadAttachmentFile()" class="btn btn-success btn-round btn-sm  has-ripple waves-effect waves-light"><i class="fa fa-plus-circle pr-1"></i>Add</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+       <div class="table-responsive">
+        <table id="attachmentsTable" class="display table mb-2">
+          <thead>
+              <tr>
+                  <th>Attachment</th>
+                  <th>Download</th>
+                  <th>Delete</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let element of attachmentDomainModel">
+                  <td>{{ element.FilePath }}</td>
+                  <td>
+                      <a href="javascript:void(0)" (click)="DownloadAttachments(element)" class="text-c-green">
+                          Download<i class="fa fa-file-arrow-down pl-1"></i>
+                      </a>
+                  </td>
+                  <td>
+                      <a href="javascript:void(0)" (click)="DeleteAttachments(element)" class="btn btn-danger btn-sm  has-ripple waves-effect waves-light">
+                          <i class="feather icon-trash-2 text-white"></i>
+                      </a>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+<app-ui-modal #modalLarge [dialogClass]="'modal-lg'">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5>Upload Attachment</h5>
+                </div>
+                <button type="button" class="btn btn-light btn-sm  has-ripple waves-effect waves-light float-right "  (click)="close()">
+                    <i class="fa fa-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input type="file" #myuploadInput class="form-control" (change)="getFileDetails($event)" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-footer">
+        <div class="float-right">
+            <div class="form-group">
+                <button type="button" (click)="SaveAttachmentFile()" class="btn btn-sm btn-round waves-effect waves-light btn-success float-right">
+                    <i class="fa fa-save pr-1"></i>Save
+                </button>
+            </div>
+        </div>
+    </div>
+</app-ui-modal>

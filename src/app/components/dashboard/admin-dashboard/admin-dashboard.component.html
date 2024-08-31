@@ -1,0 +1,249 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10"> Admin Dashboard</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Admin Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<app-card   cardTitle="Admin Dashboard">
+    <div>
+        <div>
+
+
+            <div>
+                <!-- [ breadcrumb ] start -->
+                
+                <div class="panel">
+                    <div class="panel-heading1">
+                        <div class="row">
+                            <!-- Page header, center on small screens -->
+                            <h6 class="col-xs-6 col-sm-4  panel-title ml-3">Admin Dashboard</h6>
+
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <!-- <ul class="nav nav-tabs bs-tabdrop-example" id="TabMenu">
+    
+                                <li id="TabDashBoardDetail"><a href="#pvDBoard" data-toggle="tab" >Dashboard</a></li>
+                                <li id="TabSchedular"><a href="#pvSchedular" data-toggle="tab" >Scheduler</a></li>
+                                <li id="TabGraphs"><a href="#pvGraphs" data-toggle="tab">Graphs</a></li>
+                            </ul> -->
+                            <div class="tab-content tab-content-bordered mt-3" >
+                                <div class="tab-pane" id="pvDBoard">
+                                    <div id="divDashBoardPartialView">
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="pvSchedular">
+                                    <div id="divSchedularPartialView">
+
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane" id="pvGraphs">
+                                    <div id="divGraphsPartialView">
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- /.col -->
+
+
+                    <!-- /.col -->
+                    <!-- fix for small devices only -->
+                    <div class="clearfix visible-sm-block"></div>
+
+                    <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6 form-group">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-c-yellow">
+                                <a class="" href="/Leads/LeadsList">
+                                    <img src="assets/images/dashboard/Leads Bg-1.png" class="icons-dashboard">
+                                </a>
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Leads</span>
+                                <span class="info-box-number">{{IsLeads}}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6 form-group">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-c-blue">
+                                <a class="" href="/Opportunities/OpportunitiesList">
+                                    <img src="assets/images/dashboard/Opportunity Bg-2.png" class="icons-dashboard">
+                                </a>
+                            </span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Opportunities</span>
+                                <span class="info-box-number">{{IsOpportunity}}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                </div>
+
+
+                <div class="row" >
+                    <div class="col-xl-4 col-md-6">
+                        <!-- <app-card cardTitle="Bar Chart" >
+                <div #barBasicChart>
+                    <chart id="bar_basic_chart" [type]="'bar'" [data]="barBasicChartData" [options]="barBasicChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+
+
+                    <div class="col-xl-6 col-md-6">
+                        <!-- <app-card cardTitle="Bar [Stacked] Chart" >
+                <div #barStackedChart>
+                    <chart id="bar_stacked_chart" [type]="'bar'" [data]="barBasicStackChartData" [options]="barStackedChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-4 col-md-12">
+                        <!-- <app-card cardTitle="Bar [Horizontal] Chart" >
+                <div #barHorizontalChart>
+                    <chart
+                        id="bar_horizontal_chart"
+                        [type]="'horizontalBar'"
+                        [data]="barBasicChartData"
+                        [options]="barBasicChartOption"
+                    ></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-6 col-md-12">
+                        <!-- <app-card cardTitle="Line Interpolation Mode Chart" >
+                <div #lineIPMChart>
+                    <chart id="line_ipm_chart" [type]="'line'" [data]="lineIPMChartData" [options]="lineIPMChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-6 col-md-12">
+
+                    </div>
+                    <div class="col-xl-6 col-md-12">
+
+                    </div>
+                    <div class="col-xl-6 col-md-12">
+                        <!-- <app-card cardTitle="Area [Fill: end] Chart" >
+                <div #areaFillEndChart>
+                    <chart id="area_fill_end_chart" [type]="'line'" [data]="areaFillEndChartData" [options]="areaBasicChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                        <!-- <app-card cardTitle="Radar [Area] Chart" >
+                <div #areaRadar1Chart>
+                    <chart id="area_radar1_chart" [type]="'radar'" [data]="areaRadar1ChartData" [options]="areaBasicChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                        <!-- <app-card cardTitle="Radar [Area] Chart" >
+                <div #areaRadar2Chart>
+                    <chart id="area_radar2_chart" [type]="'radar'" [data]="areaRadar2ChartData" [options]="areaBasicChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-4 col-md-6">
+                        <!-- <app-card cardTitle="Radar [Area] Chart" >
+                <div #areaRadar3Chart>
+                    <chart id="area_radar3_chart" [type]="'radar'" [data]="areaRadar3ChartData" [options]="areaBasicChartOption"></chart>
+                </div>
+            </app-card> -->
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                        <app-card cardTitle="Leads" >
+
+                            <google-chart [data]="LeadCountByMonthChart" *ngIf="istestChart"></google-chart>
+                            <google-chart [data]="LeadCountByQuarterChart" *ngIf="istestChart"></google-chart>
+                            <!-- <div #pieChart >
+                                <chart id="pie_chart" [type]="'pie'" [data]="CountByMonth"></chart>
+                            </div>
+                            <div #pieChart >
+                                <chart id="pie_chart" [type]="'pie'" [data]="CountByQuater"></chart>
+                            </div> -->
+                        </app-card>
+                    </div>
+                    <!-- <div class="col-xl-6 col-md-6">
+                        <app-card cardTitle="Sales Leads by Sales person Month to Date" >
+                            <div #doughnutChart>
+                                <chart id="doughnut_chart" [type]="'doughnut'" [data]="LstSalesPersoncount"></chart>
+                            </div>
+                        </app-card>
+                    </div> -->
+                    <div class="col-xl-6 col-md-6">
+                        <app-card cardTitle="Sales Leads by Sales person Month to Date" >
+                            <google-chart [data]="SalesChart" *ngIf="istestChart"></google-chart>
+                        </app-card>
+                    </div>
+                    <!-- <div class="col-xl-6 col-md-6">
+                        <app-card cardTitle="Opportunity"  >
+                            <div #pieChart >
+                                <chart id="pie_chart" [type]="'pie'" [data]="Opportunity"></chart>
+                            </div>
+                          
+                        </app-card>
+                    </div> -->
+                    <div class="col-xl-6 col-md-6">
+                        <app-card cardTitle="Opportunity" >
+                            <google-chart [data]="AddReportChart" *ngIf="istestChart"></google-chart>
+
+
+                        </app-card>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</app-card>
+
+<app-card>
+    <div id="chart" style="width: 900px; height: 400px;"></div>
+    </app-card>
+    
+    <app-card>
+    <div id="chart1" style="width: 900px; height: 400px;"></div>
+    </app-card>
+    
+    <app-card>
+        <div id="chart2"  style="width: 400px; height: 300px;"></div>
+      </app-card>
+    
+    
+      <app-card>
+        <div id="chart4"  style="width: 400px; height: 300px;"></div>
+      </app-card>

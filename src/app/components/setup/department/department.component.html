@@ -1,0 +1,91 @@
+
+
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Department List</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Setup</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Department List</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="row btn-page">
+  <div class="col-sm-12">
+    <app-card title="Department List" cardTitle="Department List">
+     <div class="row align-content-center">
+      <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="float-right mb-2">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="DepartmentCrudEventHandler(' ','New')" >
+              <i class="fa fa-plus-circle pr-1"></i>Add New
+            </button>&nbsp;
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light "(click)="DepartmentCrudEventHandler(' ','status')" >
+              <i class="fa fa-exchange pr-1"></i>Change Status
+            </button>
+          </div>
+        </div>
+      </div>
+       
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table #tblDepartment  datatable [dtOptions]="dtOptions"  class="table mb-2" id="tblDepartment">
+        
+              <tbody *ngIf="departmentresult?.length!=0">
+                <tr *ngFor="let dept of departmentresult">
+                  <td>
+                    <input type="checkbox" (change)="activeInActiveToggle($event,dept)">
+                  </td>
+                  <td>
+                    <div *ngIf="dept.DepartmentName; then firstTemplate; else secondTemplate;"></div>
+                    <ng-template #firstTemplate><a href="javascript:void(0)"  (click)="DepartmentCrudEventHandler(dept.DepartmentID,'Edit')">{{dept.DepartmentName}}</a>
+                    </ng-template>
+                    <ng-template #secondTemplate>--</ng-template>
+                  </td>
+                  <td>
+                     {{ dept.Description ? dept.Description: '--' }}
+                  </td>
+                  <td>
+                    <ng-container [ngSwitch]="dept.Status">
+                      <ng-container *ngSwitchCase="'0'">InActive</ng-container>
+                      <ng-container *ngSwitchCase="'1'">Active</ng-container>
+                      <div *ngSwitchDefault>{{ dept.Status }}</div>
+                    </ng-container>
+                  </td>
+                </tr>
+               </tbody>
+               <tbody *ngIf="departmentresult?.length == 0">
+                <tr>
+                  <td colspan="4" class="no-data-available" style="text-align: center;">No data!</td>
+                </tr>
+              <tbody>
+             </table>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+  
+  
+  

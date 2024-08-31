@@ -1,0 +1,374 @@
+<app-card cardTitle="Payment Transaction" title="Payment Transaction" >
+    <form [formGroup]="cardForm" >
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-left">
+                        <h5>Payment Transaction</h5>
+                    </div>
+                    <button type="button" class="  btn btn-light btn-sm btn-round has-ripple waves-effect waves-light float-right " 
+                    data-dismiss="modal" aria-label="Close" >
+                        <i class="fa fa-close"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="col-sm-12">
+                <div class="panel-body">
+                    <div class="row">
+                        <img src="./assets/images/CreditCards.png" />
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Name Of Card Holder :<span></span> </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" formControlName="nameOnCard" name="NameOnCard"
+                                [(ngModel)]="cardData.NameOnCard"
+                                    id="txtNameOnCard" maxlength="45" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Card Number :<span
+                                    class="text-red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="number" formControlName="cardNumber" name="CardNumber"
+                                [(ngModel)]="cardData.CardNumber"
+                                    id="txtCardNumber" maxlength="16" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Expiration Date :<span
+                                    class="text-red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" name="ExpirationDate" id="txtExpirationDate"
+                                [(ngModel)]="cardData.ExpirationDate"
+                                    formControlName="expirationDate" placeholder="MMYY" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">CVV :<span class="text-red">*</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="password" name="CVV" id="txtCVV" maxlength="4" class="form-control" formControlName="cvv" 
+                                [(ngModel)]="cardData.CVV"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Zipcode :<span
+                                    class="text-red">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="number" name="Zipcode" id="txtZipcode" maxlength="6"
+                                [(ngModel)]="cardData.ZipCode"
+                                    class="form-control" required formControlName="zipcode" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-form-label">Amount :</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" id="txtAmount" maxlength="10" readonly class="form-control"
+                                required formControlName="amount"[(ngModel)]="paymentObj.AmountPaid" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- <div class="row"><label _ngcontent-rio-c213="" class="col-form-label col-sm-4"> Name
+                    On Card<span _ngcontent-rio-c213=""></span></label>
+                <div class="col-sm-8">
+                    <input _ngcontent-rio-c213="" type="text" formcontrolname="nameOnCard"
+                        name="NameOnCard" id="txtNameOnCard" maxlength="45"
+                        class="form-control ng-untouched ng-pristine ng-invalid"
+                        ng-reflect-name="nameOnCard" ng-reflect-maxlength="45"
+                        fdprocessedid="u4cxp4">
+                </div>
+            </div> -->
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-12  float-right ">
+                    <input type="button" id="btnSubmit" class="btn btn-sm btn-success" value="Submit" (click)="CreatePaymentMethod()" />
+                </div>
+            </div>
+            <div class="row">
+                <div >
+                    <p>A convenience fee of 3.5 will apply to all credit card transactions.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div>
+                    <label style="font-size:17px;color:forestgreen; width:200px;margin-left:-10px"
+                        class="success text-success" id="lblmsg">{{ successMessage }}</label>
+                    <label style="font-size:17px; color:orangered; width:409px;margin-left:-103px"
+                        class="danger label-danger" id="lblErrormsg">{{ errorMessage }}</label>
+                    <label class="success" id="lblTransId">{{ transactionId }}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-card>
+
+<app-ui-modal>
+    <div class="app-modal-header" #pdftable>
+        <!-- <div class="app-modal-body" #myParagraph> -->
+        <div style="width:640px; margin:auto; padding:15px; background:#fff;">
+            <table class="content-div" width="640" cellpadding="0" cellspacing="0"
+                style="width: 100%; margin: auto; background:#fff;">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" style="line-height: 10px;">
+                            <img src="./assets/images/{{companylogo}}" alt="{{companylogo}}" class="img">
+                            <p style="white-space:nowrap "> {{ model.CompanyName}} </p>
+                            <p style="white-space: nowrap;">{{clientObj.Users.AddressLine1}}</p>
+                            <p style="white-space: nowrap;">{{clientObj.Users.AddressLine2}}</p>
+                            <p style="white-space: nowrap; ">{{clientObj.Users.City}},{{clientObj.Users.StateName}}
+                                {{clientObj.Users.Zipcode}}</p> <br />
+
+                        </td>
+                        <td align="left" valign="top" style="width:80%; padding-left:-40%;">
+                            <table width="100%" style="width:100%;" cellpadding="7" cellspacing="0" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            Invoice Number:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoiceListvm.InvoiceNo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            PO#:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoiceListvm.PurchaseOrder}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            Invoice Date:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoiceListvm.CreatedDate | date: 'MM/dd/yyyy'}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            Terms:
+                                        </td>
+                                        <td width="50%" align="left">{{InvoiceListvm.TermsText}}
+                                            <!-- <select tabindex="14" class="form-control input-sm valid"
+                                                [(ngModel)]="InvoceObj.TermsID">
+
+                                                <option *ngFor="let team of teams" value="{{team.Value}}">{{team.Text}}
+                                                </option>
+                                            </select> -->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            Due Date:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoiceListvm.DueDate | date: 'MM/dd/yyyy'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-bottom: 40px; ">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="left" valign="top" style="font-weight:bold; width:100px;"> Bill To:
+                                        {{billingadrees}}
+                                        <br />
+                                    </td>
+                                    <td align="left" valign="top" style="line-height:10px;">
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+
+                                        <p style="white-space:nowrap "></p>
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <table class="table itemtable">
+
+                        <tr>
+
+                            <th>Item Name </th>
+                            <th>Quantity</th>
+                            <th>Sale Price ($)</th>
+                            <th>Amount&nbsp;($)</th>
+                            <th></th>
+                        </tr>
+
+
+                        <tr *ngFor="let item of InvoiceListvm.Listinvoiceitems;let i=index;">
+
+                            <td>{{item.ItemName}}</td>
+                            <td>{{item.Quantity}}</td>
+                            <td>{{item.RatePerUnit}}</td>
+                            <td>{{item.ItemTotal}}</td>
+                        </tr>
+
+                    </table>
+                    <tr>
+                        <td colspan="2">
+                            <div style="border: 0px solid #ccc; width: 100%; margin-bottom: 30px"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom:15px;" colspan="2">
+                            <div id="dvAmount">
+                                <div style="font-weight:bold; padding-bottom:15px;">
+                                    A&nbsp;convenience&nbsp;fee&nbsp;of&nbsp;3.5%&nbsp;will&nbsp;apply&nbsp;to&nbsp;all&nbsp;credit&nbsp;card&nbsp;transactions.
+                                </div>
+                                <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="right">
+                                                Sub Total Amount:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                ${{InvoiceListvm.InvoiceAmount}}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td align="right">
+                                                Discount:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                ${{InvoiceListvm.Discount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                Tax:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                ${{InvoiceListvm.TaxAmount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td align="right">
+                                                Convenience Fee ($):
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                ${{InvoiceListvm.MiscellaneousAmount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td align="right">
+                                                Total due if paid by credit card:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                ${{InvoiceListvm.GrandTotal}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="padding-top:25px;">
+                                                Total due if paying with any other accepted method:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right"
+                                                style="padding-top:25px;">
+                                                ${{InvoiceListvm.MaterialAmount}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table cellpadding="5" cellspacing="0" border="0" style="width:100%;">
+                                    <tr>
+                                        <td style="padding-top:35px; font-weight:bold;">
+                                            <label id="lblmsg">Click here to Pay Invoice!</label><br />
+                                            <a id="quick_link" style="text-decoration: none !important;"
+                                                href="https://dev.psplhyd.com/CRM/Content/Mail_Templates/QuickPayment.html?{InvoiceID}&{TotalInvAmt}&{BearerToken}&{ApiUser}&{ApiPass}">QuickPayments</a>
+
+                                            <!--<button id="btn_link" value="Click here" onclick="return NewTransactionLink();" />-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="font-weight:bold; padding-top:20px;">
+                                            Please make checks payable to:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left"
+                                            style="line-height: 10px; padding-bottom: 30px;">
+                                            <p style="white-space:nowrap "> {{ model.CompanyName}} </p>
+                                            <p style="white-space: nowrap;">{{clientObj.Users.AddressLine1}}</p>
+                                            <p style="white-space: nowrap;">{{clientObj.Users.AddressLine2}}</p>
+                                            <p style="white-space: nowrap; ">
+                                                {{clientObj.Users.City}},{{clientObj.Users.StateName}}
+                                                {{clientObj.Users.Zipcode}}</p> <br />
+                                            <br /> <br />
+                                        </td>
+                                        <td align="right" valign="top" style="line-height:20px;">
+
+                                            <a >
+                                                <img style="width:300px;height:90px;"
+                                                    src="./assets/images/inugologoorangeinvoice.png" /><br /><br />
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left"
+                                            style="background:#ccc; text-align:center; padding:10px;">
+                                            Thank you for your business!
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</app-ui-modal>

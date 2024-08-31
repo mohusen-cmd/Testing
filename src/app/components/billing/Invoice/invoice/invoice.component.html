@@ -1,0 +1,108 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Invoice List</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Billing</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Invoice List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-card title=" Invoice List" cardTitle=" Invoice List">
+
+  <div class="row btn-page">
+    <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="float-right mb-2">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " [routerLink]="['/Invoice/CreateInvoice']"><i class="fa fa-plus-circle"></i> Create Invoice List
+            </button>&nbsp;
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="Deleteuser()">
+              <i class="icon fa fa-trash"></i> Delete Invoice List
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="table-responsive">
+        <table #tblInv datatable [dtOptions]="dtOptions" class="table mb-2" id="tblInv">
+      
+          <tbody *ngIf="Invlist?.length != 0">
+            <tr *ngFor="let item of Invlist">
+              <td>
+                <input type="checkbox" class="editor-active" (change)="activeInActiveToggle($event, item)">
+              </td>
+              <td>
+                <a href="javascript:void(0)" class="btn btn-danger btn-sm  has-ripple waves-effect waves-light">
+                  <i (click)="deletemsg(item)" class="feather icon-trash-2 text-white"></i>
+                </a>
+                <a href="javascript:void(0)"  class="btn btn-info btn-sm has-ripple waves-effect waves-light">
+                  <i class="feather icon-edit text-white" [routerLink]="['/Invoice/EditInvoice']" [queryParams]="{InvoiceId: item.InvoiceID}"></i>
+                </a>
+              </td>
+              <td><a>{{item.InvoiceNo}}</a></td>
+              <td>{{item.Companyname}}</td>
+              <td>{{item.GrandTotal}}</td>
+              <td><a>{{item.DueDate | date: 'MM/dd/yyyy'}}</a></td>
+              <td>{{item.InvoiceType}}</td>
+              <td>
+                <div *ngIf="item.Posted == 1; then firstTemplate; else secondTemplate"></div>
+                <ng-template #firstTemplate>Email Sent</ng-template>
+                <ng-template #secondTemplate>
+                  <a class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" style="color: #fff;" (click)="ConverttoPost(item.InvoiceID)">
+                    <span></span>Post Invoice
+                  </a>
+                </ng-template>
+              </td>
+              <td>
+                <div *ngIf="item.RecursTerm > 0; then secondTemplateRecurrence; else firstTemplateRecurrence"></div>
+                <ng-template #firstTemplateRecurrence></ng-template>
+                <ng-template #secondTemplateRecurrence>
+                  <a class="btn  btn-sm btn-round has-ripple waves-effect waves-light btn-secondary" style="color: white">
+                    <span></span>Recurrence
+                  </a>
+                </ng-template>
+              </td>
+              <td>
+                <a class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" style="color: white" (click)="OnePointMail(item.CustomerID)">
+                  <span></span>Email
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="Invlist?.length == 0">
+            <tr>
+              <td colspan="11" class="no-data-available">No data!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+
+</app-card>
+
+
+<app-invoicemailing-template  
+[companylogo]="companylogo"
+[model]="model"
+[userDetails]="userDetails"
+[InvoceObj]="InvoceObj"
+[billingaddress]="billingaddress">
+
+</app-invoicemailing-template>

@@ -1,0 +1,139 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Leads</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Company</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Company" cardTitle="Companies" [classHeader]="true">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <app-reusable-text-input
+                                type="text"
+                                placeholder="Keyword"
+                                [(value)]="companykeyword"
+                                required="true"
+                                (valueChange)="onInputChange($event, 'Keyword')"
+                            >
+                            </app-reusable-text-input>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            
+                                <app-reusable-text-input
+                                    type="text"
+                                    placeholder="Company owner"
+                                    [(value)]="ownername"
+                                    required="true"
+                                    (valueChange)="onInputChange($event, 'OwnerName')"
+                                >
+                                </app-reusable-text-input>
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group float-right">
+                            <button type="button" (click)="searchEventHandler()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                                <i class="fa fa-search pr-1"></i>Search
+                            </button>&nbsp;
+                            <button type="button" (click)="clearSeach()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                                <i class="fa fa-eraser pr-1"></i>Clear
+                            </button>&nbsp;
+                            <button type="button" (click)="NavigateImportHistory()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                              <i class="fa fa-anchor pr-1"></i>Import History
+                          </button>&nbsp;
+                          <button type="button" (click)="NavigateImport()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                              <i class="fa fa-upload pr-1"></i>Import
+                          </button>&nbsp;
+                          <button type="button" (click)="NavigateAddNewCompany()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                              <i class="fa fa-plus-circle pr-1"></i>Add New
+                          </button>&nbsp;
+                          <button type="button" (click)="Deleteuser()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                              <i class="fa fa-trash pr-1"></i>Delete
+                          </button>&nbsp;
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)" ></app-alphasearch>
+              </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                      <table #tblCompany datatable [dtOptions]="dtOptions" class="table  mb-2" id="tblCompany">
+                        <tbody *ngIf="companyList?.length != 0">
+                            <tr *ngFor="let company of companyList">
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        *ngIf="company.IsActivity == 0"
+                                        (change)="activeInActiveToggle($event, company)"
+                                    />
+                                    <input type="checkbox" *ngIf="company.IsActivity != 0" disabled />
+                                </td>
+                                <td>
+                                    <a
+                                    class="btn btn-danger btn-sm has-ripple waves-effect waves-light"
+                                        (click)="CompanyDelete(company.CompanyID, 'Delete')"
+                                        href="javascript:void(0)"
+                                        ><i class="feather icon-trash-2 text-white "></i
+                                    ></a>
+                                </td>
+                                <td>
+                                    <a
+                                    class="btn btn-info btn-sm  has-ripple waves-effect waves-light "
+                                        (click)="CompanyCrudEventHandler(company, 'edit')"
+                                        href="javascript:void(0)"
+                                        ><i class="feather icon-edit text-white"></i
+                                    ></a>
+                                </td>
+                                <td>{{ company.CompanyName }}</td>
+                                <td>{{ company.Phone }}</td>
+                                <td>{{ company.Website }}</td>
+                                <td>{{ company.Ownership }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="companyList?.length == 0">
+                            <tr>
+                                <td colspan="7" class="no-data-available " style="text-align: center;">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody></tbody>
+                    </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

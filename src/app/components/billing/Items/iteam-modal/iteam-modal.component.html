@@ -1,0 +1,51 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5>Items List</h5>
+                </div>
+                <button type="button" class=" btn btn-light btn-sm has-ripple waves-effect waves-light float-right" (click)="close()">
+                    <i class="fa fa-close"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="app-modal-body">
+            <div class="col-sm-12">
+                <div class="page-body">
+                    <div class="table-responsive">
+                        <table #tblitem datatable [dtOptions]="dtOptions" class="table mb-2" id="tblitem">
+                            <tbody *ngIf="itemslist?.length != 0">
+                                <tr *ngFor="let item of itemslist">
+                                  <td> <input type="checkbox" class="editor-active" >
+                                  </td>
+                                  <td> <a href="javascript:void(0)"  class=" btn btn-danger btn-sm  has-ripple waves-effect waves-light"  ><i  class="feather icon-trash-2 text-white" title="Delete"></i></a></td>
+                                    <td><a >{{item.ItemCode}}</a></td>
+                                    <td><div [ngSwitch]="item.ItemTypeID">
+                                      <div *ngSwitchCase="'1'">Inventory</div>
+                                      <div *ngSwitchCase="'2'">Non Inventory</div>
+                                      <div *ngSwitchCase="'3'">Service</div>
+                                      <div *ngSwitchDefault></div>
+                                    </div>
+                                    </td>
+                                    <td><a href="javascript:void(0)" (click)="emititem(item)">{{ item.ItemName }}</a></td>
+                                    <td>{{ item.RateperUnit }}</td>
+                                    <td>{{ item.Saleprice }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="itemslist?.length == 0">
+                              <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                              </tr>
+                            <tbody>
+                        </table>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</ng-template>

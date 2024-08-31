@@ -1,0 +1,170 @@
+<div class="page-header">
+    <div class="page-block">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-header-title">
+            <h5 class="m-b-10">Add Item</h5>
+          </div>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html">
+                <i class="feather icon-home"></i>
+              </a>
+            </li>
+            <li class="breadcrumb-item">
+              <a>Billing</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a>Items</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Add Item</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<app-card title="Add Item" cardTitle="Add Item">
+
+    
+
+    <form [formGroup]="IteamsForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-right mb-3">
+                    <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" type="submit">
+                        <i class="fa fa-save pr-1"></i>Save</button>&nbsp;
+                    <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" 
+                    [routerLink]="['/Invoice/Inventory']">
+                    <i class="fa fa-backward pr-1"></i>Back</button>
+                </div>
+            </div>
+        </div>
+        <app-card cardTitle="Item Details">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Item/Part # :<span style="color: red;">*
+                                </span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="ItemCode"
+                                    [ngClass]="{'is-invalid':submitted && f.ItemCode.errors || !f.ItemCode.valid && f.ItemCode.touched && f.ItemCode.errors}"
+                                    [(ngModel)]="iteamsdetails.ItemCode">
+                                    <div *ngIf="submitted && f['ItemCode'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['ItemCode'].errors?.['required']" style="font-size: 13px;">ItemCode is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Item Type :<span style="color: red;">*
+                                </span></label>
+                                <div class="input-group">
+                                    <select type="text" class="form-control" formControlName="ItemType"
+                                    [ngClass]="{'is-invalid':submitted && f.ItemType.errors || !f.ItemType.valid && f.ItemType.touched && f.ItemType.errors}"
+                                    [(ngModel)]="iteamsdetails.ItemTypeID">
+                                    <option *ngFor="let item of itemtypes" value="{{item.Value}}">{{item.Text}}</option>
+                                    </select>
+                                    <div *ngIf="submitted && f['ItemType'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['ItemType'].errors?.['required']" style="font-size: 13px;">ItemType is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Item Name:<span style="color: red;">*
+                                </span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="ItemName"
+                                    [ngClass]="{'is-invalid':submitted && f.ItemName.errors || !f.ItemName.valid && f.ItemName.touched && f.ItemName.errors}"
+                                    [(ngModel)]="iteamsdetails.ItemName">
+                                    <div *ngIf="submitted && f['ItemName'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['ItemName'].errors?.['required']" style="font-size: 13px;">ItemName is required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">SKU :</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="SKU" [(ngModel)]="iteamsdetails.Sku">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Cost/Unit :<span style="color: red;">*
+                                </span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="RateperUnit"
+                                    [ngClass]="{'is-invalid':submitted && f.RateperUnit.errors || !f.RateperUnit.valid && f.RateperUnit.touched && f.RateperUnit.errors}"
+                                    [(ngModel)]="iteamsdetails.RateperUnit">
+                                    <div *ngIf="submitted && f['RateperUnit'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['RateperUnit'].errors?.['required']" style="font-size: 13px;">RateperUnit is
+                                            required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Sales Price :<span style="color: red;">*
+                                </span></label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="SalesPrice"
+                                    [ngClass]="{'is-invalid':submitted && f.SalesPrice.errors || !f.SalesPrice.valid && f.SalesPrice.touched && f.SalesPrice.errors}"
+                                    [(ngModel)]="iteamsdetails.Saleprice">
+                                    <div *ngIf="submitted && f['SalesPrice'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['SalesPrice'].errors?.['required']" style="font-size: 13px;">SalesPrice is
+                                            required
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="col-form-label">Description :</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" formControlName="Description"
+                                    [(ngModel)]="iteamsdetails.Description">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 d-flex">
+                            <div class="col-sm-2">
+                                <input type="radio" [value]="true" formControlName="Active"
+                                    [(ngModel)]="iteamsdetails.Active">
+                                <label class="col-form-label pl-2">Active</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input type="radio" [value]="false" formControlName="Active" 
+                                [(ngModel)]="iteamsdetails.Active">
+                                <label class="col-form-label pl-2">In-Active</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </form>
+</app-card>
+
+
+
+

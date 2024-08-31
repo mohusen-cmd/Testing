@@ -1,0 +1,64 @@
+<!-- <div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Access Menus Setup</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Setup</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Access Menus Setup</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div> -->
+<div class="row btn-page">
+  <div class="col-sm-12">
+    <app-card [title]="'Access Menu Setup'" cardTitle="Access Menu Setup">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-12 ">
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right" type="button" 
+                (click)="Savemenuvalues()"><i class="fa fa-save pr-1"></i>Save</button>
+            </div>
+            
+            <!-- <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light btn-table" type="button" style="float: right;" (click)="Cancelmenuvalues()"><i
+                class="fa fa-trash-o"></i>Cancel</button> -->
+          </div>
+          <div class="row">
+            <div class="col-sm-12 d-flex">
+              <label class="col-form-label pr-2">Role :</label>
+              <select class="form-control" name="rolename" [(ngModel)]="roledetails.RoleId" 
+                style="width: 200px;" (change)="onddlChange($event.target.value)" >
+                <!-- <option value="0">Select Role</option> -->
+                  <option *ngFor="let type of roledetails.lstRoles " value={{type.RoleId}}>
+                    {{type.RoleName}}
+                  </option>
+                </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <p-tree  class="role-tree-view" [value]="files" selectionMode="checkbox" [(selection)]="selectedFiles" (onNodeSelect)="nodeSelect($event)" 
+                (onNodeUnselect)="nodeUnselect($event)" ></p-tree>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+

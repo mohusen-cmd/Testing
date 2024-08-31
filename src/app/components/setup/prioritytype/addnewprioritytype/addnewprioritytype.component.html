@@ -1,0 +1,92 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Create New Priority Type Details</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Setup</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>User Roles</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a>Create New Priority Type Details</a>
+                    </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="priorityTypeForm" (ngSubmit)="OnPrioritytypeSubmit(prioritytypedetails)" novalidate>
+  
+        <app-card cardTitle="{{priorityType}} Priority Type" title="{{priorityType}} Priority Type" [cardClass]="'task-card'">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="float-right mb-3" >
+                <button type="submit" *ngIf="showbtn" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-save pr-1">
+                </i>{{titleOfbtn}}</button>&nbsp;
+                <button type="submit" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" 
+                (click)="backtoPriorityTypePage()"><i class="fa fa-backward pr-1">
+                </i>Back</button>
+              </div>
+            </div>
+          </div>
+         
+          <div class="row form-group">
+            <div class="col-sm-2">
+              <label class="col-form-label">Name:<span style="color:red;">*</span></label>
+            </div>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <input type="text" formControlName="name" [(ngModel)]="prioritytypedetails.PriorityName"
+                  class="form-control"
+                  [ngClass]="{ 'is-invalid': submitted && f.name.errors || !f.name.valid && f.name.touched && f.name.errors  }" />
+                <div *ngIf="f.name.errors?.required" class="invalid-feedback"> Name is required</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-2">
+              <label class="col-form-label">Status :</label>
+            </div>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <select class="form-control" name="Status" [(ngModel)]="prioritytypedetails.Status"
+                  formControlName="active">
+                  <option value="1">Active</option>
+                  <option value="0">In-Active</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-2">
+              <label class="col-form-label">Notes : </label>
+            </div>
+            <div class="col-sm-10">
+              <div class="input-group">
+                <textarea class="form-control" rows="5" id="Notes" name="Notes"
+                  [(ngModel)]="prioritytypedetails.Description" formControlName="description"></textarea>
+              </div>
+            </div>
+          </div>
+         
+        </app-card>
+  
+      </form>
+    </div>
+</div>

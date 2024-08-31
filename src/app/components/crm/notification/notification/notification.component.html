@@ -1,0 +1,83 @@
+
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="NotificationsList" cardTitle="NotificationsList" [classHeader]="true">
+            <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive">
+                    <table datatable [dtOptions]="dtOptions" class="table  mb-2">
+                      <tbody *ngIf="notifications?.length != 0">
+                          <tr *ngFor="let notification of notifications">
+                              <ng-container *ngIf="notification.StatusID == 1; else second">
+                                  <ng-container *ngIf="notification.daysdiff < 0">
+                                      <td>
+                                          <a
+                                              style="cursor: pointer"
+                                              (click)="ContactCrudEventHandler(contact.ContactID, 'view')"
+                                              href="javascript:void(0)"
+                                              ><label class="label label-danger">{{ notification.Name }}</label>
+                                          </a>
+                                      </td>
+                                  </ng-container>
+                                  <ng-container *ngIf="notification.daysdiff >= 0">
+                                      <td>
+                                          <a
+                                              style="cursor: pointer"
+                                              (click)="ContactCrudEventHandler(contact.ContactID, 'view')"
+                                              href="javascript:void(0)"
+                                              ><label class="label label-primary">{{ notification.Name }}</label>
+                                          </a>
+                                      </td>
+                                  </ng-container>
+                              </ng-container>
+                              <ng-template #second>
+                                  <ng-container *ngIf="notification.StatusID == 2; else third">
+                                      <td>
+                                          <a
+                                              style="cursor: pointer"
+                                              (click)="OpenNotificationDetail(contact.ContactID, 'view')"
+                                              href="javascript:void(0)"
+                                              ><label class="label label-warning">{{ notification.Name }}</label>
+                                          </a>
+                                      </td>
+                                  </ng-container>
+                              </ng-template>
+                              <ng-template #third>
+                                  <td>
+                                      <a
+                                          style="cursor: pointer"
+                                          (click)="OpenNotificationDetail(notification.ActivityID, notification.AccountTypeID)"
+                                          href="javascript:void(0)"
+                                          ><label  class="label label-warning badge  badge-success ">{{
+                                              notification.Name
+                                          }}</label>
+                                      </a>
+                                  </td>
+                              </ng-template>
+                              <td>{{ notification.DueDate | date : 'dd/MM/yyyy' }}</td>
+                              <td>{{ notification.PriorityName }}</td>
+                              <td>{{ notification.StatusName }}</td>
+                              <td>{{ notification.Subject }}</td>
+                              <td>{{ notification.ContactName }}</td>
+                              <td>{{ notification.CompanyName }}</td>
+                              <td>{{ notification.Phone }}</td>
+                              <td>{{ notification.Email }}</td>
+                              <td>{{ notification.AccountTypeName }}</td>
+                          </tr>
+                      </tbody>
+                      <tbody *ngIf="notifications?.length == 0">
+                          <tr>
+                              <td colspan="12" class="no-data-available" style="text-align: center;">No data!</td>
+                          </tr>
+                      </tbody>
+
+                      <tbody></tbody>
+                  </table>
+                  </div>
+                    
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

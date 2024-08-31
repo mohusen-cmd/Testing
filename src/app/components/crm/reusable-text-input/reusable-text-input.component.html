@@ -1,0 +1,41 @@
+<div>
+  <label *ngIf="label">{{ label }}</label>
+  <ng-container [ngSwitch]="type">
+    <input 
+      *ngSwitchCase="'text'"
+      [type]="type" 
+      [placeholder]="placeholder" 
+      [(ngModel)]="value"
+      [required]="required"
+      (ngModelChange)="onValueChange($event)"
+      class="form-control"
+    />
+    <input 
+      *ngSwitchCase="'password'"
+      [type]="type" 
+      [placeholder]="placeholder" 
+      [(ngModel)]="value"
+      [required]="required"
+      (ngModelChange)="onValueChange($event)"
+      class="form-control"
+    />
+    <input 
+      *ngSwitchCase="'email'"
+      [type]="type" 
+      [placeholder]="placeholder" 
+      [(ngModel)]="value"
+      [required]="required"
+      (ngModelChange)="onValueChange($event)"
+      class="form-control"
+    />
+    <select 
+      *ngSwitchCase="'select'" 
+      [(ngModel)]="value" 
+      [required]="required" 
+      (ngModelChange)="onValueChange($event)"
+      class="form-control"
+      >
+      <option *ngFor="let option of options" [value]="option.value">{{ option.label }}</option>
+    </select>
+  </ng-container>
+</div>

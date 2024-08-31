@@ -1,0 +1,139 @@
+<!-- <button mat-raised-button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" onclick="window.print()">Print</button>
+<button mat-raised-button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" style="margin-left:2px" (click)="export()">Export
+    as
+    Excel</button> -->
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-sm-12">
+                <form [formGroup]="SignUpFrom">
+                <div class="row mt-3">
+                    <div class="col-sm-3">
+                        <button  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="print()"><i class="fa fa-print pr-1"></i>Print</button>&nbsp;
+                        <button  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="exportAsExcel()"><i class="fa fa-file-excel pr-1"></i>Export as Excel</button>
+                        
+                    </div>
+                   <div class="col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="startDate" class="col-form-label">Start Date :</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="date" id="startDate" name="startDate" [(ngModel)]="startDate" formControlName="startDate" (input)="TostartDate($event)"
+                                    class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label for="endDate" class="col-form-label">End Date :</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <input type="date" id="endDate" name="endDate" formControlName="endDate" [(ngModel)]="endDate" (input)="ToEndDate($event)"
+                                    class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <label class="col-form-label">Status By Name :</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select  class="form-control"  [(ngModel)]="StatusID" formControlName="StatusID">
+                                        <option *ngFor="let option of drpList" [value]="option.ID">
+                                            {{ option.StatusName }}</option>
+                                            <option [value]="0">Please Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   </div>
+                    <div class="col-sm-1">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right" type="button" 
+                        (click)="onSubmit()" ><i class="fa fa-search pr-1"></i>Search</button>
+                    </div>
+                </div>
+            </form>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row justify-content-center mt-2">
+                            <h5>Activity By Status Report</h5>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-6 text-right">
+                                <label><b>From :</b> {{startDate | date:'MM-dd-yyyy'}}</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <label><b>To :</b> {{endDate | date:'MM-dd-yyyy'}}</label>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div #TABLE  class="table-responsive">
+                            <table class="table  mb-2">
+                                <ag-grid-angular style="height: 500px" class="ag-theme-alpine" [gridOptions]="gridOptions" [rowData]="rowData" 
+                                [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"   (gridReady)="onGridReady($event)">
+                                </ag-grid-angular>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    <!-- <mat-card>
+        <mat-card-header>
+            <mat-card-title>Activity By Status Report</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        Date Picker Input Field
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker1" placeholder="StartDate" [(ngModel)]="startDate"
+                                (ngModelChange)="TostartDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        Date Picker Input Field
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker2" placeholder="EndDate" [(ngModel)]="endDate"
+                                (ngModelChange)="ToEndDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field>
+                            <mat-label> StatusName</mat-label>
+                            <mat-select [(value)]="StatusID">
+                                <mat-option *ngFor="let option of drpList" [value]="option.ID">
+                                    {{ option.StatusName }}
+                                </mat-option>
+    
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        
+                    </div>
+    
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card> -->

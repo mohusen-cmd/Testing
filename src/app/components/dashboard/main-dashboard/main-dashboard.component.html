@@ -1,0 +1,172 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Main Dashboard</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Main Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<app-card cardTitle="Dashboard">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="md-tabs">
+                <ul ngbNav #navPills="ngbNav" class="nav-pills"  [activeId]="activeItemId">
+                    <li [ngbNavItem]="1">
+                        <a ngbNavLink>Main Dashboard</a>
+                        <ng-template ngbNavContent>
+                            <div class="panel">
+                                <div class="panel-heading1">
+                                    <div class="row">
+                                        <!-- Page header, center on small screens -->
+                                        <h6 class="col-xs-6 col-sm-4  panel-title ml-3">Main Dashboard</h6>
+
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <!-- <ul class="nav nav-tabs bs-tabdrop-example" id="TabMenu">
+                
+                                            <li id="TabDashBoardDetail"><a href="#pvDBoard" data-toggle="tab" >Dashboard</a></li>
+                                            <li id="TabSchedular"><a href="#pvSchedular" data-toggle="tab" >Scheduler</a></li>
+                                            <li id="TabGraphs"><a href="#pvGraphs" data-toggle="tab">Graphs</a></li>
+                                        </ul> -->
+                                        <div class="tab-content tab-content-bordered mt-3" >
+                                            <div class="tab-pane" id="pvDBoard">
+                                                <div id="divDashBoardPartialView">
+
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="pvSchedular">
+                                                <div id="divSchedularPartialView">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane" id="pvGraphs">
+                                                <div id="divGraphsPartialView">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6 form-group">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-c-yellow">
+                                            <a routerLink="/CRM/Leads/LeadsList">
+                                                <img src="assets/images/dashboard/Leads Bg-1.png" class="icons-dashboard">
+                                            </a>
+                                        </span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Leads</span>
+                                            <span class="info-box-number">{{IsLeads}}</span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+
+                                    <!-- /.info-box -->
+                                </div>
+                               
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6  form-group">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-c-green">
+                                            <a routerLink="/CRM/ManageCompany/CompaniesList">
+                                                <img src="assets/images/dashboard/Company Bg-2.png" class="icons-dashboard">
+                                            </a>
+                                        </span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Companies</span>
+                                            <span class="info-box-number">{{Companies}}</span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+                               
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6 form-group">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-c-brown">
+                                            <a routerLink="/CRM/Contact/ContactList">
+                                                <img src="assets/images/dashboard/Contact Bg-1.png" class="icons-dashboard">
+                                            </a>
+                                        </span>
+
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Contacts</span>
+                                            <span class="info-box-number">{{IsContact}}</span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+                                
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xl-3 col-xs-6 form-group">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-c-blue">
+                                            <a class="" routerLink="/CRM/Opportunities/OpportunitiesList">
+                                                <img src="assets/images/dashboard/Opportunity Bg-2.png" class="icons-dashboard">
+                                            </a>
+                                        </span>
+
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Opportunities</span>
+                                            <span class="info-box-number">{{IsOpportunity}}</span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-6 col-md-6" *ngFor="chartOptions of chartOptions;let i=index">
+                                    <app-card cardTitle="{{chartOptions[i].title}}" >
+                                        <div id="chart">
+                                            <apx-chart [series]="chartOptions[i].series" [chart]="chartOptions[i].chart"
+                                                [labels]="chartOptions[i].labels"
+                                                [responsive]="chartOptions[i].responsive"></apx-chart>
+                                        </div>
+                                    </app-card>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+
+                    <li [ngbNavItem]="2">
+                        <a ngbNavLink>Scheduler</a>
+                        <ng-template ngbNavContent>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <app-eventcalendar></app-eventcalendar>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </li>
+                </ul>
+                <div [ngbNavOutlet]="navPills" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+
+</app-card>

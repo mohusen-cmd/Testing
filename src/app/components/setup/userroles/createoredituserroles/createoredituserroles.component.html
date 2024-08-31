@@ -1,0 +1,109 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Create New User Roles Details</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Setup</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>User Roles</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a>Create New User Roles Details</a>
+                    </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<form [formGroup]="userroleTypeForm" (ngSubmit)="f.form.valid && OnUserRoleSubmit(userroledetails)" #f="ngForm"
+  novalidate>
+
+  <div class="row" id="Newid">
+
+    <div class="col-sm-12">
+      <app-card cardTitle=" {{UseroleType}} User Roles Details" title="User Roles Details" [blockClass]="'button-list'" [cardOptionBlock]="true">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="float-right mb-3">
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" type="submit" 
+              *ngIf="showbtn"><i class="fa fa-save pr-1">
+              </i>{{titleOfbtn}}</button>&nbsp;
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"
+              (click)="backtoUserroleTypePage()"><i class="fa fa-backward pr-1">
+              </i>Back</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="col-form-label">RoleName :</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <!-- <label>RoleName:<span style="color:red;">*</span></label> -->
+              <input type="text" formControlName="name" [(ngModel)]="userroledetails.RoleName" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="col-form-label">Status :</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <select class="form-control" name="Status" [(ngModel)]="userroledetails.Status" formControlName="active">
+                <option value="">--Select--</option>
+                <option value="1">Active</option>
+                <option value="0">InActive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="col-form-label">Notes :</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="input-group">
+              <textarea class="form-control" [(ngModel)]="userroledetails.Description" formControlName="description" rows="4"
+                name="Notes"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label class="col-form-label">Grant Master Permission :</label>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <div class="input-group mt-3">
+              <input type="checkbox" [(ngModel)]="userroledetails.SwitchPermission" formControlName="checkbox" >
+            </div>
+          </div>
+        </div>
+      </app-card>
+    </div>
+  </div>
+</form>

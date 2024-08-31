@@ -1,0 +1,82 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Company Type List</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Setup</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Company Type List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form>
+<div class="btn-page">
+  <div class="col-sm-12">
+    <app-card [title]="'Company Type List'" cardTitle="Company Type List" [classHeader]="true">
+      <div class="row align-content-center">
+        <div class="col-sm-12 ">
+        <div  class="row form-group float-right">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light btn-table" type="button"
+              (click)="companytypeCrudEventHandler(' ','New')" ><i class="fa fa-circle-plus pr-1"></i>Add New</button>&nbsp;
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light btn-table" type="button"
+              (click)="companytypeCrudEventHandler(' ','status')"><i class="fa fa-exchange pr-1"></i>Change Status</button>&nbsp;
+          </div>
+        </div>
+      </div>
+     
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="table mb-2">
+
+              <tbody *ngIf="companytypes?.length != 0">
+                <tr *ngFor="let companytype of companytypes">
+                  <td> <input type="checkbox"  class="editor-active" (change)="activeInActiveToggle($event,companytype)"> </td>
+                  <td><a href="javascript:void(0)" mdbRippleRadius
+                    (click)="companytypeCrudEventHandler(companytype.ID,'Edit')">{{ companytype.Name }}</a></td>
+                  <td>{{ companytype.Description }}</td>
+                  <td>{{ companytype.ActiveStatus }}</td>
+  
+                  <!-- <td>
+                    <a href="javascript:void(0)" mdbRippleRadius
+                      (click)="companytypeCrudEventHandler(companytype.ID,'View')"><i class="fa fa-search"
+                        style="color:#337ab7;" title="View"></i></a>&nbsp;&nbsp; 
+                    <a href="javascript:void(0)" mdbRippleRadius
+                      (click)="companytypeCrudEventHandler(companytype.ID,'Edit')"><i class="fa fa-pencil"
+                        style="color:#008e26;" title="Edit"></i></a>&nbsp;&nbsp;
+                  
+                  </td> -->
+                </tr>
+              </tbody>
+              <tbody *ngIf="companytypes?.length == 0">
+                <tr>
+                  <td colspan="4" class="no-data-available" style="text-align: center;"> No data!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+ 
+  </form>
+
+ 

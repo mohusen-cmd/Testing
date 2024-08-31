@@ -1,0 +1,114 @@
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row mt-3">
+                <div class="col-sm-3">
+                    <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="print()"><i class="fa fa-print pr-1"></i>Print</button>
+                    &nbsp;
+                    <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="export()"><i class="fa fa-file-export pr-1"></i>Export as Excel</button>
+                </div>
+                <div class="col-sm-8">
+                    <form [formGroup]="SignUpFrom" (ngSubmit)="onSubmit()" >
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="startDate" class="col-form-label">Start Date :</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="date" id="startDate" name="startDate" formControlName="startDate" [(ngModel)]="startDate"
+                                        class="form-control">
+                                    </div>
+                                     <!-- <mat-form-field appearance="fill">
+                                        <mat-label>Start date</mat-label>
+                                        <input matInput [matDatepicker]="picker" name="startDate" formControlName="startDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field> -->
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-4" >
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="endDate" class="col-form-label">End Date :</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input type="date" id="endDate" name="endDate" formControlName="endDate"  [(ngModel)]="endDate" class="form-control">
+                                    </div>
+                                    <!-- <mat-form-field appearance="fill">
+                                        <mat-label>End date</mat-label>
+                                        <input matInput [matDatepicker]="picker1" name="endDate" formControlName="endDate">
+                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker1></mat-datepicker>
+                                    </mat-form-field> -->
+                                </div>
+                              
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Opportunity SourceID:</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" [(ngModel)]="OppurtunitySourceID" formControlName="OppurtunitySourceID">
+                                            <option *ngFor="let option of drpList" [value]="option.OSId">
+                                                {{ option.SourceName }}</option>
+                                                <option [value]="0"> Please Select </option>
+                                        </select>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-1">
+                    <button mat-raised-button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right" (click)="onSubmit()">
+                        <i class="fa fa-search pr-1"></i>Search
+                    </button>
+                </div>
+            </div>
+            <div class="row bg-white" >
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row justify-content-center mt-2">
+                                <h5>Opportunity By Opportunity Source</h5>
+                            </div>
+                            <div class="row justify-content-center">
+                               
+                                    <label><b>From :</b> {{startDate | date:'MM-dd-yyyy'}}</label>
+                               
+                                    <label class="pl-2"><b>To :</b> {{endDate | date:'MM-dd-yyyy'}}</label>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="float-left"><b>Generated By:</b> {{userName | titlecase}}</p>
+                       
+                            <p class="float-right"><b>Date:</b> {{myDate | date:'MM-dd-yyyy' }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div  #TABLE class="table-responsive ">
+                                <table class="table  mb-2">
+                                    <ag-grid-angular style=" height: 500px" class="ag-theme-alpine" [gridOptions]="gridOptions"
+                                        [rowData]="rowData" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" >
+                                        (gridReady)="onGridReady($event)"
+                                        (firstDataRendered)="onFirstDataRendered($event)"
+                                    </ag-grid-angular>
+                                </table>
+			                </div>
+                        </div>
+                    </div>
+			        
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

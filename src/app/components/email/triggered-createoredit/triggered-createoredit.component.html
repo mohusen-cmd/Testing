@@ -1,0 +1,856 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Triggered Campaign</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Email</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Triggered Campaigns</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Create Triggered Campaign</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="'Triggered Campaigns'" [blockClass]="'tab-icon'" cardTitle="Create Triggered Campaign">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    
+                    <mat-horizontal-stepper linear #stepper>
+                        <mat-step Choose Template>
+                            <form>
+                                <ng-template matStepLabel>
+                                    <h5>Step 1</h5>
+                                    <span>Choose Template</span>
+                                </ng-template>
+                            </form>
+                            
+                            <mat-tab-group (selectedTabChange)="tabChangedEvent($event)">
+                                <mat-tab label="Lead" id="tab-Lead">
+                                    <a (click)="divclick('lead1','createlead')">
+                                        <div class="card m-10">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="panel panel-default">
+                                                            <div class="tempHeder form-group" [innerHtml]="divLeadsView">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </mat-tab>
+                               
+                                <mat-tab label="Contact" id="tab-Contact">
+                                    <a (click)="divclick('lead1','createcontact')">
+                                        <div class="card m-10">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="panel panel-default">
+                                                            <div class="tempHeder form-group" [innerHtml]="divLeadsView">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </mat-tab>
+
+                                <mat-tab label="Opportunity" id="tab-Opportunity">
+                                    <a (click)="divclick('lead1','createoppertunity')">
+                                        <div class="card m-10">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="panel panel-default">
+                                                            <div class="tempHeder form-group" [innerHtml]="divLeadsView">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </mat-tab>
+                            </mat-tab-group>
+                            <div class="row justify-content-center my-3">
+                                <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" 
+                                (click)="goForward(stepper)">Use Template</button>
+                            </div>
+                            <a (click)="divclick('lead2','createlead')">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="tempHeder form-group" [innerHtml]="divDoitView"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </mat-step>
+
+                        <mat-step label="Step 2 Edit Campaign">
+                            <ng-template matStepLabel>
+                                <form>
+                                    <h5> Step 2</h5>
+                                    <span>Edit Campaign </span>
+                                </form>
+                            </ng-template>
+                            <ul ngbNav #navPills="ngbNav" class="nav-pills mt-3" >
+                                <li [ngbNavItem]="1">
+                                    <a ngbNavLink>Campaign Info</a>
+                                    <ng-template ngbNavContent>
+                                        <form [formGroup]="companyindustryForm"
+                                            (ngSubmit)="goForwardselectlist(stepper)" novalidate>
+                                            <app-card [title]="'Edit Campaign Content'">
+                                                <div class="md-tabs">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label"> Campaign Name :<span
+                                                                            style="color:red">*</span></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                             <!-- <input type="text" class="form-control" [(ngModel)]="userDetails.CampaignName" formControlName="campaignname"> -->
+                                                                            <input type="text" class="form-control"
+                                                                    (change)="CampaignNameExists($event.target.value)"
+                                                                    formControlName="campaignname"
+                                                                    [(ngModel)]="userDetails.CampaignName"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.campaignname.errors || !f.campaignname.valid && f.campaignname.touched && f.campaignname.errors  }">
+                                                                <div *ngIf="submitted && f.campaignname.errors"
+                                                                    class="invalid-feedback"></div>
+                                                                <div *ngIf="f.campaignname.errors?.required"
+                                                                    class="invalid-feedback">Campaign Name is
+                                                                    required
+                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                               
+                                                                
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label">Campaign
+                                                                            Description:</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                             
+                                                                <input type="text" class="form-control"
+                                                                name="Description"
+                                                                [(ngModel)]="userDetails.CampaignDescription"
+                                                                formControlName="campaigndescription">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label">Subject: <span
+                                                                            style="color:red">*</span></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+
+                                                                        <div class="input-group">
+                                                                            <!-- <input type="text" class="form-control"  [(ngModel)]="userDetails.SubjectLine" formControlName="subject"> -->
+                                                                            <input type="text" formControlName="subject"
+                                                                            [(ngModel)]="userDetails.SubjectLine"
+                                                                            class="form-control"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.subject.errors || !f.subject.valid && f.subject.touched && f.subject.errors  }" />
+                                                                        <div *ngIf="f.subject.errors?.required"
+                                                                            class="invalid-feedback"> Subject is
+                                                                            required
+                                                                        </div>
+        
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                
+                                                                
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label">Form Name :<span
+                                                                            style="color:red">*</span></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                             <!-- <input type="text" class="form-control" [(ngModel)]="userDetails.FromName" formControlName="formName"> -->
+                                                                            <input type="text" formControlName="formName"
+                                                                            [(ngModel)]="userDetails.FromName"
+                                                                            class="form-control"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.formName.errors || !f.formName.valid && f.formName.touched && f.formName.errors  }" />
+                                                                            <div *ngIf="f.formName.errors?.required"
+                                                                                class="invalid-feedback"> From Name is
+                                                                                required
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label">From Mail:<span
+                                                                            style="color:red">*</span></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                            <select class="form-control" name="Frommail"
+                                                                            [(ngModel)]="userDetails.FromEmailAddress"
+                                                                            formControlName="fromMail"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.fromMail.errors || !f.fromMail.valid && f.fromMail.touched && f.fromMail.errors  }">
+                                                                                <option value="0">--Please Select--</option>
+                                                                                <option *ngFor="let type of editcompaingnlist"
+                                                                                    value={{type.Email}}>
+                                                                                    {{type.Email}}
+                                                                                </option>
+                                                                            </select>
+                                                                            <div *ngIf="f.fromMail.errors?.required"
+                                                                                class="invalid-feedback"> Select From Mail
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label">To Mail:</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                            <select class="form-control"
+                                                                            [(ngModel)]="userDetails.ReplyToEmailAddress"
+                                                                            formControlName="toMail">
+                                                                                <option value="0">--Please Select--</option>
+                                                                                <option *ngFor="let type of editcompaingnlist"
+                                                                                    value={{type.Email}}>
+                                                                                    {{type.Email}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group float-right">
+                                                                
+                                                                        <button type="button"
+                                                                            (click)="divclick('lead1','createlead')"
+                                                                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                                                                            <i class="fa fa-eye pr-1">
+                                                                            </i>Preview
+                                                                        </button>&nbsp;
+                                                                        <button type="submit" 
+                                                                            (ngclick)="saveasdraft()"
+                                                                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-save pr-1"></i>Save as Draft
+                                                                        </button>&nbsp;
+                                                                        <button type="submit"  
+                                                                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-list pr-1"></i>Select List
+                                                                        </button>
+                                                                   
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </app-card>
+
+                                        </form>
+                                        <input type="hidden" [(ngModel)]="userDetails.camp_ID"
+                                            value="{{editcompaingnlist1.camp_ID}}" />
+                                        <input type="hidden" [(ngModel)]="userDetails.Temp_ID"
+                                            value="{{editcompaingnlist1.Temp_ID}}" />
+                                        <input type="hidden" [(ngModel)]="userDetails.ScheduledDatetime"
+                                            value="{{editcompaingnlist1.ScheduledDatetime}}" />
+                                        <input type="hidden" [(ngModel)]="userDetails.status"
+                                            value="{{editcompaingnlist1.Status}}" />
+                                        <input type="hidden" [(ngModel)]="userDetails.Template_name"
+                                            value="{{editcompaingnlist1.Template_name}}" />
+
+                                        <input type="hidden" [(ngModel)]="userDetails.Cc"
+                                            value="{{editcompaingnlist1.Cc}}" />
+                                        <input type="hidden" [(ngModel)]="userDetails.Bcc"
+                                            value="{{editcompaingnlist1.Bcc}}" />
+
+                                    </ng-template>
+                                <li [ngbNavItem]="2">
+                                    <a ngbNavLink>HTML Text</a>
+                                    <ng-template ngbNavContent>
+                                        <app-card>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="panel panel-default">
+                                                        <app-tinymce (click)="onfocus($event)"
+                                                            [(ngModel)]="divLeadsView"></app-tinymce>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </app-card>
+                                    </ng-template>
+                                </li>
+                                <li [ngbNavItem]="3">
+                                    <a ngbNavLink>Plain Text</a>
+                                    <ng-template ngbNavContent>
+                                        <app-card cardTitle="">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" 
+                                                            [(ngModel)]="txtPLAINAreaEditor" rows="10">
+                                                        </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </app-card>
+                                        
+                                    </ng-template>
+                                </li>
+
+                            </ul>
+                            <div [ngbNavOutlet]="navPills" class="mt-2"></div>
+                        </mat-step>
+
+                        <mat-step #step3>
+
+                            <ng-template matStepLabel>
+                                <form>
+                                    <h5> Step 3</h5>
+                                    <span>Select List(s) </span>
+                                </form>
+                            </ng-template>
+                            <div class="row mt-3">
+                                <div class="col-sm-5">
+                                    <app-card [title]="'CAMPAIGN DETAILS'" cardTitle="CAMPAIGN DETAILS">
+                                        <div class="row d-flex">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label"><b> Campaign Name :</b>
+                                                </label>
+                                                <label class="col-form-label  pl-3">{{userDetails.CampaignName}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label"><b>Campaign
+                                                    Description :</b> </label>
+                                                <label  class=" col-form-label  pl-3">{{userDetails.CampaignDescription}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label"><b>Subject Line
+                                                    :</b> </label>
+                                                <label class="col-form-label  pl-3">{{userDetails.SubjectLine}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class=" col-form-label"><b>From Name
+                                                    :</b> </label>
+                                                <label class=" col-form-label  pl-3">{{userDetails.FromName}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label"> <b>From Email
+                                                    Address :</b> </label>
+                                                <label
+                                                class=" col-form-label text-right pl-3">{{userDetails.FromEmailAddress}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class=" col-form-label"><b>Reply To
+                                                    Email Address :</b> </label>
+                                                <label
+                                                class=" col-form-label  pl-3">{{userDetails.ReplyToEmailAddress}}</label>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                </div>
+                                <div class="col-sm-7">
+                                    <app-card [title]="'Select List(s)'" cardTitle="Select List(s)">
+                                        
+                                        <mat-tab-group #tabGroup (selectedTabChange)="tabChangedEvent($event)" >
+                                          
+                                            <mat-tab label="Lists" [disabled]="isCheckedlist" >
+                                            
+                                                <ul class="list-unstyled mt-2 ml-3">
+                                                    <li>
+                                                        <input type="checkbox" class="editor-active "
+                                                            [checked]="isLeadsChecked"
+                                                            (change)="activeInActiveToggleList($event.target.checked,'Leads')">
+                                                        <label class="pl-2">Leads</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="checkbox" class="editor-active"
+                                                            [checked]="isContactChecked"
+                                                            (change)="activeInActiveToggleList($event.target.checked,'Contacts')">
+                                                        <label class="pl-2">Contacts</label>
+                                                    </li>
+                                                    <li>
+                                                        <input type="checkbox" class="editor-active"
+                                                            [checked]="isopperChecked"
+                                                            (change)="activeInActiveToggleList($event.target.checked,'Opportunities')">
+                                                        <label class="pl-2">Opportinities</label>
+                                                    </li>
+                                                </ul>
+                                            
+
+                                            </mat-tab>
+                                        
+                                            <mat-tab label="Saved Lists" [disabled]="isChecked" >
+                                            
+                                                <table mat-table [dataSource]="dataSource" class="table  mb-2 ">
+                                                    <!-- Checkbox Column -->
+                                                    <ng-container matColumnDef="select">
+                                                        <th mat-header-cell *matHeaderCellDef mat-sort-header="select">
+                                                            <input type="checkbox"
+                                                                (change)="$event ? masterToggle() : null"
+                                                                [checked]="selection.hasValue() && isAllSelected()"
+                                                                [indeterminate]="selection.hasValue() && !isAllSelected()" />
+
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let row;let i=index"
+                                                            (click)="$event.stopPropagation()">
+                                                            <input type="checkbox" (click)="$event.stopPropagation()"
+                                                                [checked]="row.IsCheck"
+                                                                (change)="onChecked(row, $event.target.checked,i)">
+                                                        </td>
+                                                    </ng-container>
+
+                                                    <!-- Position Column -->
+                                                    <ng-container matColumnDef="position">
+                                                        <th mat-header-cell *matHeaderCellDef>List
+                                                                Name</th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.list_name}} </td>
+                                                    </ng-container>
+
+                                                    <!-- Name Column -->
+                                                    <ng-container matColumnDef="name">
+                                                        <th mat-header-cell *matHeaderCellDef>Target
+                                                                Audience</th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.target_audience}} </td>
+                                                    </ng-container>
+
+                                                    <!-- Weight Column -->
+                                                    <ng-container matColumnDef="weight">
+                                                        <th mat-header-cell *matHeaderCellDef>
+                                                            Description
+                                                        </th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.description}} </td>
+                                                    </ng-container>
+
+                                                    <!-- Symbol Column -->
+                                                    <ng-container matColumnDef="symbol">
+                                                        <th mat-header-cell *matHeaderCellDef>Number of Contacts</th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            {{element.number_of_contacts}} </td>
+                                                    </ng-container>
+
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                                        (click)="selection.toggle(row)">
+                                                    </tr>
+
+                                                </table>
+                                            </mat-tab>
+                                            
+                                        </mat-tab-group>
+                                        <div class="row ">
+                                            <div class="col-sm-12">
+                                                <div class="float-right mb-3 mt-3 mr-1">
+                                                    <button type="button" matStepperPrevious 
+                                                        class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-edit pr-1">
+                                                        </i>Edit Campaign
+                                                    </button>&nbsp;
+                                                    <button type="button" (click)="saveasdraft()" 
+                                                        class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-save pr-1"></i>Save as Draft
+                                                    </button>&nbsp;
+                                                    <button type="button" 
+                                                        class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="GetListCount(stepper)"
+                                                        [disabled]="!isChecked &&  !isCheckedlist  ? true : false"><i class="fa fa-calendar pr-1">
+                                                        </i>Schedule
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                </div>
+                            </div>
+
+                        </mat-step>
+                        <mat-step>
+
+                            <ng-template matStepLabel>
+                                <form>
+                                    <h5> Step 4</h5>
+                                    <span>Schedule </span>
+                                </form>
+                            </ng-template>
+                            <div class="row mt-3">
+                                <div class="col-sm-5">
+                                    <app-card [title]="'CAMPAIGN DETAILS'" cardTitle="CAMPAIGN DETAILS">
+                                        <div class="row ">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class=" col-form-label"><b>Campaign Name :</b> </label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.CampaignName}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-form-label"><b>Campaign Description :</b> </label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.CampaignDescription}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class=" col-form-label"> <b>Subject Line :</b> </label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.SubjectLine}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-form-label"><b>From Name :
+                                                        </b></label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.FromName}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class=" col-form-label"> <b>From Email Address :</b> </label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.FromEmailAddress}}</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-form-label"><b>Reply To EmailAddress :</b> </label>
+                                                        <label class=" col-form-label pl-3">{{userDetails.ReplyToEmailAddress}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </app-card>
+                                </div>
+                                <div class="col-sm-7">
+                                    <app-card [title]="'Schedule Campaign'" cardTitle="Schedule Campaign">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="radio radiofill radio-inline">
+                                                            <input type="radio" name="Schedule"
+                                                                    (change)="Radio('immediately')" />
+                                                            <label class="pl-2">
+                                                                Send immediately
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="radio radiofill radio-inline">
+                                                            <input type="radio" name="Schedule" (change)="Radio('Schedule')">
+                                                            <label class="pl-2"> Schedule Send
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label>Your message will be sent on the date and time you specify:</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control date1 form-group" type="text"
+                                                            [(ngModel)]="Schedule.immediately" />
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control date1" type="date"
+                                                            [(ngModel)]="Schedule.schedule" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                    <div class="row ">
+                                        <div class="col-sm-12">
+                                            <div class="float-right mr-1">
+                                                <button type="button" matStepperPrevious 
+                                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                                                    <i class="fa fa-list pr-1"></i>Select List
+                                                </button>&nbsp;
+                                                <button type="button" (click)="saveasdraft()" 
+                                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-save pr-1"></i>Save as Draft
+                                                </button>&nbsp;
+                                                <button type="button" 
+                                                    (click)="UpdateCampaignSendType(stepper)" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-send pr-1"></i>Confirm and Send
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <app-card [title]="'LIST DETAILS'" cardTitle="LIST DETAILS">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b>List Name :</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="userDetails.UserType">{{userDetails.UserType}}</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="ListDetailInfoModel.userType">{{ListDetailInfoModel.userType}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label
+                                                class="col-form-label"><b>Contacts :</b></label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="ListDetailInfoModel.numberOfContact">{{ListDetailInfoModel.numberOfContact}}</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="userDetails.number_of_contacts">{{userDetails.number_of_contacts}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                </div>
+                            </div>
+
+
+
+                        </mat-step>
+                        <mat-step label="Confirm and Send">
+                            <ng-template matStepLabel>
+                                <form>
+                                    <h5> Step 5</h5>
+                                    <span>Confirm and Send </span>
+                                </form>                                
+                            </ng-template>
+                            <div class="row mt-3">
+                                <div class="col-sm-6">
+                                    <app-card cardTitle="CAMPAIGN DETAILS">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b> Campaign Name :</b></label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label">{{userDetails.CampaignName}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b>Campaign Description :</b> </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label">{{userDetails.CampaignDescription}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"> <b>Subject Line :
+                                                </b></label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label  class=" col-form-label">{{userDetails.SubjectLine}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b>From Name :</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label">{{userDetails.FromName}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class=" col-form-label"> <b>From Email Address :</b> </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label">{{userDetails.FromEmailAddress}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class=" col-form-label"><b>Reply To EmailAddress :</b> </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label
+                                                class=" col-form-label">{{userDetails.ReplyToEmailAddress}}</label>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                </div>
+                                <div class="col-sm-6">
+                                    <app-card [title]="'LIST DETAILS'" cardTitle="LIST DETAILS">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b>List Name :</b> </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="userDetails.UserType">{{userDetails.UserType}}</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class="col-form-label"
+                                                    *ngIf="ListDetailInfoModel.userType">{{ListDetailInfoModel.userType}}</label>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class=" col-form-label"><b>Contacts :</b> 
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="ListDetailInfoModel.numberOfContact">{{ListDetailInfoModel.numberOfContact}}</label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label class=" col-form-label"
+                                                    *ngIf="userDetails.number_of_contacts">{{userDetails.number_of_contacts}}</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                    <app-card [title]="' SCHEDULE DELIVERY'" cardTitle="SCHEDULE DELIVERY">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="col-form-label"><b>Schedule :</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class=" col-form-label">
+                                                    Send {{Schedule.immediately}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </app-card>
+                                    <div class="row ">
+                                        <div class="col-sm-12">
+                                            <div class="float-right mr-1">
+                                                <button type="button" (click)="divclick('testmail', '')" 
+                                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-send pr-1">
+                                                    </i>Send Test Mail
+                                                </button>&nbsp;
+                                                <button type="button" (click)="ConformToSendDetails()" 
+                                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-send pr-1">
+                                                    </i>Confirm and send
+                                                </button>&nbsp;
+                                                <button type="button" matStepperPrevious 
+                                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-calendar pr-1">
+                                                    </i>Schedule
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </div>
+            </div>
+            
+            
+        </app-card>
+    </div>
+</div>
+
+
+
+<!-- email-receipt.component.html -->
+
+
+<app-viewtriggeredpopup *ngIf="ShowAdvanceSearchModal" (status)='saveStatus($event)'
+    (emailmethod)='ConformToSendDetails()' [viewone]='divLeadsView' [viewtwo]='divDoitView' [show1]="show1"
+    [show2]="show2" [show3]="show3" [Modeltitle]='Modeltitle'>
+</app-viewtriggeredpopup>

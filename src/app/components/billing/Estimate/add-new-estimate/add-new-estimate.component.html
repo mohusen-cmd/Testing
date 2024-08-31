@@ -1,0 +1,437 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Estimate Invoice </h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Billing</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Estimate Invoice</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Create Estimate Invoice</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-card cardTitle="Create Estimate Invoice Detail" title="Create Estimate Invoice Detail">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="float-right mb-3">
+                <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light "  (click)="onSave()"><i class="fa fa-save pr-1"></i> Save</button>&nbsp;
+                <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="NavEstDetails()"> <i class="fa fa-backward pr-1"></i>Back</button>
+            </div>
+        </div>
+    </div>
+
+    <app-card cardTitle="Estimate Invoice">
+
+    
+        <!-- <ng-container>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h6 class="col-xs-6 col-sm-4 text-left text-left-sm panel-title"><i
+                            class="fa fa-user page-header-icon"></i> Estimate Invoice</h6>
+                </div>
+            </div>
+        </ng-container> -->
+
+        <form [formGroup]="EstmateForm">
+            <div class="panel-body">
+                <ng-container >
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label">Customer Name :<span style="color: red">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group ">
+                                                    <input type="text" class="form-control " [(ngModel)]="estInvoicedetails.Fname"
+                                                    [ngClass]="{'is-invalid':submitted && f.fname.errors || !f.fname.valid && f.fname.touched && f.fname.errors}" formControlName="fname" >
+                                                    <div class="input-group-append">
+                                                        <button class="input-group-text btn-msg-send" type="button" (click)="ShowCompanyModal=true">
+                                                            <i class="fas fa-search"></i>
+                                                        </button>
+                                                    </div>
+                                                    <div *ngIf="submitted && f['fname'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f.fname.errors?.required" style="font-size: 13px;">Customer Name is
+                                                            required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label">Select Customer :<span style="color: red">*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group ">
+                                                    <select type="text" class="form-control " 
+                                                        [(ngModel)]="estInvoicedetails.Email"
+                                                        formControlName="email">
+                                                        <option value="null">select</option>
+                                                        <option *ngFor="let contactlist of contactdetailslist?.AccountObj | keyvalue"
+                                                            [value]="contactlist.value.Email">{{contactlist.value.Name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                               <label class="col-form-label">Bill To :</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group"  
+                                                *ngIf="(billingadrees!=null)">
+                                                    <textarea [value]="billingadrees" formControlName="billingadrees" 
+                                                    class="form-control" rows="8"></textarea>
+                                                </div>
+                                                <div  *ngIf="(billingadrees==null)">
+                                                    <p>empty</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <input type="checkbox" (change)="onBilltoShiping($event.target.checked)">
+                                                <label for="acceptTerms" class="pl-2 mt-2">Copy Billing to
+                                                    Shipping</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="col-form-label">Ship To :</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <textarea [value]="shippingaddress" formControlName="shippingaddress"
+                                                    class="form-control" rows="8"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-sm-4" >
+                            <div class=" mb-1 ">
+                                <h4 class="text-center">Estimate</h4>
+                            </div>
+                            <div  style="border:1px solid #ccc;">
+                                <div class="form-group d-flex mt-2">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Estimate Number :</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="input-group">
+                                            <input class="input-sm form-control" 
+                                            type="text" readonly
+                                            formControlName="estInvoiceNo"
+                                            [(ngModel)]="estInvoicedetails.EstInvoiceNo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group d-flex">
+                                    <div class="col-sm-6">
+                                        <label class="col-form-label">Date :<span style="color: red">*</span></label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div >
+                                            <mat-form-field appearance="fill">
+                                                <mat-label>Choose a date</mat-label>
+                                                <input matInput [matDatepicker]="picker" formControlName="createdDate"
+                                                    [(ngModel)]="estInvoicedetails.CreatedDate">
+                                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row mt-2">
+                    <div class="col-sm-12">
+                        <div class="table-responsive">
+                            <table  class="table table-bordered  mb-2">
+                                <thead>
+                                    <tr>
+                                        <th>Item/Part #</th>
+                                        <th>Description <span style="color: red">*</span></th>
+                                        <th>Quantity <span style="color: red">*</span></th>
+                                        <th>Sale Price ($)</th>
+                                        <th>Total Amount ($)</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control inpur-sm" [(ngModel)]="form.ItemCode"
+                                                formControlName="itemcode">
+                                        </td>
+                                        <td >
+                                            <div class="input-group" >
+                                                <input placeholder="Select Item" class="form-control inpur-sm"
+                                                    formControlName="itemName" type="text"
+                                                    [(ngModel)]="form.ItemName">
+                                                <span class="input-group-append">
+                                                    <a class="input-group-text"
+                                                        (click)="ShowItemsModal=true">
+                                                        <i class="fa fa-search"></i>
+                                                    </a>
+                                                </span>
+    
+                                            </div>
+                                        </td>
+    
+                                        <td>
+                                            <input class="form-control inpur-sm calcamount clsMax"
+                                                (blur)="onTotal()" [(ngModel)]="form.Quantity"
+                                                formControlName="quantity">
+                                        </td>
+                                        <td>
+                                            <input class="form-control inpur-sm calcamount" (blur)="onTotal()" [(ngModel)]="form.RatePerUnit"
+                                                formControlName="ratePerUnit">
+    
+                                        </td>
+                                        <td><input class="form-control inpur-sm sumtot" (blur)="onTotal()"
+                                                formControlName="itemTotal"  type="text"
+                                                [(ngModel)]="form.ItemTotal">
+                                        </td>
+    
+                                        <td>
+                                            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light "
+                                                 type="button"(click)="Addform()">
+                                                 <i class="fa fa-plus-circle pr-1"></i>Add
+                                            </button>
+                                        </td>
+                                    </tr>
+    
+                                </tbody>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let item of  estInvoicedetails.ListEstimateitems; let i =index;">
+                                        <td>{{item.ItemCode}}</td>
+                                        <td>{{item.ItemName}}</td>
+                                        <td>{{item.Quantity}}</td>
+                                        <td>{{item.RatePerUnit}}</td>
+                                        <td>{{item.ItemTotal}}</td>
+                                        <td>
+                                            <!-- <button class="editClinicIcon"><i (click)="editClinic(item)" class="fa fa-edit"></i></button>&nbsp;&nbsp; -->
+                                            <button class="btn btn-sm  btn-danger" type="button" (click)="delete(item,i)">
+                                            <i class="fa fa-trash pr-1"></i>Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="float-left">
+                                                    <h5>Items List</h5>
+                                                </div>
+                                                <button type="button" class="  btn btn-light btn-sm btn-round has-ripple waves-effect waves-light float-right "  data-dismiss="modal" aria-label="Close" ><i class="fa fa-close"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-sm-12">
+                                            <div class="page-body">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-2 mb-3 border-bottom ml-1 mr-1">
+                    <div class="col-sm-8 offset-sm-4">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Sub Total Amount ($) :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input class="form-control text-right" formControlName="total"
+                                    [(ngModel)]="estInvoicedetails.Total" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Discount (%) :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input class="form-control form-group text-right"
+                                            type="text" #discountpercent
+                                            formControlName="discountpercent"
+                                            (change)="onDiscountAmount($event.target.value)"
+                                            [(ngModel)]="estInvoicedetails.DiscountPercent">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input class="form-control text-right acceptdecimal"
+                                            formControlName="discount" [(ngModel)]="estInvoicedetails.Discount" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Tax (%) :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input class="form-control form-group text-right " maxlength="6"
+                                            [(ngModel)]="estInvoicedetails.TaxPercent" #taxparcent
+                                            formControlName="taxparcent" (change)="onTaxAmount($event.target.value)" type="text">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input class="form-control text-right" formControlName="taxAmount"
+                                            [(ngModel)]="estInvoicedetails.TaxAmount"  type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Total Invoice
+                                (payable by check or cash) :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input class="form-control text-right" formControlName="materialamount"
+                                    (change)="MaterialAmount(discountpercent.value)"
+                                    [(ngModel)]="estInvoicedetails.MaterialAmount" 
+                                    type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label class="col-form-label" >Convenience :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input class="form-control form-group text-right" #miscellaneouspercent
+                                            (change)="MiscellaneousPercent($event.target.value)"
+                                            formControlName="miscellaneouspercent"
+                                            [(ngModel)]="estInvoicedetails.MiscellaneousPercent" 
+                                            type="text">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input class="form-control text-right "
+                                            formControlName="miscellaneousamount"
+                                            [(ngModel)]="estInvoicedetails.MiscellaneousAmount" 
+                                            type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <label class="col-form-label">Total Invoice ($) (payable by Credit Card) :</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <input class="form-control text-right"
+                                        formControlName="grandTotal" [(ngModel)]="estInvoicedetails.GrandTotal" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-4" style="margin-left:100px">
+                            <label
+                                class="col-form-label col-sm-9">Service&nbsp;Fee&nbsp;for&nbsp;CreditCard&nbsp;Transaction
+                                &nbsp;(%):</label>
+                            <input type="text" class="col-sm-3" id="txtService" name="ServiceFee" placeholder="3.5"
+                                readonly="readonly" style="text-align:right" width="20%">
+                        </div> -->
+                    </div>
+                </div>           
+            </div>
+        </form>
+
+        <app-card cardTitle="Notes">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-tinymce></app-tinymce>
+                </div>
+            </div>
+        </app-card>
+
+    </app-card>
+
+</app-card>
+
+
+<app-iteam-modal *ngIf="ShowItemsModal" (itemmodelstatus)="onmodallistrecive($event)"
+    (status)="saveStatus($event)"></app-iteam-modal>
+<app-company-model *ngIf="ShowCompanyModal" (companylistmodalstatus)="oncompanylistmodalstatus($event)"
+    (status)="saveStatus($event)"></app-company-model>
+<app-onepoint-mailingtemplate  
+            [companylogo]="companylogo"
+            [model]="model"
+            [userDetails]="userDetails"
+            [estInvoicedetails]="estInvoicedetails"
+            [billingaddress]="billingadrees"></app-onepoint-mailingtemplate>

@@ -1,0 +1,160 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Import Companies </h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Company</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Import Companies</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="'Import Company'" cardTitle="Import Companies" [blockClass]="'tab-icon'">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <mat-horizontal-stepper #stepper>
+                        <mat-step [stepControl]="firstFormGroup">
+                            <form [formGroup]="firstFormGroup">
+                                <ng-template matStepLabel>
+                                    <h5> Step 1</h5>
+                                    <span>Upload csv data file</span>
+                                </ng-template>
+                                <div class="row mt-2">
+                                    <div class="col-sm-12">
+                                        <label>
+                                            Download Sample File :<span style="color:red">* </span>
+                                            <a href="assets/ImportCompanies.csv" download>Click
+                                                Here</a>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-sm-12">
+                                        <label>Import File</label>
+                                        <input type="file" #myuploadInput
+                                        formControlName="fileCtrl" (change)="getFileDetails($event)" required class="pl-2">
+                                    </div>
+                                </div>
+                               
+                                <div class="row mt-2">
+                                    <div class="col-sm-12">
+                                        <button type="button" [disabled]='disabledfile' 
+                                            (click)="ImportFile()"  mat-button matStepperNext
+                                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right"><i class="fa fa-upload pr-1"></i>Preview & Import
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+
+                        <mat-step>
+                            <form>
+                                <ng-template matStepLabel>
+                                    <h5> Step 2</h5>
+                                    <span>Preview and confirm import</span>
+                                </ng-template>
+                                <diV class="table-responsive mt-2"  >
+                                    <table id="tblPreviewCompany" class="table  mb-2 " *ngIf="showtable" datatable [dtOptions]="dtOptions" >
+                                        <thead>
+                                            <tr>
+                                                <th *ngFor="let header of  headerColumnNames">{{header}}</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody *ngIf="ImportFiledata?.length != 0">
+                                            <tr *ngFor="let Item of ImportFiledata">
+                                                <td *ngFor="let headerName of headerColumnNames"> {{Item[headerName]}}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                        <tbody *ngIf="ImportFiledata?.length == 0">
+                                            <tr>
+                                                <td class="text-center mt-2 mb-2">
+                                                    <b>No Data Found</b></td>
+                                            </tr>
+                                        <tbody>
+                                    </table>
+                                </diV>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="text-center mb-2 mt-2  float-right">
+                                            <button type="button" (click)="ImportCompany()"       matStepperNext class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                                                <i class="fa fa-download pr-1"></i>Import
+                                            </button>&nbsp;
+                                            <button type="button" matStepperPrevious 
+                                                (click)="BackFunction()"class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                                                <i class="fa fa-backward pr-1">
+                                                </i>Back
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="table-responsive">
+                                            <table id="selectStackBody" class="table  mb-2 ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Actual Fields</th>
+                                                        <th>Excel Sheet Fields to be Mapped</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let columnnames of ActualColumnNames">
+                                                        <td>{{columnnames.ColumnNames}}</td>
+                                                        <td>
+                                                            <div >
+                                                                <select class="form-control"
+                                                                    name="{{columnnames.ColumnNames}}"
+                                                                    [(ngModel)]="columnnames.SelectedColumnName">
+                                                                    <option value="">--Please Select--</option>
+                                                                    <option *ngFor="let columns of dynamicColumnams"
+                                                                        value={{columns.title}}>
+                                                                        {{columns.title}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:"
+                                                                (click)="RemoveMapping(columnnames)" class="RemoveMapping text-c-red">
+                                                                <span class="btn-label icon  fa   fa-trash-o"> </span>
+                                                                Remove Mapping
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

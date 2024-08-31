@@ -1,0 +1,87 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Create New Campaign Email Details</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Setup</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>User Roles</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a>Create New Campaign Email Details</a>
+                    </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form [formGroup]="CampaignemailForm" (ngSubmit)="OnCampaignemailSubmit(Emaildetails)" novalidate>
+      
+      <app-card cardTitle="{{EmailType}} Campaign Email" title="{{EmailType}} Campaign Email"  [cardClass]="'task-card'">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="float-right mb-3">
+              <button type="submit" *ngIf="showbtn" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-save pr-1">
+              </i>{{titleOfbtn}}</button>&nbsp;
+              <button type="submit"  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="backtocampaignemailPage()"><i class="fa fa-backward pr-1">
+              </i>Back</button>
+            </div>
+          </div>
+        </div>
+          
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <label class="col-form-label">Name:</label>
+          </div>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input type="text" formControlName="name" [(ngModel)]="Emaildetails.Name" class="form-control" />
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <label class="col-form-label">Status :</label>
+          </div>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <select class="form-control" name="Status" [(ngModel)]="Emaildetails.Active" formControlName="active">
+                <option value="1">Active</option>
+                <option value="0">In-Active</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row form-group">
+          <div class="col-sm-2">
+            <label class="col-form-label">Email :<span style="color:red;">*</span> </label>
+          </div>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <input type="text" formControlName="email" [(ngModel)]="Emaildetails.Email" class="form-control"
+                [ngClass]="{ 'is-invalid': submitted && f.email.errors || !f.email.valid && f.email.touched && f.email.errors  }" />
+              <div *ngIf="f.email.errors?.required" class="invalid-feedback"> Email is required</div>
+            </div>
+          </div>
+        </div>
+        
+      </app-card>
+
+    </form>
+  </div>
+</div>

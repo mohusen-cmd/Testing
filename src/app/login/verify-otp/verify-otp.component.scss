@@ -1,0 +1,62 @@
+/* your-component.component.css */
+
+.background-container {
+    background-image: url('/assets/images/body-bg.jpg');
+    /* Adjust the path as needed */
+    background-size: cover;
+    /* Adjust as needed */
+    background-position: center center;
+    /* Adjust as needed */
+    background-repeat: no-repeat;
+    height: 100vh;
+    /* Set the desired height */
+    /* Add other styles as needed */
+}
+
+/* Add styles for your component content if necessary */
+/* popup.component.css */
+
+.param {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+   
+    text-align: center;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 10px;
+    z-index: 100;
+    font-size: 18px;
+    /* To hide popup initially */
+    border: 4px solid #08336e;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #3b60b3;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    background-color: black ! important;
+    color: white;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.btn.btn-success.btn-block {
+    position: absolute;
+    top: 50%;
+    color: white;
+    color: white;
+    margin-top: 15%;
+    width: 20%;
+    margin-left: 35%;
+}
+
+.ViewPopup {
+    text-align: center;
+    color: #0044a1;
+    font-size: 16px;
+}

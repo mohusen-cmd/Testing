@@ -1,0 +1,867 @@
+<nav class="pcoded-navbar menu-light ">
+    <div class="navbar-wrapper"> 
+        <div class="navbar-content ">
+            <ul class="nav pcoded-inner-navbar">
+                <li class="nav-item" >
+                    <a href="#" class="nav-link" ><span class="pcoded-micon">
+                      <i class="fa-solid fa-user "></i></span>
+                      <span class="pcoded-mtext">Client Manager</span>
+                    </a>
+                </li>  
+                <!-- <li class="nav-item pcoded-hasmenu" >
+                <a href="#" class="nav-link" ><span class="pcoded-micon">
+                    <i class=" "></i></span>
+                    <span class="pcoded-mtext"></span>
+                </a>
+                    <ul class="pcoded-submenu" >
+                        <li><a href="#"></a></li>
+
+                        </ul>
+                </li>   -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<header class="navbar pcoded-header navbar-expand-lg navbar-light header-blue">
+    <div class="m-header">
+      <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+      <a href="#!" class="b-brand">
+        <!-- <img src="../assets/images/images1.png" alt="" class="img-fluid"> -->
+      </a>
+      <a href="#!" class="mob-toggler">
+        <i class="feather icon-more-vertical"></i>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li>
+            <div class="dropdown drp-user">
+                <a _ngcontent-egc-c212="" ngbdropdowntoggle="" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="false">
+                    <a _ngcontent-egc-c212="" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle user-menu"><span _ngcontent-egc-c212="" style="cursor: pointer;">Super Admin<i class="fa-solid fa-chevron-right  pl-2"></i></span>
+                    </a>
+                  </a>
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span>Super Admin<i class="fa-solid fa-chevron-right  pl-2"></i></span>
+                  <span class="ripple ripple-animate" style="height: 50px; width: 50px; background: rgb(255, 255, 255); opacity: 0.4; top: 3px; left: -7px;"></span>
+                </a> -->
+                <div class="dropdown-menu dropdown-menu-right profile-notification"
+                style="cursor: pointer;">
+                  <ul class="pro-body">
+                    <li><button  class="dropdown-item"><i class="feather icon-log-out">
+                    </i>Log Out</button></li>
+                  </ul>
+                </div>
+            </div>
+        </li>
+      </ul>
+    </div>
+</header>
+
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-sm-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Create New Client</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html">
+                                    <i class="feather icon-home"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a >Client Manager</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a >Create New Client</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-card [title]="'actionName'" cardTitle="{{actionName}}">
+            <form [formGroup]="registerForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="float-right mb-3">
+                            <ng-container *ngIf="ClientViewModel.ClientNumber== 0;else bsave">
+                                <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="OnClientSubmit()"><i class="fa fa-save pr-1">
+                                </i>Save</button>&nbsp;
+                            </ng-container>
+                            <ng-template #bsave>
+                                <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="OnClientSubmit()"><i class="fa fa-save pr-1">
+                                </i>Update</button>&nbsp;
+                            </ng-template>
+                            <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"
+                                [routerLink]="['/admin']"><i class="fa fa-backward pr-1"></i>Back</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <app-card [title]='"Client Detail"' cardTitle="{{ClientDetail}}">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label"> Client ID :<span
+                                            style="color: red;">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <ng-container *ngIf="ClientViewModel.ClientNumber==0;else clientId">
+                                                <input type="text" class="form-control" formControlName="clientId"
+                                                    (change)="CheckDbExists($event.target.value)"
+                                                    [(ngModel)]="ClientViewModel.ClientID"
+                                                    [ngClass]="{'is-invalid':submitted && f.clientId.errors || !f.clientId.valid && f.clientId.touched && f.clientId.errors} ">
+                                            </ng-container>
+                                            <ng-template #clientId>
+                                                <input type="text" class="form-control" formControlName="clientId"
+                                                    [(ngModel)]="ClientViewModel.ClientID" disabled="true"
+                                                    (change)="CheckDbExists($event.target.value)"
+                                                    [ngClass]="{'is-invalid':submitted && f.clientId.errors || !f.clientId.valid && f.clientId.touched && f.clientId.errors}">
+                                            </ng-template>
+                                            <div *ngIf="submitted && f['clientId'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['clientId'].errors['required']"
+                                                    style="color: red;font-size: 15px;">ClientID is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Company Name :<span
+                                            style="color: red;">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="companyName"
+                                            [(ngModel)]="ClientViewModel.CompanyName"
+                                            [ngClass]="{'is-invalid':submitted && f.companyName.errors || !f.companyName.valid && f.companyName.touched && f.companyName.errors}">
+                                            <div *ngIf="submitted && f['companyName'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['companyName'].errors['required']"
+                                                    style="color: red;font-size: 15px;">CompanyName is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Company Type :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="companyType"
+                                            [(ngModel)]="ClientViewModel.CompanyType">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Company WebSite :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="companyWebsite"
+                                            [(ngModel)]="ClientViewModel.CompanyWebsite"
+                                            [ngClass]="{'is-invalid':submitted && f.companyWebsite.errors || !f.companyWebsite.valid && f.companyWebsite.touched && f.companyWebsite.errors}">
+                                            <div *ngIf="submitted && f['companyWebsite'].errors"
+                                                class="invalid-feedback">
+                                                <div 
+                                                    *ngIf="f['companyWebsite'].errors['required']">Company Website is required
+                                                </div>
+                                                <div *ngIf="f['companyWebsite'].errors?.['pattern']"
+                                                    style="font-size: 15px;color: red;">
+                                                    Company Website is invalid
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Authentication Key :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="authKey" readonly
+                                            [(ngModel)]="ClientViewModel.AuthKey"
+                                            [ngClass]="{'is-invalid':submitted && f.authKey.errors || !f.authKey.valid && f.authKey.touched && f.authKey.errors}">
+                                            <div *ngIf="submitted && f['authKey'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['authKey'].errors['required']">AuthKey is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Company Logo <span
+                                            style="color: red"> {{ClientViewModel.CompanyLogo}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="file"  formControlName="companyLogo"
+                                            [(ngModel)]="ClientViewModel.CompanyLogo"
+                                            (change)="ChangeCompanyLogo($event)"
+                                            [ngClass]="{'is-invalid':submitted && f.companyLogo.errors || !f.companyLogo.valid && f.companyLogo.touched && f.companyLogo.errors}">
+                                            <div *ngIf="submitted && f['companyLogo'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['companyLogo'].errors['required']">CompanyLogo is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input id="checkbox18" type="checkbox" formControlName="sendApiDetail">
+                                <label for="checkbox18" class="col-form-label pl-2">
+                                    Send API Detail in Email
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </app-card>
+            
+                <app-card [title]="userheaderName" cardTitle="{{userheaderName}}">
+                    <div class="row">
+                        <ng-container *ngIf="ClientViewModel.ClientNumber == 0">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="col-form-label">First Name :<span style="color: red;">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" formControlName="firstName"
+                                                [(ngModel)]="ClientViewModel.Users.FirstName"
+                                                [ngClass]="{'is-invalid':submitted && f.firstName.errors || !f.firstName.valid && f.firstName.touched && f.firstName.errors}">
+                                                <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['firstName'].errors['required']" style="font-size: 14px;">FirstName is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class=" col-form-label">Middle Name :</label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" formControlName="middleInitial"
+                                                [(ngModel)]="ClientViewModel.Users.MiddleInitial">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class=" col-form-label">Last Name :<span style="color: red;">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" formControlName="lastName"
+                                                [(ngModel)]="ClientViewModel.Users.LastName"
+                                                [ngClass]="{'is-invalid':submitted && f.lastName.errors || !f.lastName.valid && f.lastName.touched && f.lastName.errors}">
+                                                <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['lastName'].errors['required']" style="font-size: 14px;">LastName is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class=" col-form-label">Email :<span style="color: red;">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"  formControlName="email"
+                                                (change)="onEmailChange($event.target.value)"
+                                                [(ngModel)]="ClientViewModel.Users.Email"
+                                                [ngClass]="{'is-invalid':submitted && f.email.errors || !f.email.valid && f.email.touched && f.email.errors}">
+                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['email'].errors['required']" style="font-size: 15px;">Email is
+                                                        required</div>
+                                                    <div *ngIf="f['email'].errors['email']" style="font-size: 15px;">Email is
+                                                        invalid</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Level :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <ng-container *ngIf="ClientViewModel.ClientNumber == 0;else Level">
+                                                <input type="text" class="form-control" formControlName="level"
+                                                    [(ngModel)]="ClientViewModel.Users.Level" disabled='true'
+                                                    [ngClass]="{ 'is-invalid': submitted && f.level.errors || !f.level.valid && f.level.touched && f.level.errors  }">
+                                            </ng-container>
+                                            <ng-template #Level>
+                                                <input type="text" class="form-control" formControlName="level"
+                                                    [(ngModel)]="ClientViewModel.Level" disabled='true'
+                                                    [ngClass]="{ 'is-invalid': submitted && f.level.errors || !f.level.valid && f.level.touched && f.level.errors  }">
+                                            </ng-template>
+                                            <div *ngIf="submitted && f['level'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['level'].errors['required']" style="font-size: 15px;">Level is
+                                                    required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Login Id :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <ng-container *ngIf="ClientViewModel.ClientNumber == 0;else LoginId">
+                                                <input type="text" class="form-control" formControlName="loginId" readonly
+                                                    [(ngModel)]="ClientViewModel.Users.LoginId"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.loginId.errors || !f.loginId.valid && f.loginId.touched && f.loginId.errors  }">
+                                            </ng-container>
+                                            <ng-template #LoginId>
+                                                <input type="text" class="form-control" formControlName="loginId"
+                                                    [(ngModel)]="ClientViewModel.Users.Email" readonly
+                                                    [ngClass]="{'is-invalid':submitted && f.loginId.errors || !f.loginId.valid && f.loginId.touched && f.loginId.errors}">
+                                            </ng-template>
+                                            <div *ngIf="submitted && f['loginId'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['loginId'].errors['required']" style="font-size: 15px;">LoginId is
+                                                    required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label"> Password :<span style="color: red;">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <ng-container *ngIf="ClientViewModel.ClientNumber == 0;else password">
+                                                <input type="text" class="form-control" formControlName="password"
+                                                    [ngClass]="{'is-invalid':submitted && f.password.errors || !f.password.valid && f.password.touched && f.password.errors}"
+                                                    [(ngModel)]="ClientViewModel.Users.Password">
+                                            </ng-container>
+                                            <ng-template #password>
+                                                <input type="text" class="form-control" formControlName="password"
+                                                    [(ngModel)]="ClientViewModel.Users.Password"
+                                                    [ngClass]="{'is-invalid':submitted && f.password.errors || !f.password.valid && f.password.touched && f.password.errors}">
+                                            </ng-template>
+                                            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['password'].errors['required']" style="font-size: 15px;">Password is
+                                                    required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <ng-container *ngIf="ClientViewModel.ClientNumber == 0">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="col-form-label"> Question :<span style="color: red;">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <select formControlName="question" [(ngModel)]="ClientViewModel.Users.QId"
+                                                [ngClass]="{'is-invalid':submitted && f.question.errors || !f.question.valid && f.question.touched && f.question.errors}"
+                                                class="form-control">
+                                                <option value="">Please Select Question</option>
+                                                <option value="1">What was your childhood nickname?</option>
+                                                <option value="2">What is the name of your best friend?</option>
+                                                <option value="3">What is your favorite color?</option>
+                                                <option value="4">What was your first job?</option>
+                                                <option value="5">What primary school did you attend?</option>
+                                                <option value="6">Who was your favorite teacher?</option>
+                                                <option value="7">What is your mother's maiden name?</option>
+                                                <option value="8">What is your favorite sports?</option>
+                                                </select>
+                                                <div *ngIf="submitted && f['question'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['question'].errors['required']" style="font-size: 15px;">Question is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <ng-container *ngIf="ClientViewModel.ClientNumber == 0">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="col-form-label"> Answer :<span style="color: red;">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" formControlName="answer"
+                                                [ngClass]="{'is-invalid':submitted && f.answer.errors || !f.answer.valid && f.answer.touched && f.answer.errors}"
+                                                [(ngModel)]="ClientViewModel.Users.Answer">
+                                                <div *ngIf="submitted && f['answer'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['answer'].errors['required']" style="font-size: 15px;">Answer is
+                                                        required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </app-card>
+            
+                <app-card [title]="'Email Integration'" cardTitle="Email Integration">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Email API Link :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="emailApiLink"
+                                            [(ngModel)]="ClientViewModel.EmailAPILink">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Email API Key :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="emailApiKey"
+                                [(ngModel)]="ClientViewModel.EmailAPIKey">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Email API User Name :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="emailApiUserName"
+                                            [(ngModel)]="ClientViewModel.EmailAPIUserName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </app-card>
+            
+                <app-card [title]="'Credit Card Account Informationn'" cardTitle="Credit Card Account Informationn">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">API Username :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="apiUsername"
+                                            [(ngModel)]="ClientViewModel.ApiUsername">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">API Password :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="apiPassword"
+                                            [(ngModel)]="ClientViewModel.ApiPassword">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label class="col-form-label">Merchant Key :</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" formControlName="apiMerchantkey"
+                                            [(ngModel)]="ClientViewModel.ApiMerchantkey">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </app-card>
+                    
+                <app-card [title]="'QuickBook Account Information'" cardTitle="QuickBook Account Information">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Do you have Quickbook Account ?</label>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-sm-12 d-flex">
+                                    <div class="col-sm-1">
+                                        <input class="form-check-input" type="radio"
+                                            [(ngModel)]="ClientViewModel.IsCorporate" [value]="true"
+                                            formControlName="isCorporate" id="qbAccountYes" />
+                                            <label class="pl-2" for="qbAccountYes">Yes</label>
+                                    </div>
+                                    <div class="col-sm-1" >
+                                        <input class="form-check-input" type="radio"
+                                            [(ngModel)]="ClientViewModel.IsCorporate" [value]="false"
+                                            formControlName="isCorporate" id="qbAccountNo" />
+                                        <label class="pl-2" for="qbAccountNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ng-container
+                            *ngIf="!ClientViewModel.IsCorporate ||  ClientViewModel.IsCorporate == null ||  ClientViewModel.IsCorporate == undefined ; else otherContent">
+                        </ng-container>
+
+                        <ng-template #otherContent>
+                            <div class="col-sm-12" id="inputfields">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook ClientID:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtQBuser"
+                                                class="form-control " maxlength="50"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.QBClientID" formControlName="qbClientID" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook
+                                                        ClientSecretID:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtQBpwd"
+                                                        class="form-control "
+                                                        tabindex="16"
+                                                        [(ngModel)]="ClientViewModel.QBSecretID" formControlName="qbSecretID" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Bank Account:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtBankAccnt"
+                                                class="form-control " maxlength="50" tabindex="15"
+                                                [(ngModel)]="ClientViewModel.QBBankAccnt" formControlName="qbBankAccnt"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Bank Account
+                                                        No.:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="number" id="txtBankAcctNum"
+                                                        class="form-control " maxlength="50" formControlName="qbBankAccntNum"
+                                                        tabindex="16"
+                                                        [(ngModel)]="ClientViewModel.BankAcctNum" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Receivable
+                                                        Account:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtAcctReceivable"
+                                                class="form-control " maxlength="50"  formControlName="qbAcctReceivable"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.QBAcctReceivable" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Receivable Account
+                                                        No.:</label>
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="number" id="txtAcctReceivable"
+                                                class="form-control " maxlength="50" formControlName="qbReceivableAcctNum"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.ReceivableAcctNum" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook SalesTax
+                                                        Account:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtQBSalTaxAcct"
+                                                class="form-control " maxlength="50"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.QBSaleTaxAcct" formControlName="qbSaleTaxAcct"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook SalesTax Account
+                                                        No.:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="number" id="txtQBTaxAcctNum"
+                                                        class="form-control " maxlength="50" formControlName="qbSalesTaxAcctNum"
+                                                        tabindex="15"
+                                                        [(ngModel)]="ClientViewModel.SalesTaxAcctNum" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Income
+                                                        Account:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="text" id="txtQBSalTaxAcct"
+                                                class="form-control " maxlength="50"  formControlName="qbSalesAcct"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.QBSalesAcct" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Quickbook Income Account
+                                                        No.:</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input type="number" id="txtQBSalesAcct"
+                                                class="form-control " maxlength="50"  formControlName="salesAcctNum"
+                                                tabindex="15"
+                                                [(ngModel)]="ClientViewModel.SalesAcctNum" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                </app-card>
+                    
+            </form>
+        </app-card>
+    </div>
+</div>

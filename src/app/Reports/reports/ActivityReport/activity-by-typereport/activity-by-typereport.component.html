@@ -1,0 +1,100 @@
+<div class="container-fluid main" style="background-color: #fff;">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="SignUpFrom">
+                <div class="row mt-3">
+                    <div class="col-sm-3">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="print()"><i class="fa fa-print pr-1"></i>Print</button
+                        >&nbsp;
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="exportAsExcel()"><i class="fa fa-file-excel pr-1"></i>Export as Excel</button
+                        >&nbsp;
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="startDate" class="col-form-label">Start Date :</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input
+                                            type="date"
+                                            id="startDate"
+                                            name="startDate"
+                                            [(ngModel)]="startDate"
+                                            formControlName="startDate"
+                                            class="form-control"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="endDate" class="col-form-label">End Date :</label>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <input
+                                            type="date"
+                                            id="endDate"
+                                            name="endDate"
+                                            formControlName="endDate"
+                                            [(ngModel)]="endDate"
+                                            class="form-control"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <label class="col-form-label">Priority By Name:</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" [(ngModel)]="ActivityTypeID" formControlName="ActivityTypeID">
+                                            <option *ngFor="let option of DropApiData" [value]="option.Aid">
+                                                {{ option.Name }}
+                                            </option>
+                                            <option [value]="0">Please Select</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <button
+                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light float-right"  type="button" (click)="onSubmit()"><i class="fa fa-search pr-1">
+                            </i>Search</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row justify-content-center mt-2">
+                        <h5>Activity By Type Report</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div #TABLE class="table-responsive">
+                        <table class="table mb-2">
+                            <ag-grid-angular
+                                style="height: 500px"
+                                class="ag-theme-alpine"
+                                [gridOptions]="gridOptions"
+                                [rowData]="TypeApiResult"
+                                [columnDefs]="columnDefs"
+                                [defaultColDef]="defaultColDef"
+                            >
+                            </ag-grid-angular>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

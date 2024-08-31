@@ -1,0 +1,50 @@
+.panel-title {
+    color: #004E75;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+
+// .btn{
+
+   
+//     background-color: forestgreen;
+//     float:right;
+//     display: flex;
+//     column-width: 20px;
+// }
+accordion-toggle.collapsed {
+    right: 0;
+  
+    background-repeat: no-repeat;
+    color: #297ca0 !important;
+    text-decoration: none;
+}
+.form-control{
+    float:right
+}
+.mainLoginInput{
+    height: 40px;
+    padding: 0px;
+    font-size: 30px;
+    margin: 5px 0;
+  }
+  
+  .mat-accordion{
+    margin-bottom: 10px;
+    display: inline-block;
+    width: 100% ;
+  }
+  .mat-expansion-panel-header.mat-expanded {
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.mat-expansion-panel-content {
+    padding-top: 17px  !important;
+}
+.btn-success {
+    padding: 0.625rem 1.1875rem;
+}

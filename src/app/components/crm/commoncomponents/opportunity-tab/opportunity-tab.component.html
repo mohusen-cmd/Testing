@@ -1,0 +1,60 @@
+<app-card title="Opportunities Details" cardTitle="Opportunities Details" [classHeader]="true">
+   
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group" style="float: right;">
+        <button type="button" (click)="AddNewOpportunitiesByCompany()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+          <i class="fa fa-plus-circle pr-1"></i>Add
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row btn-page">
+    <div class="col-sm-12">
+      <div class="table-responsive">
+        <table id="opportunitiesTable" class="table  mb-2">
+          <thead>
+            <tr>
+              <th>Delete</th>
+              <th>Opportunity Name</th>
+              <th>Opportunity Stage</th>
+              <th>Estimated Close Date</th>
+              <th>Company Name</th>
+              <th>Contact Name</th>
+              <th>Opportunity Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let element of OpportunitysData">
+              <td>
+                <ng-container *ngIf="element.IsActivity === 0; else second">
+                  <a href="javascript:" (click)="DeleteOpportunitys(element.opporID, element.CompanyID, element.CompanyName)" class="btn btn-success btn-sm has-ripple waves-effect waves-light">
+                    <i class="feather icon-trash-2 text-white"></i>
+                  </a>
+                </ng-container>
+                <ng-template #second>
+                  <a href="javascript:" class="btn btn-danger btn-sm  has-ripple waves-effect waves-light">
+                    <i class="feather icon-trash-2 text-white"></i>
+                  </a>
+                </ng-template>
+              </td>
+              <td>
+                <a href="javascript:" (click)="NavigateOpportunityView(element.opporID)">
+                  {{element.OpporName}}
+                </a>
+              </td>
+              <td>{{element.StageName}}</td>
+              <td>{{element.closedate | slice: 0: 9}}</td>
+              <td>{{element.CompanyName}}</td>
+              <td>{{element.OpporContactName}}</td>
+              <td>{{element.OwnerfirstName}} {{element.ownerlastname}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    
+</app-card>
+  

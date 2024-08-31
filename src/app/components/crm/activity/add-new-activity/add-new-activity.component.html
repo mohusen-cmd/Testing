@@ -1,0 +1,478 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Leads</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Activity</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Create New Activity</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card title={{accountType}}  cardTitle="{{accountType}}"
+            [blockClass]="'tab-icon'">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <form [formGroup]="registerForm" novalidate>
+                       
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group float-right">
+                                    <button type="button" (click)="CreateNewActivity('savenew')" 
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"><i class="fa fa-floppy-o pr-1"></i>Save
+                                        & New</button>&nbsp;
+                                    <button type="button" (click)="CreateNewActivity('save')" class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        ><i class="fa fa-floppy-o pr-1"></i>Save</button>&nbsp;
+                                    <button type="button" (click)="NavigateBackleadlist()" class="btn btn-sm btn-round waves-effect waves-light btn-success"><i
+                                            class="fa fa-backward pr-1"></i>Back</button>&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                            
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Activity Detail" cardTitle="Activity Detail" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Module :</label>
+                                                        <select class="form-control" formControlName="accounttypeid" (change)="ChangeModuleType($event.target.value)"
+                                                            [(ngModel)]="activitydetails.AccountTypeID" [ngClass]="{ 'is-invalid': submitted && f.accounttypeid.errors || !f.accounttypeid.valid && f.accounttypeid.touched && f.accounttypeid.errors  }">
+                                                            <!-- <option value="0">--Please Select--</option> -->
+                                                            <option *ngFor="let type of activitydetails.ListAccounttype"
+                                                                value={{type.ID}}>
+                                                                {{type.AccountTypeName}}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.accounttypeid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.accounttypeid.errors?.required" class="invalid-feedback">Module
+                                                            is required</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Subject :<span style="color:red">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control" formControlName="subject"
+                                                            [(ngModel)]="activitydetails.Subject" [ngClass]="{ 'is-invalid': submitted && f.subject.errors || !f.subject.valid && f.subject.touched && f.subject.errors  }">
+                                                        <div *ngIf="submitted && f.subject.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.subject.errors?.required" class="invalid-feedback">Subject
+                                                            is required</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <ng-container *ngIf="activitydetails.RoleID == 1 || activitydetails.RoleName == 'Admin' || activitydetails.RoleName == 'Master Admin';else second">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"> Owner :<span style="color:red">*</span></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="ownerName" [(ngModel)]="activitydetails.OwnerName"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.ownerName.errors || !f.ownerName.valid && f.ownerName.touched && f.ownerName.errors  }" disabled='true'>
+                                                                    <span class="input-group-append">
+                                                                        <button (click)="GetSearchUserListModal($event)"
+                                                                            class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                    </span>
+                                                                    <div *ngIf="submitted && f.ownerName.errors" class="invalid-feedback"></div>
+                                                                    <div *ngIf="f.ownerName.errors?.required" class="invalid-feedback">
+                                                                        OwnerName is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #second>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Owner :<span style="color:red">*</span>
+                                                            </label>
+                                                            <input type="text" class="form-control" formControlName="ownerName"
+                                                                [(ngModel)]="activitydetails.OwnerName" [ngClass]="{ 'is-invalid': submitted && f.ownerName.errors || !f.ownerName.valid && f.ownerName.touched && f.ownerName.errors  }">
+                                                            <div *ngIf="submitted && f.ownerName.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.ownerName.errors?.required" class="invalid-feedback">
+                                                                OwnerName is required</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label"> Type : <span style="color:red">*</span></label>
+                                                        <select class="form-control" formControlName="activitytypeid"
+                                                            [(ngModel)]="activitydetails.ActivityTypeID" [ngClass]="{ 'is-invalid': submitted && f.activitytypeid.errors || !f.activitytypeid.valid && f.activitytypeid.touched && f.activitytypeid.errors  }">
+                                                              <option value="">--Please Select--</option>
+                                                            <option *ngFor="let type of activitydetails.TypeList" value={{type.AID}}>
+                                                                {{type.Name}}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.activitytypeid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.activitytypeid.errors?.required" class="invalid-feedback">Type is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label"> Priority :</label>
+                                                        <select class="form-control" formControlName="priorityid"
+                                                            [(ngModel)]="activitydetails.PriorityID" [ngClass]="{ 'is-invalid': submitted && f.priorityid.errors || !f.priorityid.valid && f.priorityid.touched && f.priorityid.errors  }">
+                                                            <!-- <option value="0">--Please Select--</option> -->
+                                                            <option *ngFor="let type of activitydetails.ListPriority"
+                                                                value={{type.ID}}>
+                                                                {{type.PriorityName}}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.priorityid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.priorityid.errors?.required" class="invalid-feedback">Last
+                                                            Name is required</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label"> Status :</label>
+                                                        <select class="form-control" formControlName="statusid"
+                                                            [(ngModel)]="activitydetails.StatusID" [ngClass]="{ 'is-invalid': submitted && f.statusid.errors || !f.statusid.valid && f.statusid.touched && f.statusid.errors  }">
+                                                            <!-- <option value="0">--Please Select--</option> -->
+                                                            <option *ngFor="let type of activitydetails.StatusList"
+                                                                value={{type.ID}}>
+                                                                {{type.StatusName}}
+                                                            </option>
+                                                        </select>
+                                                        <div *ngIf="submitted && f.statusid.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.statusid.errors?.required" class="invalid-feedback">Please
+                                                            select Status</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Due Date :<span style="color:red">*</span>
+                                                        </label>
+                                                        <input type="text" class="form-control" type="text" [textMask]="{mask: maskDateAuto, pipe:maskDatePipe}" placeholder="dd/mm/yyyy"
+                                                            formControlName="duedate" [(ngModel)]="activitydetails.DueDate"
+                                                            [ngClass]="{ 'is-invalid': submitted && f.duedate.errors || !f.duedate.valid && f.duedate.touched && f.duedate.errors  }">
+                                                        <div *ngIf="submitted && f.duedate.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.duedate.errors?.required" class="invalid-feedback">Please
+                                                            select Due Date</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Reminder :</label>
+                                                        <input type="text" class="form-control" formControlName="deminddate" [textMask]="{mask: maskDateAuto, pipe:maskDatePipe}" placeholder="dd/mm/yyyy"
+                                                            [(ngModel)]="activitydetails.RemindDate" [ngClass]="{ 'is-invalid': submitted && f.deminddate.errors || !f.deminddate.valid && f.deminddate.touched && f.deminddate.errors  }">
+                                                        <div *ngIf="submitted && f.deminddate.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.deminddate.errors?.required" class="invalid-feedback">Reminder
+                                                            is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <ng-container *ngIf="activitydetails.AccountTypeID == 1 || activitydetails.AccountTypeID == 2;else Acctypetwo">
+                                                    <div class="col-sm-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"> {{accountTypename}} Name
+                                                                    :<span style="color:red">*</span></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        formControlName="contactname" [(ngModel)]="activitydetails.ContactName"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.contactname.errors || !f.contactname.valid && f.contactname.touched && f.contactname.errors  }">
+                                                                    <ng-container *ngIf="activitydetails.AccountTypeID == 1;else Accounttype">
+                                                                        <span class="input-group-append">
+                                                                            <button (click)="GetCommonListModal('1',$event)"
+                                                                                class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                        </span>
+                                                                    </ng-container>
+                                                                    <ng-template #Accounttype>
+                                                                        <span class="input-group-append">
+                                                                            <button (click)="GetCommonListModal('2',$event)"
+                                                                                class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                        </span>
+                                                                    </ng-template>
+                                                                    <div *ngIf="submitted && f.contactname.errors"
+                                                                        class="invalid-feedback"></div>
+                                                                    <div *ngIf="f.contactname.errors?.required" class="invalid-feedback">Contact
+                                                                        Name is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Company Name :</label>
+                                                            <input type="text" class="form-control" formControlName="companyName"
+                                                                [(ngModel)]="activitydetails.AccountName" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors || !f.companyName.valid && f.companyName.touched && f.companyName.errors  }">
+                                                            <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.companyName.errors?.required" class="invalid-feedback">Last
+                                                                Name is required</div>
+                                                            <div *ngIf="f.companyName.errors?.companyName" class="invalid-feedback">Invalid
+                                                                Contact Name.</div>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                                <ng-template #Acctypetwo>
+                                                    <ng-container *ngIf="activitydetails.AccountTypeID == 3;else Acctypthird">
+                                                        <div class="col-sm-3">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <label class="col-form-label">Company Name :<span
+                                                                            style="color:red">*</span></label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control"
+                                                                            formControlName="companyName" [(ngModel)]="activitydetails.AccountName"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.companyName.errors || !f.companyName.valid && f.companyName.touched && f.companyName.errors  }">
+                                                                        <span class="input-group-append">
+                                                                            <button (click)="GetSearchCompanyListModal($event)"
+                                                                                class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                        </span>
+                                                                        <div *ngIf="submitted && f.companyName.errors"
+                                                                            class="invalid-feedback"></div>
+                                                                        <div *ngIf="f.companyName.errors?.required"
+                                                                            class="invalid-feedback">Company
+                                                                            Name is required</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <label class="col-form-label"> Contact Name
+                                                                        :</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control"
+                                                                            formControlName="contactname" [(ngModel)]="activitydetails.ContactName"
+                                                                            [ngClass]="{ 'is-invalid': submitted && f.contactname.errors || !f.contactname.valid && f.contactname.touched && f.contactname.errors  }">
+                                                                        <span class="input-group-append">
+                                                                            <button (click)="GetSearchContactListModal($event)"
+                                                                                class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                        </span>
+                                                                        <div *ngIf="submitted && f.contactname.errors"
+                                                                            class="invalid-feedback"></div>
+                                                                        <div *ngIf="f.contactname.errors?.required"
+                                                                            class="invalid-feedback">Contact
+                                                                            Name is required</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-template>
+                                                <ng-template #Acctypthird>
+                                                    <ng-container *ngIf="activitydetails.AccountTypeID == 4;else Acctypfourth">
+                                                        <div class="col-sm-3">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <label class="col-form-label"> Opportunity Name :
+                                                                            <span style="color:red">*</span></label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="input-group">
+                                                                            <input type="text" class="form-control" formControlName="opporcontactName"
+                                                                            [(ngModel)]="activitydetails.ContactName" [ngClass]="{ 'is-invalid': submitted && f.opporcontactName.errors || !f.opporcontactName.valid && f.opporcontactName.touched && f.opporcontactName.errors  }">
+                                                                            <span class="input-group-append">
+                                                                                <button (click)="GetCommonListModal('4',$event)"
+                                                                                    class="input-group-text"><i class="fa fa-search"></i></button>
+                                                                            </span>
+                                                                            <div *ngIf="submitted && f.opporcontactName.errors"
+                                                                            class="invalid-feedback"></div>
+                                                                            <div *ngIf="f.opporcontactName.errors?.required" class="invalid-feedback">Last
+                                                                              Name is required</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Contact Name :</label>
+                                                                <input type="text" class="form-control" formControlName="contactname"
+                                                                    [(ngModel)]="activitydetails.OpporContactName"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.contactname.errors || !f.contactname.valid && f.contactname.touched && f.contactname.errors  }">
+                                                                <div *ngIf="submitted && f.contactname.errors" class="invalid-feedback"></div>
+                                                                <div *ngIf="f.contactname.errors?.required" class="invalid-feedback">Last
+                                                                    Name is required</div>
+                                                                <div *ngIf="f.contactname.errors?.contactname" class="invalid-feedback">Invalid
+                                                                    Contact Name.</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label">Company Name :</label>
+                                                                <input type="text" class="form-control" formControlName="companyName"
+                                                                    [(ngModel)]="activitydetails.AccountName" [ngClass]="{ 'is-invalid': submitted && f.companyName.errors || !f.companyName.valid && f.companyName.touched && f.companyName.errors  }">
+                                                                <div *ngIf="submitted && f.companyName.errors" class="invalid-feedback"></div>
+                                                                <div *ngIf="f.companyName.errors?.required" class="invalid-feedback">Company Name is required</div>
+                                                                <div *ngIf="f.companyName.errors?.companyName" class="invalid-feedback">Invalid
+                                                                    Company Name.</div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                </ng-template>
+                                                <ng-template #Acctypfourth>
+                                                </ng-template>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Phone :</label>
+                                                        <!-- <input type="text" class="form-control" formControlName="phone"
+                                                            [(ngModel)]="activitydetails.Phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors || !f.phone.valid && f.phone.touched && f.phone.errors  }"> -->
+                                                            <input [textMask]="{mask: maskUsMobile, guide: true}" placeholder="XXX-XXX-XXXX" type="text" (change)="onPhoneChange($event,'phone')" class="form-control" formControlName="phone" [(ngModel)]="activitydetails.Phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors || !f.phone.valid && f.phone.touched && f.phone.errors  }" >
+
+                                                        <div *ngIf="submitted && f.phone.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.phone.errors?.required" class="invalid-feedback">Last
+                                                            Name is required</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                       
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Extension :</label>
+                                                        <!-- <input type="text" class="form-control" formControlName="phoneExt"
+                                                            [(ngModel)]="activitydetails.PhoneExt" [ngClass]="{ 'is-invalid': submitted && f.phoneExt.errors || !f.phoneExt.valid && f.phoneExt.touched && f.phoneExt.errors  }">
+                                                            <!-- <input type="text" minlength="5" maxlength="5" class="form-control" formControlName="phoneext" [(ngModel)]="activitydetails.PhoneExt" [ngClass]="{ 'is-invalid': submitted && f.phoneext.errors || !f.phoneext.valid && f.phoneext.touched && f.phoneext.errors  }" > 
+
+                                                        <div *ngIf="submitted && f.phoneExt.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.phoneExt.errors?.required" class="invalid-feedback">Last
+                                                            Name is required</div> -->
+                                                            <input type="text"  maxlength="5" class="form-control" formControlName="phoneExt" (keypress)="numberOnly($event)" [(ngModel)]="activitydetails.PhoneExt" [ngClass]="{ 'is-invalid': submitted && f.phoneExt.errors || !f.phoneExt.valid && f.phoneExt.touched && f.phoneExt.errors  }" >
+                                                            <div *ngIf="submitted && f.phoneExt.errors" class="invalid-feedback"></div> 
+                                                            <div *ngIf="f.phoneExt.errors?.required"  class="invalid-feedback">Last phoneExt is required</div> 
+                                                            <!-- <div *ngIf="f.phoneExt.errors?.minlength" class="invalid-feedback">Minimum required number is 5.</div> 
+                                                            <div *ngIf="f.phoneExt.errors?.maxlength" class="invalid-feedback">Maximum number can be 5.</div> -->
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label">Email :</label>
+                                                        <input type="text" class="form-control" formControlName="email"
+                                                            [(ngModel)]="activitydetails.Email" [ngClass]="{ 'is-invalid': submitted && f.email.errors || !f.email.valid && f.email.touched && f.email.errors  }">
+                                                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.email.errors?.required" class="invalid-feedback">Last
+                                                            Name is required</div>
+                                                        <div *ngIf="f.email.errors?.email" class="invalid-feedback">Invalid
+                                                            email.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="form-group checkbox-color checkbox-primary">
+                                                            <input id="Sendnotice" type="checkbox" (change)="SendemailNotification($event.target.checked)"
+                                                                 formControlName="sendnotice">
+                                                            <label for="Sendnotice" class="pl-2">
+                                                                Send email Notification
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Notes" cardTitle="Notes" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <textarea rows="5" cols="5" class="form-control" formControlName="description"
+                                                [(ngModel)]="activitydetails.Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors || !f.description.valid && f.description.touched && f.description.errors  }"></textarea>
+                                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback"></div>
+                                            <div *ngIf="f.description.errors?.required" class="invalid-feedback">Last
+                                                Name
+                                                is required</div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Attachment" cardTitle="Attachment" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label class="col-form-label">Attachment :</label>
+                                                    </div>
+                                                    <div class="colsm-9">
+                                                        <div class="input-group">
+                                                            <input type="file" #myuploadInput formControlName="attachment" class="form-control"
+                                                            (change)="getFileDetails($event)" [ngClass]="{ 'is-invalid': submitted && f.attachment.errors || !f.attachment.valid && f.attachment.touched && f.attachment.errors  }">
+                                                        <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.attachment.errors?.required" class="invalid-feedback">Last
+                                                            Name is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <button class="btn btn-success btn-round btn-sm waves-effect waves-light float-right" (click)="ClearFiles()"><i class="fa fa-eraser pr-1"></i>Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+
+
+<app-common-modal *ngIf="ShowCommomListModel" (commomlistmodalstatus)="commomlistmodalstatus($event)"
+    (status)="saveStatus($event)"></app-common-modal>
+<app-contact-modal *ngIf="ShowContactListModal" (Contactlistmodalstatus)="Contactlistmodalstatus($event)"
+    (status)="saveStatus($event)"></app-contact-modal>
+<app-opportunity-modal *ngIf="ShowOpperListModal" (opperlistmodalstatus)="opperlistmodalstatus($event)"
+    (status)="saveStatus($event)"></app-opportunity-modal>
+<app-users-modal *ngIf="showSearchUsersmodal" (usersstatus)="usersstatus($event)"
+    (status)="saveStatus($event)"></app-users-modal>
+<app-company-model *ngIf="ShowCompanyListModal" (companylistmodalstatus)="companylistmodalstatus($event)"
+    (status)="saveStatus($event)"></app-company-model>
+<app-contact-list *ngIf="ShowCompanyContactListModal" [companyid]="activitydetails.ActCompanyID"
+    (activitydetailsStatus)="activitydetailsStatus($event)" (status)="saveStatus($event)"></app-contact-list>

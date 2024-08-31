@@ -1,0 +1,15 @@
+/* Adjust the size and styling of event text boxes */
+.cal-event {
+    padding: 5px; /* Adjust the padding as needed */
+    margin: 5px; /* Adjust the margin as needed */
+    border: 1px solid #ccc; /* Add a border if desired */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    background-color: #f0f0f0; /* Change the background color as desired */
+    /* Add any other styles you want for the event text boxes */
+  }
+  
+  /* Adjust the font size for event text */
+  .cal-event p {
+    font-size: 12px; /* Adjust the font size as needed */
+  }
+  

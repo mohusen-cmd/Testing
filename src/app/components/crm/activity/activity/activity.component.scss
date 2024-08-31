@@ -1,0 +1,26 @@
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  tr.mat-row,
+  tr.mat-footer-row {
+    height: 0 !important;
+  }
+  
+  .cdk-column-expandedDetail {
+    padding: 0px !important;
+  }
+  
+ 
+  
+  .sort-header-clicked {
+    background-color: #ecf0f5 !important;
+    color: black ! important;
+    cursor: pointer;
+    user-select: text; /* Set your desired color here */
+  }

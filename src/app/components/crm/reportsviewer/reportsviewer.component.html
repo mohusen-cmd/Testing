@@ -1,0 +1,392 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Reports</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Reports</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-card title="Reports" cardTitle="Reports">
+
+  <div class="row">
+
+    <div class="col-sm-6">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Activity
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12 " style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityReport']" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center w-100 text-white text-center">Activity Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12 " style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityTypeReport']" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" >Activity By Type
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityStatusReport']" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Activity By Status
+                  </button>
+                </a>
+              </div>
+
+              <!-- <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" hidden="true">
+                    Invoice Details
+                  </button>
+                </a>
+              </div> -->
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityPriorityReport']"  target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Activity By Priority
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityModelReport']"  target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Activity By Module
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a  [routerLink]="['/','Reports','activityOpenComplete','1']" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Open Activities In This Month
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12 " style="padding-top:10px;">
+                <a [routerLink]="['/','Reports','activityOpenComplete','2']" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Completed Activities In This Month
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Company
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/companyDetail" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Company Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/companyType" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Company By Company Type
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/companyIndustry" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Company By Company Industry
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/companyOwner" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Company By Company Owner
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/companyOwnershipType" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Company By Company Ownership Type
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Contact
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/contactdetail" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Contact Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/contactByLeadsource" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Contact By Lead Source
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/contactByContactType" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Contact By Contact Type
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/contactByLeadandContactType" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Contact By Lead Source And Contact Type
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/contactByOwner" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Contact By Contact Owner
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Billing reports
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" disabled="true">   Invoice Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" disabled="true"> Payment Details
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="col-sm-6">
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Leads
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/leadDetail" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Lead Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/leadSource" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Lead By Lead Source
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/leadbyLeadStatus" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Lead By Lead Status
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/leadSourceandStatus" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Lead By Lead Source And Lead Status
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/leadOwner" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" > 
+                    Lead By Lead Owner
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Opportunities
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a>
+                  <button class="btn btn-success rounded w-100 text-white text-center" disabled="true"> Opportunity Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/opportunityBuyingstageReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Opportunity By Buying Stage
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/opportunityTypeReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Opportunity By Opportunity Type
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/opportunitySourceReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    Opportunity By Opportunity Source
+                  </button>
+                </a>
+              </div>
+
+              <!-- <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" hidden="true">
+                    Won Opportunities In This Month
+                  </button>
+                </a>
+              </div> -->
+
+              <!-- <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" hidden="true"> 
+                    Lost Opportunities In This Month
+                  </button>
+                </a>
+              </div> -->
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/OpportunityReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center"> 
+                    Opportunity Report
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a href="https://crm2.0.priyanet.com/Report/SSRSIndex?ReportName=ActivityReport&target=_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center" hidden="true"> Opportunity User
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              User
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/userReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    User Details
+                  </button>
+                </a>
+              </div>
+
+              <div class="col-sm-12" style="padding-top:10px;">
+                <a routerLink="/Reports/userRoleReport" target="_blank">
+                  <button class="btn btn-success rounded w-100 text-white text-center">
+                    User By Role
+                  </button>
+                </a>
+              </div>
+
+            </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+  </div>
+
+</app-card>

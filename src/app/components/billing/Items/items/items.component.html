@@ -1,0 +1,74 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Items</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Billing</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Items</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row btn-page">
+  <div class="col-sm-12">
+    <app-card title=" Items" cardTitle=" Items">
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="float-right mb-2">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="addIteams()">
+              <i class="fa fa-plus-circle pr-1"></i>Add New
+            </button>
+          </div>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table #tblitem datatable [dtOptions]="dtOptions" class="table mb-2" id="tblitem">
+            <tbody *ngIf="itemslist?.length != 0">
+                <tr *ngFor="let item of itemslist">
+                  <td> <input type="checkbox" class="editor-active" >
+                  </td>
+                  <td> <a href="javascript:void(0)" class=" btn btn-danger btn-sm  has-ripple waves-effect waves-light"  (click)="delete(item)"><i  class="feather icon-trash-2 text-white" title="Delete"></i></a></td>
+                    <td><a [routerLink]="['/Invoice/EditorAddItemsDetail']"
+                      [queryParams]="{ItemID:item.ItemID}">{{item.ItemCode}}</a></td>
+                    <td><div [ngSwitch]="item.ItemTypeID">
+                      <div *ngSwitchCase="'1'">Inventory</div>
+                      <div *ngSwitchCase="'2'">Non Inventory</div>
+                      <div *ngSwitchCase="'3'">Service</div>
+                      <div *ngSwitchDefault></div>
+                    </div>
+                    </td>
+                    <td>{{ item.ItemName }}</td>
+                    <td>{{ item.RateperUnit }}</td>
+                    <td>{{ item.Saleprice }}</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="itemslist?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data!</td>
+              </tr>
+            <tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+     
+    </app-card>
+  </div>
+</div>

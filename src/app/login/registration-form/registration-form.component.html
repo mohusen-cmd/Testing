@@ -1,0 +1,121 @@
+<ng-template #content let-modal>
+
+    <div class="">
+
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-left">
+                        <h5>Registration Form</h5>
+                    </div>
+                    <button type="button" class="  btn btn-light btn-sm btn-round has-ripple waves-effect waves-light float-right " 
+                    data-dismiss="modal" aria-label="Close" (click)="close()">
+                     <i class="fa fa-close"></i>
+                   </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="app-modal-body">
+                <div class="col-sm-12">
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h5 class="text-capitalize text-center">Please fill in this form to create an account test</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="row">
+                                    <div class="col-sm-6 " >
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>First Name </mat-label>
+                                            <input matInput placeholder="First Name *" id="txtfname" [(ngModel)]="accountMdl.AccountObj.firstName"
+                                                required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Last Name </mat-label>
+                                            <input matInput placeholder="Last Name *" id="txtlname" [(ngModel)]="accountMdl.AccountObj.lastName"
+                                                required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Email </mat-label>
+                                            <input matInput type="email" placeholder="Email *" id="txtEmail"
+                                                [(ngModel)]="accountMdl.AccountObj.Email" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Street Address</mat-label>
+                                            <input matInput placeholder="Street Address" id="txtAddress1"
+                                                [(ngModel)]="accountMdl.AccountObj.mailingAddress">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>City</mat-label>
+                                            <input matInput placeholder="City" id="txtcity" [(ngModel)]="accountMdl.AccountObj.mailingCity">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Cell Phone</mat-label>
+                                            <input matInput placeholder="Cell Phone" id="txtPhone1" [(ngModel)]="accountMdl.AccountObj.phone">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Password </mat-label>
+                                            <input matInput type="password" placeholder="accountMdl.Password *" id="txtpassword"
+                                                [(ngModel)]="password" required>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6 ">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Re-Enter Password </mat-label>
+                                            <input matInput type="password" placeholder="Re-Enter Password *" id="txtRenterpassword"
+                                                [(ngModel)]="accountMdl.Renterpassword" required>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Angular validation messages -->
+                                    <div class="col-sm-12 ">
+                                        <div class="text-danger">{{ validationMessage }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="ml-4">By creating an account you agree to our <a href="javascript:void(0)">Terms & Privacy</a>.</label>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-12">
+                        <div class="float-right form-actions mr-3">
+                            <button mat-button class=" btn btn-success btn-sm btn-round has-ripple waves-effect waves-light mr-2" 
+                            (click)="register()">Register</button>&nbsp;
+                            <button mat-button class=" btn btn-danger btn-sm btn-round has-ripple waves-effect waves-light" 
+                                (click)="close()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</ng-template>

@@ -1,0 +1,325 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Home</h5>
+                </div>
+                <!-- <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="menu-icon fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >home</a>
+                    </li>
+                </ul> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-sm-4" >
+        <div class="mt-4">
+            <app-card [hidHeader]="true" blockClass="text-center">
+                <img src="assets/images/dashboard/Leads.png" style="margin-top: 14px;" routerLink="/CRM/Leads/List">
+                <h4 class="m-t-20"><span class="text-c-blue"></span> <a routerLink="/CRM/Leads/List"> Leads</a></h4>
+            </app-card> 
+        </div>
+    </div>
+    <div class="col-sm-4" >
+        <div class="mt-4">
+            <app-card [hidHeader]="true" blockClass="text-center">
+                <img src="assets/images/dashboard/Contacts.png" style="margin-top: 14px;"
+                    routerLink="/CRM/Contact/ContactList">
+                <h4 class="m-t-20"><span class="text-c-green"></span> <a routerLink="/CRM/Contact/ContactList">Contacts</a>
+                </h4>
+            </app-card>
+        </div>
+        <div class="app-card-footer">
+            <div class="row align-items-center">
+                <div class="col-9">
+                   
+                </div>
+                <div class="col-3 text-right">
+                    <i class="feather icon-trending-up text-white f-16"></i>
+                </div>
+            </div>
+        </div>
+    </app-card>
+    </div>
+    <div class="col-sm-4" >
+        <div class="mt-4">
+            <app-card [hidHeader]="true" blockClass="text-center">
+                <img src="assets/images/dashboard/Companies.png" style="margin-top: 14px;"
+                    routerLink="/CRM/ManageCompany/CompaniesList">
+                <h4 class="m-t-20">
+                    <a routerLink="/CRM/ManageCompany/CompaniesList"> Companies</a>
+                </h4> 
+            </app-card>
+        </div>
+            <div class="app-card-footer">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                       
+                    </div>
+                    <div class="col-3 text-right">
+                        <i class="feather icon-trending-up text-white f-16"></i>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+    <div class="col-sm-4" style="background: white;">
+        <!-- <app-card [hidHeader]="true" blockClass="text-center">
+            <img src="assets/images/dashboard/Opportunities.png" style="margin-top: 14px;"
+                routerLink="/CRM/Opportunities/OpportunitiesList">
+            <h4 class="m-t-20"><span class="text-c-green"></span> <a routerLink="/CRM/Opportunities/OpportunitiesList">
+                    Opportunities</a></h4>
+        </app-card>
+    </div>
+    <div class="col-sm-4" style="background: white;">
+        <!-- <app-card [hidHeader]="true" blockClass="text-center">
+            <img src="assets/images/dashboard/AddUser.png" style="margin-top: 14px; " >
+            <h4 class="m-t-20"><span class="text-c-green"></span> <a [routerLink]="['/Setup/User/CreateEditUser']" [queryParams]="{ UserId: 0 }">
+                Add User</a>
+            </h4>
+        </app-card>
+    </div>
+    <div class="col-sm-4" style="background: white;">
+        <!-- <app-card [hidHeader]="true" blockClass="text-center" >
+            <img src="assets/images/dashboard/Customization.png" style="margin-top: 14px;">
+            <h4 class="m-t-20"><span class="text-c-green"></span>
+                <a  [routerLink]="['/Setup/CreateOrEditUserRole']" [queryParams]="{roleId:0}"> Customization </a>
+            </h4>
+        </app-card>
+    </div>
+
+
+</div> -->
+
+<app-chart-data ></app-chart-data>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 ">
+        <!-- page statustic card start -->
+        <div class="row">
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" routerLink="/CRM/leads">
+                                <h4 class="text-c-yellow"></h4>
+                                <h4 class="text-muted m-b-0">Leads</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/Leads1.png" class="icons-dashboard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-c-yellow">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" routerLink="/CRM/companies">
+                                <h4 class="text-c-green"></h4>
+                                <h4 class="text-muted m-b-0">Companies</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/Company1.png"  class="icons-dashboard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-c-green">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" routerLink="/CRM/contacts">
+                                <h4 class="text-c-brown"></h4>
+                                <h4 class="text-muted m-b-0">Contacts</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/Contacts1.png"  class="icons-dashboard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-c-brown">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" routerLink="/CRM/opportunities">
+                                <h4 class="text-c-blue "></h4>
+                                <h4 class="text-muted m-b-0">Opportunities</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/User1.png" class="icons-dashboard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer  bg-c-blue">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" [routerLink]="['/Setup/User/CreateEditUser']" 
+                            [queryParams]="{ UserId: 0 }">
+                                <h4 class="text-c-pink"></h4>
+                                <h4 class="text-muted m-b-0">Add User</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/Add-User1.png"  class="icons-dashboard">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer  bg-c-pink">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="col-sm-6  col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-8" [routerLink]="['/Setup/CreateOrEditUserRole']" [queryParams]="{roleId:0}">
+                                <h4 class="text-c-lightblue"></h4>
+                                <h4 class="text-muted m-b-0">Customization</h4>
+                            </div>
+                            <div class="col-4 text-right">
+                                <img src="assets/images/dashboard/Support1.png"  class="icons-dashboard">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-c-lightblue">
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                               
+                            </div>
+                            <div class="col-3 text-right">
+                                <i class="feather icon-trending-up text-white f-16"></i>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- page statustic card end -->
+    </div>
+</div>
+<!-- <app-ui-modal [dialogClass]="'btn-page'" #modalCoupon>
+    <div class="app-modal-header">
+        <h4 class="modal-title">Add Coupon</h4>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close" (click)="modalCoupon.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Name" placeholder="Name" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Code" placeholder="Coupon Code" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <select class="form-control" id="Apply">
+                        <option value="">Apply to memberships</option>
+                        <option value="2">Bronze</option>
+                        <option value="3">Gold</option>
+                        <option value="4">Platinum</option>
+                        <option value="5">Silver</option>
+                        <option value="1">Trial</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="Discount" placeholder="Discount Amount" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="d-block mb-2">Published</label>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" checked />
+                    <label class="custom-col-form-label" for="customRadioInline1">Yes</label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" />
+                    <label class="custom-col-form-label" for="customRadioInline2">No</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="modalCoupon.hide()">Clear</button>
+        <button type="button" class="btn btn-success">Submit</button>
+    </div>
+</app-ui-modal> -->

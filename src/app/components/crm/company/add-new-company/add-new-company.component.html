@@ -1,0 +1,1018 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Company</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Company</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Create Company</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="' Create Company'" cardTitle="Create Company" [blockClass]="'tab-icon'">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form [formGroup]="registerForm" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group float-right">
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        (click)="SaveAndnewCompany('savenew')"
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save & New</button
+                                    >&nbsp;
+                                    <button
+                                        type="button"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        (click)="SaveAndnewCompany('save')"
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save</button
+                                    >&nbsp;
+                                    <button
+                                        type="button"
+                                        (click)="NavigateBackCompanylist()"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                    >
+                                        <i class="fa fa-backward pr-1"></i>Back</button
+                                    >&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Company Details" cardTitle="Company Details" [blockClass]="'button-list'">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <ng-container
+                                                *ngIf="
+                                                    companydetails.CompanyObj.RoleID == 1 ||
+                                                        companydetails.CompanyObj.RoleName == 'Admin' ||
+                                                        companydetails.CompanyObj.RoleName == 'Master Admin';
+                                                    else second
+                                                "
+                                            >
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <label class="col-form-label">Company Owner :</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="text"
+                                                                class="form-control"
+                                                                formControlName="ownership"
+                                                                [(ngModel)]="companydetails.CompanyObj.Ownership"
+                                                                [ngClass]="{
+                                                                    'is-invalid':
+                                                                        (submitted && f.ownership.errors) ||
+                                                                        (!f.ownership.valid && f.ownership.touched && f.ownership.errors)
+                                                                }"
+                                                                disabled="true"
+                                                            />
+                                                            <span class="input-group-append">
+                                                                <button (click)="GetSearchUsersList($event)" class="input-group-text">
+                                                                    <i class="fa fa-search"></i>
+                                                                </button>
+                                                            </span>
+                                                            <div *ngIf="submitted && f.ownership.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.ownership.errors?.required" class="invalid-feedback">
+                                                                Last Name is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #second>
+                                                <div class="form-group">
+                                                    <label class="col-form-label">Company Owner :<span style="color: red">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        formControlName="ownership"
+                                                        [(ngModel)]="companydetails.CompanyObj.Ownership"
+                                                        [ngClass]="{
+                                                            'is-invalid':
+                                                                (submitted && f.ownership.errors) ||
+                                                                (!f.ownership.valid && f.ownership.touched && f.ownership.errors)
+                                                        }"
+                                                    />
+                                                    <div *ngIf="submitted && f.ownership.errors" class="invalid-feedback"></div>
+                                                    <div *ngIf="f.ownership.errors?.required" class="invalid-feedback">
+                                                        Last Name is required
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Company Name :<span style="color: red">*</span></label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="name"
+                                                    [(ngModel)]="companydetails.CompanyObj.Name"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.name.errors) ||
+                                                            (!f.name.valid && f.name.touched && f.name.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.name.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.name.errors?.required" class="invalid-feedback">Company Name is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Company DBA Name :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="companydba"
+                                                    [(ngModel)]="companydetails.CompanyObj.CompanyDBA"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.companydba.errors) ||
+                                                            (!f.companydba.valid && f.companydba.touched && f.companydba.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.companydba.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.companydba.errors?.required" class="invalid-feedback">
+                                                    Last companydba is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Phone :</label>
+                                                <input
+                                                    [textMask]="{ mask: maskUsMobile, guide: true }"
+                                                    placeholder="XXX-XXX-XXXX"
+                                                    type="text"
+                                                    (change)="onPhoneChange($event, 'phone')"
+                                                    class="form-control"
+                                                    formControlName="phone"
+                                                    [(ngModel)]="companydetails.CompanyObj.Phone"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.phone.errors) ||
+                                                            (!f.phone.valid && f.phone.touched && f.phone.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.phone.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.phone.errors?.required" class="invalid-feedback">Last phone is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Extension :</label>
+                                            <div class="form-group">
+                                                <input
+                                                    type="text"
+                                                    maxlength="5"
+                                                    class="form-control"
+                                                    formControlName="phoneext"
+                                                    (keypress)="numberOnly($event)"
+                                                    [(ngModel)]="companydetails.CompanyObj.PhoneExt"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.phoneext.errors) ||
+                                                            (!f.phoneext.valid && f.phoneext.touched && f.phoneext.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.phoneext.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.phoneext.errors?.required" class="invalid-feedback">
+                                                    Last phoneext is required
+                                                </div>
+                                                <!-- <div *ngIf="f.phoneext.errors?.minlength" class="invalid-feedback">Minimum required number is 5.</div> 
+                                        <div *ngIf="f.phoneext.errors?.maxlength" class="invalid-feedback">Maximum number can be 5.</div> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Email :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="email"
+                                                    [(ngModel)]="companydetails.CompanyObj.Email"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.email.errors) ||
+                                                            (!f.email.valid && f.email.touched && f.email.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.email.errors?.required" class="invalid-feedback">Last email is required</div>
+                                                <div *ngIf="f.email.errors?.email" class="invalid-feedback">Invalid email.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Company Website :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="website"
+                                                    [(ngModel)]="companydetails.CompanyObj.Website"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.website.errors) ||
+                                                            (!f.website.valid && f.website.touched && f.website.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.website.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.website.errors?.required" class="invalid-feedback">
+                                                    Last website is required
+                                                </div>
+                                                <div *ngIf="f.website.errors?.pattern" class="invalid-feedback">Invalid Website.</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> Fax :</label>
+                                                <input
+                                                    [textMask]="{ mask: maskUsMobile, guide: true }"
+                                                    placeholder="XXX-XXX-XXXX"
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="fax"
+                                                    (change)="onPhoneChange($event, 'fax')"
+                                                    [(ngModel)]="companydetails.CompanyObj.Fax"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.fax.errors) || (!f.fax.valid && f.fax.touched && f.fax.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.fax.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.fax.errors?.required" class="invalid-feedback">Last fax is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label class="col-form-label">Parent Company :</label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            formControlName="parentcompanyname"
+                                                            [(ngModel)]="companydetails.CompanyObj.ParentCompanyName"
+                                                            [ngClass]="{
+                                                                'is-invalid':
+                                                                    (submitted && f.parentcompanyname.errors) ||
+                                                                    (!f.parentcompanyname.valid &&
+                                                                        f.parentcompanyname.touched &&
+                                                                        f.parentcompanyname.errors)
+                                                            }"
+                                                        />
+                                                        <span class="input-group-append">
+                                                            <button (click)="GetSearchCompanyListModal($event)" class="input-group-text">
+                                                                <i class="fa fa-search"></i>
+                                                            </button>
+                                                        </span>
+                                                        <div *ngIf="submitted && f.parentcompanyname.errors" class="invalid-feedback"></div>
+                                                        <div *ngIf="f.parentcompanyname.errors?.required" class="invalid-feedback">
+                                                            Last parentcompanyname is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Company Type :</label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="companytypeid"
+                                                    [(ngModel)]="companydetails.CompanyObj.CompanytypeID"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.companytypeid.errors) ||
+                                                            (!f.companytypeid.valid && f.companytypeid.touched && f.companytypeid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option
+                                                        *ngFor="let companytype of companydetails.LstCompanyType"
+                                                        value="{{ companytype.ID }}"
+                                                    >
+                                                        {{ companytype.Name }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.companytypeid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.companytypeid.errors?.required" class="invalid-feedback">
+                                                    Last companytypeid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Company Industry :</label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="companyindustryid"
+                                                    [(ngModel)]="companydetails.CompanyObj.CompanyIndustryID"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.companyindustryid.errors) ||
+                                                            (!f.companyindustryid.valid &&
+                                                                f.companyindustryid.touched &&
+                                                                f.companyindustryid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option
+                                                        *ngFor="let industry of companydetails.lstcmpnyindustry"
+                                                        value="{{ industry.ID }}"
+                                                    >
+                                                        {{ industry.Name }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.companyindustryid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.companyindustryid.errors?.required" class="invalid-feedback">
+                                                    Last companyindustryid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> Company Ownership Type :</label>
+                                                <select
+                                                    class="form-control"
+                                                    [(ngModel)]="companydetails.CompanyObj.CompanyStatusID"
+                                                    formControlName="companystatusid"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.companystatusid.errors) ||
+                                                            (!f.companystatusid.valid &&
+                                                                f.companystatusid.touched &&
+                                                                f.companystatusid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option
+                                                        *ngFor="let ownership of companydetails.LstOwnerShipType"
+                                                        value="{{ ownership.ID }}"
+                                                    >
+                                                        {{ ownership.Name }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.companystatusid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.companystatusid.errors?.required" class="invalid-feedback">
+                                                    Last companystatusid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">No of Employees :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="employees"
+                                                    [(ngModel)]="companydetails.CompanyObj.Employees"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.employees.errors) ||
+                                                            (!f.employees.valid && f.employees.touched && f.employees.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.employees.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.employees.errors?.required" class="invalid-feedback">
+                                                    Last employees is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Annual Revenue ($) :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    maxlength="15"
+                                                    (keypress)="numberOnly($event)"
+                                                    formControlName="annualrevenue"
+                                                    [(ngModel)]="companydetails.CompanyObj.AnnualRevenue"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.annualrevenue.errors) ||
+                                                            (!f.annualrevenue.valid && f.annualrevenue.touched && f.annualrevenue.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.annualrevenue.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.annualrevenue.errors?.required" class="invalid-feedback">
+                                                    Last annualrevenue is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">SIC Code :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    maxlength="25"
+                                                    formControlName="siccode"
+                                                    [(ngModel)]="companydetails.CompanyObj.SicCode"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.siccode.errors) ||
+                                                            (!f.siccode.valid && f.siccode.touched && f.siccode.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.siccode.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.siccode.errors?.required" class="invalid-feedback">
+                                                    Last siccode is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Address Details" cardTitle="Address Details" [blockClass]="'button-list'">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group no-margin-hr">
+                                                <b class="label label-primary label-tag">MAILING</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Address1 :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="mailingaddress"
+                                                    [(ngModel)]="companydetails.CompanyObj.MailingAddress"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.mailingaddress.errors) ||
+                                                            (!f.mailingaddress.valid && f.mailingaddress.touched && f.mailingaddress.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.mailingaddress.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.mailingaddress.errors?.required" class="invalid-feedback">
+                                                    Last mailingaddress is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Address2 :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="shippingstreet"
+                                                    [(ngModel)]="companydetails.CompanyObj.Shippingstreet"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.shippingstreet.errors) ||
+                                                            (!f.shippingstreet.valid && f.shippingstreet.touched && f.shippingstreet.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.shippingstreet.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.shippingstreet.errors?.required" class="invalid-feedback">
+                                                    Last shippingstreet is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> City :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="shippingcity"
+                                                    [(ngModel)]="companydetails.CompanyObj.Shippingcity"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.shippingcity.errors) ||
+                                                            (!f.shippingcity.valid && f.shippingcity.touched && f.shippingcity.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.shippingcity.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.shippingcity.errors?.required" class="invalid-feedback">
+                                                    Last shippingcity is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> State :</label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="shippingstateid"
+                                                    [(ngModel)]="companydetails.CompanyObj.ShippingstateID"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.shippingstateid.errors) ||
+                                                            (!f.shippingstateid.valid &&
+                                                                f.shippingstateid.touched &&
+                                                                f.shippingstateid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option *ngFor="let statelist of companydetails.StateList" value="{{ statelist.ID }}">
+                                                        {{ statelist.StateName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.shippingstateid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.shippingstateid.errors?.required" class="invalid-feedback">
+                                                    Last shippingstateid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Zip/Postal Code :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    maxlength="9"
+                                                    formControlName="shippingzip"
+                                                    [(ngModel)]="companydetails.CompanyObj.Shippingzip"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.shippingzip.errors) ||
+                                                            (!f.shippingzip.valid && f.shippingzip.touched && f.shippingzip.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.shippingzip.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.shippingzip.errors?.required" class="invalid-feedback">
+                                                    Last shippingzip is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Country :</label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="shippingcountryId"
+                                                    [(ngModel)]="companydetails.CompanyObj.ShippingcountryID"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.shippingcountryId.errors) ||
+                                                            (!f.shippingcountryId.valid &&
+                                                                f.shippingcountryId.touched &&
+                                                                f.shippingcountryId.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option
+                                                        *ngFor="let country of companydetails.CountryList"
+                                                        value="{{ country.CountryId }}"
+                                                    >
+                                                        {{ country.CountryName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.shippingcountryId.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.shippingcountryId.errors?.required" class="invalid-feedback">
+                                                    Last shippingcountryId is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="form-group checkbox-color checkbox-primary">
+                                                    <input
+                                                        id="CopyMailingtoBilling"
+                                                        type="checkbox"
+                                                        (change)="onChangeCopyMailing($event.target.checked)"
+                                                        formControlName="copymailing"
+                                                    />
+                                                    <label for="CopyMailingtoBilling" class="pl-2"> Copy Mailing to Billing </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group no-margin-hr">
+                                                <b class="label label-primary label-tag">BILLING</b>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Address1 :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="billingaddress"
+                                                    [(ngModel)]="companydetails.CompanyObj.BillingAddress"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingaddress.errors) ||
+                                                            (!f.billingaddress.valid && f.billingaddress.touched && f.billingaddress.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.billingaddress.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingaddress.errors?.required" class="invalid-feedback">
+                                                    Last billingaddress is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Address2 :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="billingstreet"
+                                                    [(ngModel)]="companydetails.CompanyObj.Billingstreet"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingstreet.errors) ||
+                                                            (!f.billingstreet.valid && f.billingstreet.touched && f.billingstreet.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.billingstreet.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingstreet.errors?.required" class="invalid-feedback">
+                                                    Last billingstreet is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> City :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    formControlName="billingcity"
+                                                    [(ngModel)]="companydetails.CompanyObj.Billingcity"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingcity.errors) ||
+                                                            (!f.billingcity.valid && f.billingcity.touched && f.billingcity.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.billingcity.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingcity.errors?.required" class="invalid-feedback">
+                                                    Last billingcity is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label"> State :</label>
+                                                <select
+                                                    class="form-control"
+                                                    formControlName="billingstateid"
+                                                    [(ngModel)]="companydetails.CompanyObj.BillingstateID"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingstateid.errors) ||
+                                                            (!f.billingstateid.valid && f.billingstateid.touched && f.billingstateid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option *ngFor="let statelist of companydetails.StateList" value="{{ statelist.ID }}">
+                                                        {{ statelist.StateName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.billingstateid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingstateid.errors?.required" class="invalid-feedback">
+                                                    Last billingstateid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Zip/Postal Code :</label>
+                                                <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    maxlength="9"
+                                                    formControlName="billingzip"
+                                                    [(ngModel)]="companydetails.CompanyObj.Billingzip"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingzip.errors) ||
+                                                            (!f.billingzip.valid && f.billingzip.touched && f.billingzip.errors)
+                                                    }"
+                                                />
+                                                <div *ngIf="submitted && f.billingzip.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingzip.errors?.required" class="invalid-feedback">
+                                                    Last billingzip is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Country :</label>
+                                                <select
+                                                    class="form-control"
+                                                    [(ngModel)]="companydetails.CompanyObj.BillingcountryID"
+                                                    formControlName="billingcountryid"
+                                                    [ngClass]="{
+                                                        'is-invalid':
+                                                            (submitted && f.billingcountryid.errors) ||
+                                                            (!f.billingcountryid.valid &&
+                                                                f.billingcountryid.touched &&
+                                                                f.billingcountryid.errors)
+                                                    }"
+                                                >
+                                                    <option value="0">--All--</option>
+                                                    <option
+                                                        *ngFor="let country of companydetails.CountryList"
+                                                        value="{{ country.CountryId }}"
+                                                    >
+                                                        {{ country.CountryName }}
+                                                    </option>
+                                                </select>
+
+                                                <div *ngIf="submitted && f.billingcountryid.errors" class="invalid-feedback"></div>
+                                                <div *ngIf="f.billingcountryid.errors?.required" class="invalid-feedback">
+                                                    Last billingcountryid is required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Notes" cardTitle="Notes" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <textarea
+                                                rows="5"
+                                                cols="5"
+                                                class="form-control"
+                                                formControlName="description"
+                                                [(ngModel)]="companydetails.CompanyObj.Description"
+                                                [ngClass]="{
+                                                    'is-invalid':
+                                                        (submitted && f.description.errors) ||
+                                                        (!f.description.valid && f.description.touched && f.description.errors)
+                                                }"
+                                            ></textarea>
+                                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback"></div>
+                                            <div *ngIf="f.description.errors?.required" class="invalid-feedback">Last Name is required</div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Attachment" cardTitle="Attachment" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label class="col-form-label">Attachment :</label>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-group">
+                                                            <input
+                                                                type="file"
+                                                                #myuploadInput
+                                                                formControlName="attachment"
+                                                                class="form-control"
+                                                                (change)="getFileDetails($event)"
+                                                                [ngClass]="{
+                                                                    'is-invalid':
+                                                                        (submitted && f.attachment.errors) ||
+                                                                        (!f.attachment.valid && f.attachment.touched && f.attachment.errors)
+                                                                }"
+                                                            />
+                                                            <div *ngIf="submitted && f.attachment.errors" class="invalid-feedback"></div>
+                                                            <div *ngIf="f.attachment.errors?.required" class="invalid-feedback">
+                                                                Last Name is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <button class="btn btn-success btn-round btn-sm waves-effect waves-light float-right" (click)="ClearFiles()">
+                                                    <i class="fa fa-eraser pr-1"></i>Clear
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card title="Additional Information" cardTitle="Additional Information" [classHeader]="true">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-3" *ngFor="let item of companydetails.listCustomfields">
+                                                <div class="form-group" *ngIf="item.Column_Type == 'dropdown'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <select class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                        <option value="0">--Please Select--</option>
+                                                        <option *ngFor="let type of item.lstCustomOptions" value="{{ type.DrpValueId }}">
+                                                            {{ type.DrpValue }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textbox'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textarea'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        style="height: 35px"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textfield'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'date'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'numeric'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group form-radio m-b-30" *ngIf="item.Column_Type == 'radiobutton'">
+                                                    <div class="row" style="margin-left: -37px">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == true"
+                                                            >
+                                                                <label style="margin-left: 15px">
+                                                                    <input
+                                                                        type="radio"
+                                                                        checked="checked"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == false"
+                                                            >
+                                                                <label style="margin-left: 15px">
+                                                                    <input
+                                                                        type="radio"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'checkbox'">
+                                                    <div class="row" style="margin-left: -16px">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == true">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    checked="checked"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == false">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+<app-company-model
+    *ngIf="ShowCompanyListModal"
+    (companylistmodalstatus)="companyliststatus($event)"
+    (status)="saveStatus($event)"
+></app-company-model>
+<app-users-modal *ngIf="showSearchUsersmodal" (usersstatus)="usersStatus($event)" (status)="saveStatus($event)"></app-users-modal>

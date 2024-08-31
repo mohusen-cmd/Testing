@@ -1,0 +1,146 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Leads</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Leads</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Edit Leads</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Convert Leads</a>
+                      </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="'Convert Lead'"   cardTitle={{AccModel.AccountObj.CompanyName}} >
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-right mb-2">
+                        <button type="button" (click)="ConvertLeads()"
+                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                            <i class="fa fa-exchange pr-1"></i>Convert</button>&nbsp;
+                        <button type="button" (click)="BackToLeadView()"
+                            class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light">
+                            <i class="fa fa-backward pr-1"></i>Back</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label>Create New Company - </label>
+                </div>
+                <div class="col-sm-10">
+                    <label class="f-w-600"> {{ AccModel.AccountObj.CompanyName }} </label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-2">
+                    <label>Create New Contact - </label>
+                </div>
+                <div class="col-sm-10">
+                    <label class="f-w-600"> {{ AccModel.AccountObj.FirstName }}
+                        {{ AccModel.AccountObj.LastName }}</label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <input id="IsOpprtunitychk" type="checkbox"
+                    (change)="IsOpprtunitycheck($event.target.checked)" name="IsOpprtunitychk">
+                    <label for="IsOpprtunitychk" class="pl-2">
+                        Create a new Opportunity for this Company
+                    </label>
+                </div>
+            </div>
+            <div *ngIf="newopportunityshow" class="row">
+                <div class="offset-sm-2 col-sm-8">
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label class="f-w-600">Opportunity Name :<span
+                                    style="color:red;">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="opportunitname"
+                                    [(ngModel)]="AccModel.AccountObj.OppName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label class="f-w-600">Expected Budget($):</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control" maxlength="16"
+                                    name="expectedbudget"
+                                    [(ngModel)]="AccModel.AccountObj.OppAmount" appDecimalNumber >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label class="f-w-600">Estimated Close Date :</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" name="estimatedclosedate" class="form-control" type="text"
+                                    [textMask]="{mask: maskDateAuto, pipe:maskDatePipe}" placeholder="dd/mm/yyyy"
+                                    [ngModel]="AccModel.AccountObj.CloseDate" (ngModelChange)="updateDate($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4">
+                            <label class="f-w-600">Buying Stage :<span
+                                        style="color:red;">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <select class="form-control" name="buyingstage"
+                                    [(ngModel)]="AccModel.AccountObj.StageID">
+                                    <option value="">--Please Select--</option>
+                                    <option *ngFor="let type of AccModel.StageList" value={{type.StageId}}>
+                                        {{type.StageName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <label class="f-w-600">Owner of the records : <span>{{ AccModel.AccountObj.Ownership }}</span></label>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-sm-12">
+                    <label class="f-w-600">Note : <span class="text-c-red">All associated activities of Leads will be transferred to the new Company, Contact & Opportunity</span></label>
+                </div>
+            </div>
+            
+        </app-card>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+
+::ng-deep .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+}
+
+mat-horizontal-stepper ::ng-deep .mat-horizontal-stepper-header-container ::ng-deep .mat-stepper-horizontal-line {
+  display: none;
+
+}
+
+mat-horizontal-stepper ::ng-deep .mat-horizontal-stepper-header-container  {
+  border-style: solid !important; 
+  border-color: #bdbdbd !important;
+}
+
+mat-horizontal-stepper ::ng-deep  mat-step-header  {
+  border-right: solid !important;
+  border-color: #bdbdbd !important;
+}
+
+
+mat-horizontal-stepper ::ng-deep  mat-step-header:last-child {
+  border-right: unset !important;
+
+}
+mat-horizontal-stepper ::ng-deep .mat-horizontal-content-container
+{
+  border-left: solid;
+  border-right: solid;
+  border-bottom: solid;
+  border-color: #bdbdbd !important;
+}
+
+

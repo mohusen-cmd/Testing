@@ -1,0 +1,168 @@
+
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="float-left">
+                                <h5>Advance Search (Radius)</h5>
+                            </div>
+                            <button type="button" class="btn btn-light btn-sm btn-round has-ripple waves-effect waves-light float-right " (click)="close()"><i class="fa fa-close"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        <div class="modal-body">
+            <div class="page-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <app-card [cardClass]="'task-card'">
+                            <div class="row ">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label"> Select Operator :*</label>
+                                        <select class="form-control" name="operator" [(ngModel)]="selectOperatorName">
+                                            <option value="Lessthan">Less than</option>
+                                            <option value="Greaterthan">Greater than</option>
+                                            <option value="Equal">Equal To</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Radius (miles):</label>
+                                        <input type="text" class="form-control" [(ngModel)]="AccountObj.Radius">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label class="col-form-label">ZipCode :</label>
+                                        <input type="text" class="form-control" [(ngModel)]="AccountObj.ZipCode">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="OnAdsearchredius()" ><i class="fa fa-search pr-2">
+                                        </i>Search</button>&nbsp;
+                                        <button type="button" class="btn waves-effect btn-sm waves-light btn-success" (click)="clear()" ><i class="fa fa-eraser pr-2">
+                                        </i>Clear</button>
+                                    </div>  
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+                    <div class="col-sm-8">
+                        <app-card [cardClass]="'task-card'">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive ">
+                                        <table mat-table [dataSource]="dataSource" class="table  mb-2 ">
+    
+                                            <ng-container matColumnDef="leadname">
+                                                <th mat-header-cell *matHeaderCellDef>First Name</th>
+                                                <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+                                                    <div
+                                                        *ngIf="element.CompanyName; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate><a
+                                                            (click)="clickHandler(element)">{{element.CompanyName}}</a>
+                                                    </ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+                                                </td>
+                                            </ng-container>
+    
+    
+    
+                                            <ng-container matColumnDef="leadsource">
+                                                <th mat-header-cell *matHeaderCellDef>Last Name </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div *ngIf="element.Phone; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate> {{element.Phone}} </ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+                                                </td>
+                                            </ng-container>
+    
+    
+                                            <ng-container matColumnDef="leadowner">
+                                                <th mat-header-cell *matHeaderCellDef> City1 </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div *ngIf="element.Website; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate> {{element.Website}}</ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+    
+    
+                                                </td>
+    
+                                            </ng-container>
+    
+                                            <ng-container matColumnDef="leadstatus">
+                                                <th mat-header-cell *matHeaderCellDef> Distance </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div
+                                                        *ngIf="element.Ownership; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate> {{element.Ownership}}</ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="Lat">
+                                                <th mat-header-cell *matHeaderCellDef> Lat </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div
+                                                        *ngIf="element.Ownership; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate> {{element.Ownership}}</ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+                                                </td>
+                                            </ng-container>
+                                            <ng-container matColumnDef="Lng">
+                                                <th mat-header-cell *matHeaderCellDef> Lng </th>
+                                                <td mat-cell *matCellDef="let element">
+                                                    <div
+                                                        *ngIf="element.Ownership; then firstTemplate; else secondTemplate ">
+                                                    </div>
+                                                    <ng-template #firstTemplate> {{element.Ownership}}</ng-template>
+                                                    <ng-template #secondTemplate>--</ng-template>
+                                                </td>
+                                            </ng-container>
+                                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                            <tr mat-row *matRowDef="let row; columns: displayedColumns">
+                                            </tr>
+    
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+    
+                </div>
+                
+                <div class="row">
+                    <div class="col-sm-12">
+                        <app-card title="Google Maps" [classHeader]="true" cardTitle="Google Maps">
+                            <div class="row" style="display:block">
+                                <div class="col-sm-12">
+                                    <agm-map [(latitude)]="location.lat" [(longitude)]="location.lng"
+                                        [(zoom)]="location.zoom" [mapTypeControl]="true" [mapTypeId]="'roadmap'"
+                                        [disableDefaultUI]="true" [zoomControl]="true">
+                                        <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat"
+                                            [longitude]="m.lng" [title]="m.label" [markerDraggable]="m.draggable">
+    
+                                        </agm-marker>
+                                    </agm-map>
+                                </div>
+                            </div>
+                        </app-card>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </ng-template>

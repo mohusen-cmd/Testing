@@ -1,0 +1,74 @@
+::ng-deep .mat-horizontal-stepper-header{
+  pointer-events: none !important;
+}
+.mat-horizontal-stepper-header-container{
+  white-space: none;
+}
+mat-horizontal-stepper ::ng-deep .mat-horizontal-stepper-header-container ::ng-deep .mat-stepper-horizontal-line {
+  display: none;
+
+}
+
+mat-horizontal-stepper ::ng-deep .mat-horizontal-stepper-header-container  {
+  border-style: solid !important; 
+  border-color: #bdbdbd !important;
+}
+
+mat-horizontal-stepper ::ng-deep  mat-step-header#cdk-step-label-0-0  {
+  border-right-style: solid !important;
+  border-color: #bdbdbd !important;
+}
+mat-horizontal-stepper ::ng-deep .mat-horizontal-content-container
+{
+  border-left-style: solid;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-color: #bdbdbd !important;
+}
+
+.testclass{
+  width: 80px;
+}
+
+table.sjs-table > tbody > tr:first-child > td {
+  background-color: #3995b5;
+   width: fit-content;
+}
+
+
+
+
+.table thead th  {
+  border-bottom: 2px solid #e2e5e8;
+ vertical-align: middle;
+  font-size: 14px !important;
+  padding:  10px !important;
+  font-weight: 600 !important;
+  background-color: #3a913f !important;
+  color: #fff;
+   border-right: 2px solid #e2e5e8 ;
+}
+
+.table tbody td  {
+  padding:6px  10px !important;
+  vertical-align: middle;
+  font-size: 13px;
+  border-bottom: 2px solid #e2e5e8;
+  border-right: 2px solid #e2e5e8 ;
+
+}
+.table {
+   border: 2px solid #e2e5e8 !important;
+  border-bottom: none !important;
+  
+}
+thead tr, tbody tr{
+height: 40px !important;
+}
+tr:nth-of-type(odd) {
+background-color: #fff;
+}
+tr:nth-of-type(even) {
+background-color:#ecf0f5 ;
+}
+

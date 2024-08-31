@@ -1,0 +1,28 @@
+template {
+
+    display: block;
+    padding: 0px !important;
+    border-radius: 4px;
+    /* box-sizing: border-box; */
+    overflow: hidden !important;
+    outline: 0;
+    width: 350%;
+    height: 100%;
+    min-height: inherit;
+    max-height: inherit;
+
+}
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  app-ui-modal ::ng-deep .basic ::ng-deep .modal-lg {
+    width: 1000px !important;
+  
+}
+
+#display {
+  display: inline-block;
+}

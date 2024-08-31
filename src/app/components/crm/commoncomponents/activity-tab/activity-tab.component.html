@@ -1,0 +1,61 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" style="float: right">
+            <button type="button" (click)="NavigateAddNewActivity()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                <i class="fa fa-plus-circle pr-1"></i>Add
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Activity Details" cardTitle="Activity Details" [classHeader]="true">
+            <div class="table-responsive">
+                <table id="activitiesTable" class="table  mb-2">
+                    <thead>
+                        <tr>
+                            <th>Delete</th>
+                            <th>Type</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Contact/Lead Name</th>
+                            <th>Company</th>
+                            <th>Owner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let element of Activitylist">
+                            <td>
+                                <a
+                                    href="javascript:void(0)"
+                                    (click)="DeleteActivities(element.ActivityID, element.CompanyID)"
+                                    class="btn btn-danger btn-sm btn-round has-ripple waves-effect waves-light"
+                                >
+                                    <i class="feather icon-trash-2 text-white"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0)" (click)="NavigateViewActivities(element)" style="font-size: 15px">
+                                    {{ element.ActivityName }}
+                                </a>
+                            </td>
+                            <td>{{ element.DueDate | slice : 0 : 10 }}</td>
+                            <td>{{ element.PriorityName }}</td>
+                            <td>{{ element.StatusName }}</td>
+                            <td>{{ element.ContactName }}</td>
+                            <td>
+                                <ng-container *ngIf="element.AccountTypeID === 1">{{ element.ActCompanyName }}</ng-container>
+                                <ng-container *ngIf="ModuleName === 'Contact'">{{ element.AccountName }}</ng-container>
+                                <ng-container *ngIf="ModuleName === 'Company'">{{ element.AccountName }}</ng-container>
+                                <ng-container *ngIf="ModuleName === 'Opportunities'">{{ element.AccountName }}</ng-container>
+                            </td>
+                            <td>{{ element.OwnerName }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+</div>

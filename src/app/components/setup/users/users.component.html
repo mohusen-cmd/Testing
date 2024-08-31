@@ -1,0 +1,135 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Users</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Setup</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Users</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="btn-page">
+  <div class="col-sm-12">
+    <app-card [title]="'Users'" cardTitle="Users">
+      <div class="row align-items-center ">
+        <div class="col-sm-12">
+          <div class="row ">
+            <div class="col-sm-3 form-group">
+              <input class="form-control " name="Keyword" [(ngModel)]="Keyword" type="text" id="txt1" value="undefined"
+                placeholder="Keyword">
+            </div>
+            <div class="col-sm-3 form-group">
+              <input class="form-control " name="FirstName" [(ngModel)]="FirstName" type="text" id="txt2"
+                value="undefined" placeholder="Name">
+            </div>
+            <div class="col-sm-3 form-group">
+              <input class="form-control" name="Phone" [(ngModel)]="Phone" type="text" value="" id="txt3"
+                placeholder="Phone">
+            </div>
+            <div class="col-sm-3 form-group">
+              <input class="form-control" name="City" [(ngModel)]="City" type="text" id="txt4" placeholder="City">
+            </div>
+          </div>
+          <div class="row ">
+            <div class="col-sm-3 form-group">
+              <input class="form-control" id="txtEmail" name="Email" [(ngModel)]="Email" id="txt5" type="email"
+                placeholder="Email">
+            </div>
+            <div class="col-sm-3 form-group">
+              <select class="form-control" data-val="true" [(ngModel)]="Role" name="Role" aria-placeholder="Role">
+                <option value="undefined">Select</option>
+                <option *ngFor="let Rolelist of dropdowndata" value="{{Rolelist.RoleId}}">{{Rolelist.RoleName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-3 form-group">
+              <select class="form-control" id="ddlState" name="StateCode" [(ngModel)]="StateCode" tabindex="10"
+                aria-placeholder="State">
+                <option *ngFor="let StateList of usermodel.StateList" value="{{StateList.AbbrevIation}}">
+                  {{StateList.FullStateName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-sm-12 ">
+              <div class="form-group float-right">
+                <button  class="btn btn-sm btn-round waves-effect waves-light btn-success" type="button"
+                (click)="search()" id="btnSearch"><i class="btn-label icon fa fa-search pr-1"></i>Search
+              </button>&nbsp;
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light " type="button"
+                (click)="clear()" id="btnClear"><i class="btn-label icon fa fa-eraser pr-1"></i>Clear
+              </button>&nbsp;
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light " type="button"
+                (click)="UserCrudEventHandler('0','New')"><i class="fa fa-plus-circle pr-1"></i><a>Add New</a>
+              </button>&nbsp;
+              <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light " type="button"
+                (click)="Deleteuser()" id="DeleteUsers"><i class="icon fa fa-trash pr-1"></i><a>Delete</a>
+              </button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)" class="d-flex justify-content-center mb-5"></app-alphasearch>
+        </div>
+      </div>
+     
+      <div class="row">
+        <div class="col-sm-12">
+           <div class="table-responsive">
+            <table #tblusers datatable [dtOptions]="dtOptions" class="table  mb-2" id="tblusers">
+
+              <tbody *ngIf="usersList?.length != 0">
+                <tr *ngFor="let  users of usersList">
+                  <td> <input type="checkbox"  class="editor-active" (change)="activeInActiveToggle($event,users)"> </td>
+                  <td>  <a href="javascript:void(0)" mdbRippleRadius
+                    (click)="UserCrudEventHandler(users.UserId,'Edit')">{{ users.FullName }}</a></td>
+                  <td>{{ users.Email }}</td>
+                  <td>{{ users.Phone }}</td>
+                  <td>{{ users.City }}</td>
+                  <td>{{ users.StateName }}</td>
+                  <td>{{ users.RoleName }}</td>
+                  <!-- <td>
+                    
+                      <a href="javascript:void(0)" mdbRippleRadius
+                        (click)="UserCrudEventHandler(users.UserId,'Edit')"><i class="fa fa-pencil"
+                          style="color:#008e26;" title="Edit"></i></a>&nbsp;&nbsp;
+  
+  
+                    </td> -->
+                </tr>
+              </tbody>
+              <tbody *ngIf="usersList?.length == 0">
+                <tr>
+                  <td colspan="7" class="no-data-available" style="text-align: center;">No data!</td>
+                </tr>
+              </tbody>
+            </table>
+           </div>
+            
+         </div>
+    </div>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<ng-template #content let-modal >
+    <div class="row btn-page">
+        <div class="col-sm-12">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="float-left">
+                            <h5 >Company List</h5>
+                        </div>
+                        <button type="button" class=" btn btn-light btn-sm has-ripple waves-effect waves-light float-right" (click)="close()"><i class="fa fa-close"></i></button>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="modal-body">
+                <div class="app-modal-body">
+                    <div class="col-sm-12">
+                        <div class="page-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="table-responsive">
+                                        <table #tblCompany datatable [dtOptions]="dtOptions" class="table mb-2" id="tblCompany">             
+                                            <tbody *ngIf="companyList?.length != 0">
+                                                <tr *ngFor="let company of companyList">
+                                                    <td>{{ company.CompanyID }}</td>
+                                                    <td> <a href="javascript:void(0)" (click)="openDialog(company)">{{ company.CompanyName }}</a></td>
+                                                    <td>{{ company.Phone }}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="companyList?.length == 0">
+                                              <tr>
+                                                <td colspan="3" class="no-data-available">No data!</td>
+                                              </tr>
+                                            <tbody>
+                                      </table> 
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+              
+            </div>
+            
+        </div>
+    </div>
+</ng-template>

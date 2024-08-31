@@ -1,0 +1,133 @@
+<div class="row btn-page">
+    <div class="col-sm-12">
+        <!-- Tab variant tab card start -->
+        <app-card [blockClass]="'tab-icon'" cardTitle="Leads"  title="Leads">
+        
+            <div class="row ">
+                <div class="col-sm-12">
+                    <div class="row " id="content" >
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Keyword :</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="Keyword"
+                                    [(ngModel)]="Keyword" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Lead Owner :</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="OwnerName"
+                                    [(ngModel)]="OwnerName" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="float-right mb-2" >
+                                <button type="button" class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" (click)="searchEventHandler()">
+                                    <i class="fa fa-search pr-1"></i>Search
+                                </button>&nbsp;
+                                <button type="button" (click)="OnClear()"
+                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-eraser pr-1"></i>Clear
+                                </button>&nbsp;
+                                <button type="button"  (click)="NavigatetonewPop()"
+                                    class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light"><i class="fa fa-list pr-1"></i>Save List
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive ">
+                        <table mat-table [dataSource]="dataSource" class="table  mb-2 ">
+
+
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header="select">
+                                    <input type="checkbox" (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()" >
+
+                                </th>
+                                <td mat-cell *matCellDef="let row;let i=index">
+                                    <input type="checkbox" (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle() : null"
+                                        [checked]="selection.isSelected(row)"
+                                        (change)="activeInActiveToggle($event.target.checked,row,i)" >
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="CreatedDate">
+                                <th mat-header-cell *matHeaderCellDef>Created Date</th>
+                                <td mat-cell *matCellDef="let element">{{element.CreatedDate | date}} </td>
+                            </ng-container>
+
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="LeadName">
+                                <th mat-header-cell *matHeaderCellDef>Lead Name </th>
+                                <td mat-cell *matCellDef="let element">{{element.LeadFullName}} </td>
+                            </ng-container>
+
+                            <!-- Symbol Column -->
+
+
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="Company">
+                                <th mat-header-cell *matHeaderCellDef>Company </th>
+                                <td mat-cell *matCellDef="let element"> {{element.CompanyName}} </td>
+                            </ng-container>
+
+                            <!-- Weight Column -->Email
+                            <ng-container matColumnDef="Email">
+                                <th mat-header-cell *matHeaderCellDef>Email </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Email}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="Phone">
+                                <th mat-header-cell *matHeaderCellDef>Phone </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Phone}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="LeadSource">
+                                <th mat-header-cell *matHeaderCellDef>Lead Source </th>
+                                <td mat-cell *matCellDef="let element"> {{element.LeadSource}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="LeadOwner">
+                                <th mat-header-cell *matHeaderCellDef>Lead Owner </th>
+                                <td mat-cell *matCellDef="let element"> {{element.OwnerFirstName}}
+                                    {{element.OwnerLastName}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="LeadStatus">
+                                <th mat-header-cell *matHeaderCellDef>Lead Status </th>
+                                <td mat-cell *matCellDef="let element"> {{element.BuyingStage}} </td>
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row
+                                *matRowDef="let row; columns: displayedColumns | paginate: {itemsPerPage: size, currentPage: p, totalItems: resultLength-1}">
+                            </tr>
+                        </table>
+                        
+                    </div>
+                
+                    <div class="text-right mt-2">
+                        <pagination-controls (pageChange)="p = $event;paginate(p)"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+            
+        </app-card>
+    </div>
+</div>
+
+   
+
+<app-createsavepopup [emailModel]="emailModel" *ngIf="ShowAdvanceSearchModal"
+    (status)="saveStatus($event)"></app-createsavepopup>

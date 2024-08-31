@@ -1,0 +1,50 @@
+<ng-template #content let-modal class="modal-xl">
+  <div class="row btn-page">
+    <div class="col-sm-12">
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="float-left">
+              <h5>Users List</h5>
+            </div>
+            <button type="button" class=" btn btn-light btn-sm has-ripple waves-effect waves-light float-right" (click)="close()">
+              <i class="fa fa-close"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="app-modal-body">
+          <div class="col-sm-12">
+            <div class="page-body">
+              <div class="row">
+                <div class="col-sm-12">
+                  <!-- <app-alphasearch (Searchstatus)="OnSearchstatus($event)"> </app-alphasearch> -->
+                   <div class="table-responsive">
+                    <table #tblusers datatable [dtOptions]="dtOptions" class="table mb-2" id="tblusers">
+                      <tbody *ngIf="usersList?.length != 0">
+                        <tr *ngFor="let  users of usersList">
+                          <td>  <a href="javascript:void(0)" mdbRippleRadius
+                            (click)="emitUser(users)">{{ users.FullName }}</a></td>
+                          <td>{{ users.Email }}</td>
+                          <td>{{ users.Phone }}</td>
+                          <td>{{ users.StateName }}</td>
+                          <td>{{ users.RoleName }}</td>
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="usersList?.length == 0">
+                        <tr>
+                          <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ </ng-template>

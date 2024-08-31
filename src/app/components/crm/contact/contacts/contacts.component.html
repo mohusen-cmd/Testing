@@ -1,0 +1,191 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Contacts</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Contacts</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Contact" cardTitle="Contact" [classHeader]="true">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <form name="form" (ngSubmit)="OnContactSearch()" #f="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-sm-4 form-group">
+                                <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !Keyword.valid }"> -->
+                                
+                                    <label class="col-form-label">Keyword :</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="keyword"
+                                        [(ngModel)]="searchmodel.Keyword"
+                                        #Keyword="ngModel"
+                                        required
+                                    />
+                                    <!-- <div *ngIf="f.submitted && !Keyword.valid" class="text-danger">The Keyword field is required</div>                -->
+                                
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !CompanyName.valid }"> -->
+                                
+                                    <label class="col-form-label">Company Name :</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="companyName"
+                                        [(ngModel)]="searchmodel.CompanyName"
+                                        #CompanyName="ngModel"
+                                        required
+                                    />
+                                    <!-- <div *ngIf="f.submitted && !CompanyName.valid" class="text-danger">The Company Name field is required</div>                -->
+                               
+                            </div>
+                            <div class="col-sm-4 form-group">
+                                <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !Keyword.valid }"> -->
+                               
+                                    <label class="col-form-label">Contact Owner :</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="owner"
+                                        [(ngModel)]="searchmodel.Owner"
+                                        #Owner="ngModel"
+                                        required
+                                    />
+                                    <!-- <div *ngIf="f.submitted && !Owner.valid" class="text-danger">The Contact Owner field is required</div>                -->
+                                
+                            </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group float-right" >
+                                <button type="submit" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                                    <i class="fa fa-search pr-1"></i>Search
+                                </button>&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="OnContactClear()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                                    <i class="fa fa-eraser pr-1"></i>Clear
+                                </button>&nbsp;
+                                  <button
+                                      type="submit"
+                                      (click)="showAdvanceSearchModel()"
+                                      class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                  >
+                                      <i class="fa fa-search pr-1" ></i>Advanced Search
+                                  </button>&nbsp;
+                                  <button
+                                      type="button"
+                                      (click)="NavigateImportHistory()"
+                                      class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                  >
+                                      <i class="fa fa-anchor pr-1"></i>Import History
+                                  </button>&nbsp;
+                                  <button
+                                      type="button"
+                                      (click)="NavigateImport()"
+                                      class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                  >
+                                      <i class="fa fa-upload pr-1"></i>Import
+                                  </button>&nbsp;
+                                  <button type="button" (click)="NavigateAddNew()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                                      <i class="fa fa-plus-circle pr-1"></i>Add New
+                                  </button>&nbsp;
+                                  <button
+                                      type="button"
+                                      (click)="Deleteuser()"
+                                      class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                  >
+                                      <i class="fa fa-trash pr-1"></i>Delete
+                                  </button>&nbsp;
+                             
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)"></app-alphasearch>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                      <table #tblContact datatable [dtOptions]="dtOptions" class="table  mb-2" id="tblContact">
+                        <tbody *ngIf="contacts?.length != 0">
+                            <tr *ngFor="let contact of contacts">
+                                <td>
+                                    <input
+                                        type="checkbox"
+                                        *ngIf="contact.IsActivity == 0"
+                                        (change)="activeInActiveToggle($event, contact)"
+                                    />
+                                    <input type="checkbox" *ngIf="contact.IsActivity != 0" disabled />
+                                </td>
+                                <td>
+                                    <a class="btn btn-danger btn-sm  has-ripple waves-effect waves-light"
+                                        href="javascript:"
+                                        *ngIf="contact.IsActivity == 0"
+                                        (click)="ContactCrudEventHandler(contact.ContactID, 'delete')"
+                                        ><i class="feather icon-trash-2 text-white "></i
+                                    ></a>
+                                    <a href="javascript:" class="isDisabledbtn btn-success btn-sm  has-ripple waves-effect waves-light" *ngIf="contact.IsActivity != 0"
+                                        ><i  class="feather icon-trash-2 text-white "></i
+                                    ></a>
+                                </td>
+                                <td>
+                                    <a
+                                    class="btn btn-info btn-sm  has-ripple waves-effect waves-light"
+                                        (click)="ContactCrudEventHandler(contact.ContactID, 'view')"
+                                        href="javascript:void(0)"
+                                        ><i class="feather icon-edit text-white"></i
+                                    ></a>
+                                </td>
+                                <td>{{ contact.ContactName }}</td>
+                                <td>{{ contact.ContactCompanyName }}</td>
+                                <td>{{ contact.OwnerfirstName }}</td>
+                                <td>{{ contact.DepartmentText }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="contacts?.length == 0">
+                            <tr>
+                                <td colspan="7" class="no-data-available" style="text-align: center;">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody></tbody>
+                    </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<app-advanced-search *ngIf="ShowAdvanceSearchModal" (status)="Savestatus($event)"></app-advanced-search>

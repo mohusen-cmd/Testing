@@ -1,0 +1,95 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10"> Customization </h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a> Customization </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-card title="roledetails" cardTitle="Role Details">
+  <div class="row btn-page">
+    <div class="col-sm-12">
+      <div class="float-right mb-2">
+        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light has-ripple"><i class="fa fa-save pr-1">
+        </i>Save</button>&nbsp;
+        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light has-ripple" (click)="backtopage()">
+          <i class="fa fa-backward pr-1"></i>Back</button>
+      </div>
+    </div>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+    <app-card cardTitle="Roles">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row form-group">
+            <div class="col-sm-3">
+              <label for="firstName" class="col-form-label">Role Name :<span style="color: red;">*</span> </label>
+            </div>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <input type="RoleName" class="form-control"  [(ngModel)]="userrolesobj.RoleName" ngModel required name="RoleName" #RoleName="ngModel" placeholder="RoleName"  [ngClass]="{'is-invalid':f.submitted && RoleName.invalid} " />
+                <div *ngIf="f.submitted && RoleName.invalid" style="font-size:15px" class="invalid-feedback">
+                  <div *ngIf="RoleName.errors.required">Role Name is required</div>
+                </div><span *ngIf="isExits" style="color:red">the role name already exists</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-3">
+              <label for="firstName" class="col-form-label">Status :</label>
+            </div>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <select class="form-control" [(ngModel)]="userrolesobj.Status" [ngModel]="1" ngModel required name="Status" #Status="ngModel">
+                  <option value="">please select</option>
+                  <option [value]="1">Active</option>
+                  <option [value]="0">InActive</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-3">
+              <div class="form-group">
+                <label for="firstName" class="col-form-label">Notes :</label>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="input-group">
+                <textarea class="form-control" rows="4" [(ngModel)]="userrolesobj.Description" ngModel required name="Description" #Description="ngModel"
+                placeholder="Note"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-sm-3">
+              <label for="firstName" class="col-form-label">Grant Master Permission :</label>
+            </div>
+            <div class="col-sm-9">
+              <input type="checkbox"  [(ngModel)]="userrolesobj.SwitchPermission" 
+              ngModel required name="SwitchPermission" class="mt-3" #SwitchPermission="ngModel"name="SwitchPermission" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </app-card>    
+  </form>
+</app-card>

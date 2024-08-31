@@ -1,0 +1,36 @@
+
+
+
+.ag-theme-alpine {
+  --ag-foreground-color: rgb(126, 46, 132);
+  --ag-background-color: rgb(249, 245, 227);
+  --ag-header-foreground-color: rgb(204, 245, 172);
+  --ag-header-background-color: rgb(209, 64, 129);
+  --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+  --ag-header-column-resize-handle-color: rgb(126, 46, 132);
+
+  --ag-font-size: 17px;
+  --ag-font-family: monospace;
+}
+/* styles.css */
+.custom-button {
+background-color: #007bff; /* Customize button background color */
+color: #fff; /* Customize text color */
+border: none; /* Remove default button border */
+padding: 10px 20px; /* Add padding for better visual appearance */
+border-radius: 5px; /* Add rounded corners */
+cursor: pointer; /* Change cursor on hover */
+}
+
+
+/* Increase specificity */
+.ag-header .custom-header {
+  background-color: #ff9900 !important;
+}  
+.mat-select{
+  width: 80%  !important;
+}
+.mat-form-field {
+  width: 50%;
+  display: block !important;
+}

@@ -1,0 +1,207 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Opportunities</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Opportunities</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Opportunities" cardTitle="Opportunities" [classHeader]="false">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !Keyword.valid }"> -->
+                           
+                                <label class="col-form-label">Keyword :</label>
+                                <input type="text" class="form-control" name="Keyword" [(ngModel)]="searchmodel.keyword" required />
+                                <!-- <div *ngIf="f.submitted && !Keyword.valid" class="text-danger">The Keyword field is required</div>                -->
+                           
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !CompanyName.valid }"> -->
+                            
+                                <label class="col-form-label">Company Name :</label>
+                                <input type="text" class="form-control" name="CompanyName" [(ngModel)]="searchmodel.companyname" required />
+                                <!-- <div *ngIf="f.submitted && !CompanyName.valid" class="text-danger">The Company Name field is required</div>                -->
+                            
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !Keyword.valid }"> -->
+                            
+                                <label class="col-form-label">Opportunity Owner :</label>
+                                <input type="text" class="form-control" name="Owner" [(ngModel)]="searchmodel.companyowner" required />
+                                <!-- <div *ngIf="f.submitted && !Owner.valid" class="text-danger">The Contact Owner field is required</div>                -->
+                           
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <!-- <div class="col-sm-3" [ngClass]="{ 'has-error': f.submitted && !Keyword.valid }"> -->
+                            
+                                <label class="col-form-label">Stage :</label>
+                                <select class="form-control" [(ngModel)]="searchmodel.selectedStageId">
+                                    <!-- <option value="">--Select Stage--</option> -->
+                                    <option *ngFor="let stage of stageList" value="{{ stage.StageId }}">
+                                        {{ stage.StageName }}
+                                    </option>
+                                </select>
+
+                                <!-- <div *ngIf="f.submitted && !Owner.valid" class="text-danger">The Contact Owner field is required</div>                -->
+                            
+                        </div>
+                        <!-- <div class="col-sm-3">
+                    <div class="form-group" style="margin-top: 31px;">
+                        <button type="button" class="btn btn-sm btn-round waves-effect waves-light btn-success"><i class="fa fa-search"></i>Search</button>                                          
+                        <button type="button"   class="btn btn-sm btn-round waves-effect waves-light btn-success" style="margin-left: 20px;"><i class="fa fa-eraser"></i>Clear</button>              
+                   </div> 
+                </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group float-right">
+                            <button type="button" class="btn btn-sm btn-round waves-effect waves-light btn-success" (click)="searchEventHandler()">
+                              <i class="fa fa-search pr-1"></i>Search
+                          </button>&nbsp;
+                          <button
+                              type="button"
+                              class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                              (click)="clearEventHandler()"
+                              
+                          >
+                              <i class="fa fa-eraser pr-1"></i>Clear
+                          </button>&nbsp;
+                          <button
+                              type="button"
+                              class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                              (click)="AddNewOpportunity()"
+                             
+                          >
+                              <i class="fa fa-plus-circle pr-1" ></i>Add New
+                          </button>&nbsp;
+                          <button
+                              type="button"
+                              class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                              (click)="Deleteuser()"
+                             
+                          >
+                              <i class="fa fa-trash pr-1"></i>Delete
+                          </button>&nbsp;
+                          </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)" ></app-alphasearch>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- <table datatable [dtOptions]="dtOptions" class="row-border hover">
+            <thead>
+              <tr>
+                <th>Delete</th>
+                <th>View/Edit</th>
+                <th>Contact Name</th>
+                <th>Company Name</th>
+                <th>Contact Owner</th>
+                <th>Department</th>
+              </tr>
+            </thead> 
+            <tbody *ngIf="contacts?.length != 0">
+                <tr *ngFor="let contact of contacts">
+                    <td></td>
+                    <td></td>
+                    <td>{{ contact.ContactName }}</td>
+                    <td>{{ contact.ContactCompanyName }}</td>
+                    <td>{{ contact.OwnerfirstName }}</td>
+                    <td>{{ contact.DepartmentText }}</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="contacts?.length == 0">
+              <tr>
+                <td colspan="3" class="no-data-available">No data!</td>
+              </tr>
+            <tbody>
+          </table>       -->
+                   <div class="table-responsive">
+                    <table #tblOpportunity datatable [dtOptions]="dtOptions" class="table  mb-2" *ngIf="showtable" id="tblOpportunity">
+                      <!-- <thead>
+            <tr>
+              <th>Delete</th>
+              <th>View/Edit</th>
+              <th>Contact Name</th>
+              <th>Company Name</th>
+              <th>Contact Owner</th>
+              <th>Department</th>
+            </tr>
+         </thead>  -->
+                      <tbody *ngIf="oppList?.length != 0">
+                          <tr *ngFor="let opp of oppList">
+                              <td>
+                                  <input type="checkbox" *ngIf="opp.IsActivity == 0" (change)="activeInActiveToggle($event, opp)" />
+                                  <input type="checkbox" *ngIf="opp.IsActivity != 0" disabled />
+                              </td>
+                              <td>
+                                  <a class="btn btn-danger btn-sm  has-ripple waves-effect waves-light"
+                                      href="javascript:"
+                                      (click)="DeleteOpportunitys(opp.opporID)"
+                                      *ngIf="opp.IsActivity == 0"
+                                      ><i class="feather icon-trash-2 text-white "></i
+                                  ></a>
+                                  <a href="javascript:" class="isDisabled  btn-success btn-sm has-ripple waves-effect waves-light" *ngIf="opp.IsActivity != 0" 
+                                      ><i  class="feather icon-trash-2 text-white "></i
+                                  ></a>
+                              </td>
+                              <td>
+                                  <a
+                                     class="btn btn-info btn-sm  has-ripple waves-effect waves-light"
+                                      href="javascript:void(0)"
+                                      (click)="OppCrudEventHandler(opp, 'veiw')"
+                                      ><i class="feather icon-edit text-white"></i
+                                  ></a>
+                              </td>
+                              <td>{{ opp.OpporName }}</td>
+                              <td>{{ opp.StageName }}</td>
+                              <td>{{ opp.CompanyName }}</td>
+                              <td>{{ opp.OpporContactName }}</td>
+                              <td>{{ opp.OwnerfirstName }}</td>
+                          </tr>
+                      </tbody>
+                      <tbody *ngIf="oppList?.length == 0">
+                          <tr>
+                              <td colspan="8" class="no-data-available" style="text-align: center;">No data!</td>
+                          </tr>
+                      </tbody>
+
+                      <tbody></tbody>
+                  </table>
+                   </div>
+                   
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

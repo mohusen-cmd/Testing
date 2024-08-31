@@ -1,0 +1,54 @@
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" style="float: right;">
+            <button type="button" (click)="AddNewContact()" class="btn btn-sm btn-round waves-effect waves-light btn-success">
+                <i class="fa fa-plus-circle pr-1"></i>Add New
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row btn-page">
+    <div class="col-sm-12">
+        <app-card title="Contact Details" cardTitle="Contact Details" [classHeader]="true">
+            <div class="table-responsive">
+                <table id="contactsTable" class="table  mb-2">
+                    <thead>
+                        <tr>
+                            <th>Delete</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Work Phone</th>
+                            <th>Phone Ext</th>
+                            <th>Mobile</th>
+                            <th>Fax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let element of contactList">
+                            <td>
+                                <ng-container *ngIf="element.IsActivity === 0; else second">
+                                    <a href="javascript:" (click)="DeleteContacts(element.ContactID, element.CompanyID)" class="btn btn-success btn-sm  has-ripple waves-effect waves-light">
+                                        <i  class="feather icon-trash-2 text-white"></i>
+                                    </a>
+                                </ng-container>
+                                <ng-template #second>
+                                    <a href="javascript:" class="btn btn-danger btn-sm  has-ripple waves-effect waves-light">
+                                        <i  class="feather icon-trash-2 text-white"></i>
+                                    </a>
+                                </ng-template>
+                            </td>
+                            <td><a href="javascript:" (click)="NavigateContactView(element.ContactID)">{{element.ContactName}}</a></td>
+                            <td>{{element.Title}}</td>
+                            <td>{{element.Phone}}</td>
+                            <td>{{element.PhoneExt}}</td>
+                            <td>{{element.Mobile}}</td>
+                            <td>{{element.Fax}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+</div>

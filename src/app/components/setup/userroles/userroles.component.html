@@ -1,0 +1,88 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Roles List</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Setup</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Roles List</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card [title]="'User Roles List'" [classHeader]="true">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="form-group float-right">
+                        <button
+                            class="btn btn-sm btn-round  waves-effect waves-light btn-success"
+                            type="button"
+                            (click)="addorEditUserRoleModel(0, 'New')"
+                        ><i class="fa fa-plus-circle pr-1"></i>
+                            Add User</button
+                        >&nbsp;
+                        <button class="btn btn-sm btn-round  waves-effect waves-light btn-success" type="button" (click)="Deleteuserroles()"><i class="icon fa fa-trash pr-1"></i>
+                            Delete</button
+                        >&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table datatable [dtOptions]="dtOptions" class="table  mb-2">
+                            <tbody *ngIf="userRoleInfo?.length != 0">
+                                <tr *ngFor="let users of userRoleInfo">
+                                    <td>
+                                        <input
+                                            type="checkbox"
+                                            class="editor-active"
+                                            (change)="activeInActiveToggle($event, users.RoleId)"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a href="javascript:void(0)" class="btn btn-danger btn-sm  has-ripple waves-effect waves-light text-center" (click)="DeleteUserRoleModel(users, 'edit')"
+                                            ><i class="feather icon-trash-2 text-white" title="Delete"></i
+                                        ></a>
+                                    </td>
+
+                                    <td>
+                                        <a
+                                            href="javascript:void(0)"
+                                            mdbRippleRadius
+                                            (click)="addorEditUserRoleModel(users.RoleId, 'Edit')"
+                                            >{{ users.RoleName }}</a
+                                        >
+                                    </td>
+                                    <td>{{ users.Description }}</td>
+                                    <td>{{ users.Status }}</td>
+                                    <td>{{ users.MasterpermissionStatus }}</td>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="userRoleInfo?.length == 0">
+                                <tr>
+                                    <td colspan="6" class="no-data-available" style="text-align: center;">No data!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Invoice Dashboard</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Invoice Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<app-card cardTitle="Invoice DashBoard">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="md-tabs">
+                <ul ngbNav #navPills="ngbNav" class="nav-pills">
+                    <li [ngbNavItem]="1">
+                       
+                        <ng-template ngbNavContent>
+                         
+                            <div class="row" *ngIf="chartOptions">
+                                <div class="col-xl-6 col-md-6" *ngFor="chartOptions of chartOptions;let i=index">
+                                    <app-card cardTitle="{{chartOptions[i].title}}" >
+                                        <div id="chart">
+                                            <apx-chart [series]="chartOptions[i].series" [chart]="chartOptions[i].chart" [labels]="chartOptions[i].labels"
+                                            [responsive]="chartOptions[i].responsive"></apx-chart>
+                                        </div>
+                                    </app-card>
+                                </div>
+                            </div>
+                            
+                        </ng-template>
+
+                    </li>    
+                </ul>
+                <div [ngbNavOutlet]="navPills" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</app-card>

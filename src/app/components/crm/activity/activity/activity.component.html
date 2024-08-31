@@ -1,0 +1,139 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Activities</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Activities</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="btn-page">
+    <div class="col-sm-12">
+        <app-card title="Activities" cardTitle="Activities" [classHeader]="true">
+            <div class="row align-items-center">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4 form-group">
+                            <!-- <app-reusable-text-input
+                                type="text"
+                                placeholder="Keyword"
+                                [(value)]="leadkeyword"
+                                required="true"
+                                (valueChange)="onInputChange($event, 'Keyword')">
+                            </app-reusable-text-input> -->
+                            <label class="col-form-label">Keyword :</label>
+                            <input type="text" class="form-control" name="activitykeyword" [(ngModel)]="activitykeyword" required />
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group float-right">
+                                <button
+                                    type="button"
+                                    (click)="searchEventHandler()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-search pr-1"></i>Search</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="clearSeach()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-eraser pr-1"></i>Clear</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    (click)="NavigateAddNewActivity()"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                >
+                                    <i class="fa fa-plus-circle pr-1"></i>Add New</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                    (click)="DeleteRecord('', 'Delete')"
+                                >
+                                    <i class="fa fa-trash-o pr-1"></i>Delete</button
+                                >&nbsp;
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                    (click)="DeleteRecord('', 'Complete')"
+                                >
+                                    <i class="fa fa-check-square-o pr-1"></i>Complete</button
+                                >&nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <app-alphasearch (Searchstatus)="GetdataByAlphaSearch($event)" ></app-alphasearch>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                   
+                  <div class="table-responsive">
+                    <table #tblActivity datatable [dtOptions]="dtOptions" class="table mb-2" id="tblActivity">
+                        <tbody *ngIf="activitylist?.length != 0">
+                            <tr *ngFor="let activity of activitylist">
+                                <td>
+                                    <a href="javascript:"class="btn btn-success btn-sm  has-ripple waves-effect waves-light" (click)="DeleteRecord(activity.ActivityID, 'Delete')"
+                                        ><i  class="feather icon-trash-2 text-white "></i
+                                    ></a>
+                                </td>
+                                <td>
+                                    <a
+                                    class="btn btn-info btn-sm  has-ripple waves-effect waves-light "
+                                        (click)="
+                                            ActivityCrudEventHandler(activity.ActivityID, activity.AccountTypeName, 'Activities', 'view')
+                                        "
+                                        href="javascript:void(0)"
+                                        ><i class="feather icon-edit text-white"></i
+                                    ></a>
+                                </td>
+                                <td>{{ activity.DueDate | date : 'dd/MM/yyyy' }}</td>
+                                <td>{{ activity.AccountName }}</td>
+                                <td>{{ activity.ContactName }}</td>
+                                <td>{{ activity.ActivityName }}</td>
+                                <td>{{ activity.Phone }}</td>
+                                <td>{{ activity.Email }}</td>
+                                <td>{{ activity.StatusName }}</td>
+                                <td>{{ activity.PriorityName }}</td>
+                                <td>{{ activity.OwnerName }}</td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="activitylist?.length == 0">
+                            <tr>
+                                <td colspan="11" class="no-data-available" style="text-align: center;">No data!</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody></tbody>
+                    </table>
+                  </div>
+                    
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

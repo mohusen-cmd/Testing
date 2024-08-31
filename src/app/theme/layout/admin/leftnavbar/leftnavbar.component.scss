@@ -1,0 +1,17 @@
+.pcoded-navbar{
+    background-color: azure !important;
+}
+/* Default styles for the text */
+// .pcoded-mtext {
+//     color: black; /* or any default color */
+//     background-color: transparent; /* or any default background */
+// }
+
+/* Styles when the parent `li` is active */
+.nav-item.active .nav-link   {
+    background-color: green !important;
+    color: white !important;
+}
+// .pcode-submenu .nav-item:active {
+//     background-color: green !important;
+// }

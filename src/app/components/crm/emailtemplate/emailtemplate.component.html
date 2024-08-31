@@ -1,0 +1,94 @@
+<app-ui-modal #modalLarge [dialogClass]="'modal-lg'">
+    <div class="app-modal-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="float-left">
+                    <h5>Send Mail</h5>
+                </div>
+                <button type="button" class="btn btn-light btn-sm btn-round has-ripple waves-effect waves-light float-right" (click)="close()">
+                    <i class="fa fa-close"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-body">
+        <div class="col-sm-12">
+            <div class="page-body">
+                <div class="row form-group d-flex">
+                    <div class="col-sm-3">
+                        <label>Send Email To :</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <a href="javascript:">{{ FirstName }}</a>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <label>Email ID :<span style="color: red;">*</span></label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input type="email" placeholder="To" [disabled]="true" class="form-control"
+                            [(ngModel)]="ToEmail"><span class="form-bar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-3">
+                        <label class="float-label">Subject :</label>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <textarea type="text" [(ngModel)]="Subject" class="form-control" rows="2">
+                            </textarea><span class="form-bar"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-12">
+                        <label for="Body/Content">Body/Content :<span style="color: red;">*</span>
+                        </label>
+                        <app-tinymce (click)="onfocus($event)" [(ngModel)]="MailBody"></app-tinymce>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-sm-4">
+                        <label >Send Mail Through</label>
+                    </div>
+                    <div class="col-sm-8 d-flex">
+                      <div class="col-sm-6">
+                        <input checked="checked" id="rbEmail" name="rbEmail" type="radio" value="1"
+                        (change)="MailChange($event)">
+                        <label for="SMTP_Email" class="pl-2">SMTP Email</label>
+                      </div>
+                      <div class="col-sm-6">
+                        <input id="rbEmail" name="rbEmail" type="radio" value="2"
+                        (change)="MailChange($event)">
+                        <label for="Outlook_Email" class="pl-2">Outlook Email</label>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-right">
+                        <div id="divsmtp" *ngIf="ShowSendMail">
+                            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" id="btnEmail"
+                                (click)="SendEmail($event)" >
+                                <i class="fa fa-envelope pr-1"></i>Send Email
+                            </button>
+                        </div>
+                        <div id="divoutlook" *ngIf="ShowOutLookMail">
+                            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light" id="btnOutlook"
+                                (click)="SendOutlookEmail()" >
+                                <i class="fa fa-envelope pr-1"></i>Send Outlook Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-ui-modal>

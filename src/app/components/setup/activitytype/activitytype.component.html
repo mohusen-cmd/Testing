@@ -1,0 +1,82 @@
+<div class="page-header">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-sm-12">
+        <div class="page-header-title">
+          <h5 class="m-b-10">Activity Type List</h5>
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="index.html">
+              <i class="feather icon-home"></i>
+            </a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Setup</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a>Activity Type List</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="btn-page">
+  <div class="col-sm-12">
+    <app-card [title]="'Activity Type List'" cardTitle="Activity Type List"  [classHeader]="true">
+      <div class="row align-content-between">
+        <div class="col-sm-12">
+        <div  class="row form-group float-right">
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light btn-table" type="button"
+              (click)="ActivityCrudEventHandler(' ','New')"><i class="fa fa-circle-plus pr-1"></i>Add New</button>&nbsp;
+            <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light btn-table" type="button"
+              (click)="ActivityCrudEventHandler(' ','status')"><i class="fa fa-exchange pr-1"></i>Change Status</button>&nbsp;
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" class="table mb-2">
+
+              <tbody *ngIf="activities?.length != 0">
+                <tr *ngFor="let activity of activities">
+                  <td> <input type="checkbox" class="editor-active" (change)="activeInActiveToggle($event,activity)">
+                  </td>
+  
+                  <td> <a href="javascript:void(0)" mdbRippleRadius
+                      (click)="ActivityCrudEventHandler(activity.AID,'Edit')">{{ activity.Name }}</a>&nbsp;&nbsp;</td>
+                  <!-- <td>{{ activity.Name }}</td> -->
+                  <td>{{ activity.Type }}</td>
+                  <td>{{ activity.Status }}</td>
+  
+                  <!-- <td>
+                    <!-- <a href="javascript:void(0)" mdbRippleRadius
+                      (click)="ActivityCrudEventHandler(activity.AID,'View')"><i class="fa fa-search"
+                        style="color:#337ab7;" title="View"></i></a>&nbsp;&nbsp;
+                    <a href="javascript:void(0)" mdbRippleRadius
+                      (click)="ActivityCrudEventHandler(activity.AID,'Edit')"><i class="fa fa-pencil"
+                        style="color:#008e26;" title="Edit"></i></a>&nbsp;&nbsp;
+  
+  
+                  </td> -->
+  
+                </tr>
+              </tbody>
+              <tbody *ngIf="activities?.length == 0">
+                <tr>
+                  <td colspan="4" class="no-data-available" style="text-align: center;">No data!</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+

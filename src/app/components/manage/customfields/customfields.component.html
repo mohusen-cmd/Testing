@@ -1,0 +1,296 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Custom Fields</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Manage</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Custom Fields</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row btn-page">
+  <div class="col-sm-12">
+    <app-card cardTitle="Custom Fields">
+      <div class="row ">
+        <div class="col-sm-4">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Select an option</mat-label>
+            <mat-select  [(ngModel)]="module"   (selectionChange)="drpselected($event.value)" >
+                <mat-option  *ngFor="let type of filterTypes" value={{type.value}}>
+                  {{type.display}}
+                </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+          <div class="float-right mb-3 ">
+            <button  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="InActiveCustom()">
+              <i class="pr-1"></i>In-Activate
+            </button>&nbsp;
+            <button  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="addCustom()">
+              <i class="fa fa-plus-circle pr-1"></i>Add Data
+            </button>&nbsp;
+            <button  class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  "(click)="Deleteuser()">
+              <i class="icon fa fa-trash pr-1"></i>Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <app-card>
+        <ag-grid-angular 
+          style=" height: 535px;" 
+          [gridOptions]="gridOptions"
+          class="ag-theme-alpine"
+          [rowData]="rowData" 
+          [columnDefs]="columnDefs"
+          (cellClicked)="onCellClicked($event)">
+        </ag-grid-angular>
+      </app-card>    
+    </app-card>  
+  </div>
+</div>
+
+
+<!-- <mat-card>
+  <mat-card-header>
+      <mat-card-title>Custom Fields</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <mat-label>Select an option</mat-label>
+                  <mat-select  [(ngModel)]="module" class="form-control"  (selectionChange)="drpselected($event.value)" >
+                      <mat-option  *ngFor="let type of filterTypes" value={{type.value}}>
+                        {{type.display}}
+                      </mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-6 text-right">
+                <button mat-button class="custom-button"(click)="Deleteuser()">
+                  <i class="feather icon-trash"></i> Delete
+                </button>
+                <button mat-button class="custom-button"(click)="addCustom()" style="margin: 3px;">
+                  <i class="fa fa-circle-plus-circle"></i> Add Data
+                </button>
+                <button mat-button class="custom-button"(click)="InActiveCustom()">
+                  <i class="feather icon-minus-circle"></i> In-Activate
+                </button>
+              </div>
+
+          </div>
+      </div>
+  </mat-card-content>
+</mat-card> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="panel" style="margin-bottom:0px !important;">
+    <div class="panel-heading1">
+      <div class="row"> -->
+<!-- Page header, center on small screens -->
+<!-- <h5 class="col-xs-6 col-sm-4 text-left text-left-sm panel-title">
+          <i class="fa fa-user page-header-icon"></i> Leads
+        </h5>
+        <div class="col-xs-6 col-sm-8">
+          <div class="row">
+            <div class="pull-right">
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" style="padding:5px 0px !important;">
+      <div class="col-sm-12">
+        <div class="row" id="pnlSrchCriteria">
+          <div class="col-sm-3">
+            <div class="form-group no-margin-hr example-form">
+              <label class="col-form-label">Keyword :</label><br>
+              <input    name="Keyword"  type="text" >
+            </div>
+          </div>
+  
+          <div class="col-sm-3">
+            <div class="form-group no-margin-hr">
+              <label class="col-form-label">Lead Owner :</label>
+              <input   name="Owner" type="text">
+  
+            </div>
+          </div>
+          <div class="col-sm-3" style="display:none">
+            <div class="form-group no-margin-hr">
+              <label class="col-form-label">Lead Status :</label>
+              <select class="form-control input-sm" data-val="true" data-val-number="The field StageID must be a number."
+                id="SrcddlLeadStages" name="StageID">
+                <option value="">Select Stage</option>
+                <option value="9">Cold</option>
+                <option value="7">Hot</option>
+                <option value="14">Hot</option>
+                <option value="10">Lead Status-k1</option>
+                <option value="12">shashi / shashi2</option>
+                <option value="11">Warm</option>
+                <option value="8">Warm</option>
+              </select>
+  
+  
+            </div>
+          </div>
+  
+          <div class="col-sm-6" style="padding-top:22px;">
+            <a class="btn btn-labeled btn-success" id="btnSearch">
+              <span class="btn-label icon fa fa-search"> </span>
+              Search
+            </a>
+            <a class="btn btn-labeled btn-success" id="btnClear">
+              <span class="btn-label icon fa fa-eraser"> </span>
+              Clear
+            </a>
+          </div>
+  
+  
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 text-right text-right-sm">
+  
+            <ul class="table-nav-item">
+  
+  
+              <li class="btn  btn-labeled btn-success" id="btnmargin_top">
+                <a style="color: #fff; text-decoration: none; padding: 0px; font-weight: normal"
+                  href="/Import/GetHistory">
+  
+                  <span class="btn-label icon  fa fa-anchor" style="margin-right:6px;"> </span>
+                  Import History
+                </a>
+              </li>
+              <li class="btn  btn-labeled btn-success" id="btnmargin_top">
+                <a style="color: #fff; text-decoration: none; padding: 0px; font-weight: normal"
+                  href="/Import/ImportLeads">
+  
+                  <span class="btn-label icon  fa fa-cloud-upload" style="margin-right:6px;"> </span>
+                  Import
+                </a>
+              </li>
+  
+              <li class="btn  btn-labeled btn-success" id="btnmargin_top">
+                <a style="color: #fff; text-decoration: none; padding: 0px; font-weight: normal"
+                  href="/Leads/CreateNewLead?LeadId=0">
+                  <span class="btn-label icon  fa  fa-plus-circle" style="margin-right:6px;"> </span>
+                  Add New
+                </a>
+              </li>
+  
+            </ul>
+          </div>
+          <div class="col-sm-12 col-xs-12">
+            <div class="table-primary table-striped">
+  
+              <div class="col-sm-12 col-xs-12">
+                <div class="table-primary table-striped">
+                  <div class="alphabet"><span class="clear">All</span><span>#</span><span class="">A</span><span
+                      class="active">B</span><span>C</span><span>D</span><span>E</span><span>F</span><span>G</span><span>H</span><span>I</span><span>J</span><span>K</span><span>L</span><span>M</span><span>N</span><span>O</span><span>P</span><span>Q</span><span>R</span><span>S</span><span>T</span><span>U</span><span>V</span><span>W</span><span>X</span><span>Y</span><span>Z</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+            <table mat-table [dataSource]="dataSource" class="table table-striped table-bordered nowrap table-hover">
+  
+              <!-- Checkbox Column -->
+<!-- <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef > -->
+<!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox> -->
+<!-- <input type="checkbox" (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" />
+                </th>
+                <td mat-cell *matCellDef="let row"> -->
+<!-- <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+                  </mat-checkbox> -->
+<!-- <input type="checkbox" (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" />
+                </td>
+              </ng-container> -->
+
+<!-- Position Column -->
+<!-- <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef  > DELETE </th>
+                <td mat-cell *matCellDef="let element">
+                  <i  class="ng-tns-c19-4 feather icon-trash-2 text-white"></i>
+                </td>
+              </ng-container> -->
+
+<!-- Name Column -->
+
+
+<!-- <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef >VIEW/EDIT </th>
+                <td mat-cell *matCellDef="let element">   <i  class="ng-tns-c19-4 fa fa-circle-plus-square"></i>
+                  <i  class="ng-tns-c19-4 feather icon-edit text-white "></i></td>
+              </ng-container>
+              <ng-container matColumnDef="leadname">
+                <th mat-header-cell *matHeaderCellDef>LEAD NAME </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container> -->
+
+
+<!-- Weight Column -->
+<!-- <ng-container matColumnDef="leadsource">
+                <th mat-header-cell *matHeaderCellDef> COMPANY </th>
+                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+              </ng-container> -->
+
+<!-- Symbol Column -->
+<!-- <ng-container matColumnDef="leadowner">
+                <th mat-header-cell *matHeaderCellDef> LEAD SOURCE </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container> -->
+<!-- Symbol Column -->
+<!-- <ng-container matColumnDef="leadstatus">
+                <th mat-header-cell *matHeaderCellDef> LEAD OWNER </th>
+                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+              </ng-container> -->
+
+<!-- <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+              </tr>
+            </table>
+             -->

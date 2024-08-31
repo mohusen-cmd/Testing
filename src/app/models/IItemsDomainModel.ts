@@ -1,0 +1,42 @@
+export class ItemsDomainModel {
+    ItemID: number;
+    EstimateInvoiceItemId:any
+    ItemTypeID: number =1;
+    MeasureID: number | null;
+    ItemLocID: number | null;
+    ItemCode: string;
+    ItemName: string;
+    Description: string;
+    PrimaryVendorID: number | null;
+    AlternateVendorID: number | null;
+    AccountNO: string;
+    RateperUnit: number | null;
+    Saleprice: number | null;
+    MinimumQty: number | null;
+    ReorderQty: number | null;
+    QtyonHand: number | null;
+    ItemLocation: string;
+    ItemUnits: string;
+    Warranty: string;
+    Active: boolean =true;
+    CreatedDate: string | null;
+    ModifiedDate: string | null;
+    Updatedby: string;
+    PartNumber: string;
+    CompanyID: number | null;
+    IsDeleted: boolean | null;
+    NonStock: boolean | null;
+    QtyCommitted: number | null;
+    QtyOnOrder: number | null;
+    Checked: boolean | null;
+    ManufacturerID: number | null;
+    RecordsCount: number;
+    ItemTotal: number | null;
+    SubTotal: number | null;
+    TaxPercent: number | null;
+    TaxAmount: number | null;
+    ItemDesc: string;
+    RPU: number;
+    SP: number;
+    Sku: string;
+}

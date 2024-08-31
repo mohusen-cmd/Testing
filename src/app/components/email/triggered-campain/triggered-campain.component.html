@@ -1,0 +1,107 @@
+
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Triggered Campaigns</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a >Email</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                      <a>Triggered Campaigns</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+<div class="row btn-page">
+    <div class="col-sm-12">
+        <app-card  cardClass="card-datatable" cardTitle="Triggered Campaigns" >
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="float-right mb-2">
+                        <button class="btn btn-success btn-sm btn-round has-ripple waves-effect waves-light  " (click)="onTragger()"><i class="fa fa-plus-circle pr-1"></i>Create Triggered Campaign
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+ <table datatable [dtOptions]="dtOptions" class="table mb-2" >
+                        <thead>
+                            <tr>
+                                <th>DELETE</th>
+                                <th>EDIT</th>
+                                <th>CAMPAIGN ID</th>
+                                <th>CAMPAIGN NAME</th>
+                                <th>CREATION DATE</th>
+                                <th>SCHEDULED DATE</th>
+                                <th>STATUS</th>
+                                <th>CONTACTS TARGETED</th>
+                                <th>SUCCESSFULLY DELIVERED</th>
+                                <th>BOUNCED</th>
+                            </tr>
+                          </thead>
+                        <tbody *ngIf="triggeredresult?.length != 0">
+                          <tr *ngFor="let  res of triggeredresult">
+                           
+                               <td>
+                                <a href="javascript:" class=" btn btn-danger btn-sm  has-ripple waves-effect waves-light"  (click)="DeleteCampaignbyCampaignID(res.camp_ID)"><i class="feather icon-trash-2 text-white"></i> </a>
+                               </td>   
+                            <td>
+                                <div *ngIf="res.Status=='Pending'; then firstTemplate; else secondTemplate "></div>
+                                <ng-template #firstTemplate> <a href="javascript:" class="btn btn-info btn-sm  has-ripple waves-effect waves-light" (click)="onEditview(res)" ><i class=" feather icon-edit text-white "></i> </a></ng-template>
+                                <ng-template #secondTemplate><a href="javascript:"  class="btn btn-info btn-sm  has-ripple waves-effect waves-light" routerLink="/Email/CreateTriggerCampaign/EditTriggerCampaign"  [queryParams]="{camp_ID:res.camp_ID}">
+                                    <i class=" feather icon-edit text-white "></i>
+                                    </a></ng-template>
+                            </td> 
+                           
+                            <td>{{ res.camp_ID }}</td>
+                            <td>{{ res.CampaignName }}</td>
+                            <td>{{ res.CreatedDate | date: 'MM/dd/yyyy' }}</td>
+                            <td>{{ res.ScheduledDatetime | date: 'MM/dd/yyyy' }}</td>
+                            <td>{{ res.Status }}</td>
+                            <td>
+                                <div *ngIf="res.ContactTargeted; then firstTemplatee; else secondTemplatee"></div>
+                                <ng-template #firstTemplatee>{{res.ContactTargeted}}</ng-template>
+                                <ng-template #secondTemplatee>--</ng-template>
+                            </td>
+                            <td>
+                                <div *ngIf="res.ContactTargeted; then firstTemplatee; else secondTemplatee"></div>
+                                <ng-template #firstTemplatee>{{res.ContactTargeted}}</ng-template>
+                                <ng-template #secondTemplate>--</ng-template>
+                            </td>
+        
+                            <td>
+                                <div *ngIf="res.ContactTargeted; then firstTemplatee; else secondTemplatee"></div>
+                                <ng-template #firstTemplatee>{{res.ContactTargeted}}</ng-template>
+                                <ng-template #secondTemplatee>--</ng-template>
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody *ngIf="triggeredresult?.length == 0">
+                          <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                   
+                </div>
+            </div>
+           
+           
+           
+        </app-card>
+    </div>
+</div>

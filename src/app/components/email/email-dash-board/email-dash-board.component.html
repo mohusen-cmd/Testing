@@ -1,0 +1,124 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Dashboard</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Email</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Dashboard</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+  
+  <app-card cardTitle="Dashboard" >
+    <div class="row">
+      <h5 class="col-sm-12">
+        Latest Campaign
+        <span style="font-weight:400;">: Welcome to <span id="spnSubjectLine">CRM Campaign Board</span></span>
+      </h5>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive">
+          <table class="table table-bordered mb-2 ">
+            <thead>
+              <tr>
+                <th>EMAIL ACTIVITY</th>
+                <th>PERFORMANCE METRICS</th>
+              </tr>
+            </thead> 
+            <tbody >
+              <tr >
+                <td>Sent</td>
+                <td>{{comp[0]?.SuccessfullDelivered}}</td>
+              </tr>
+              <tr>
+                <td>Opens</td>
+                <td >{{comp[0]?.TotalOpens}}</td>
+              </tr>
+              <tr>
+                <td>Bounces</td>
+                <td >{{comp[0]?.Bounced}}</td>
+              </tr>
+            </tbody>    
+            
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-2 mb-3 border-bottom ml-1 mr-1"></div>
+    <div class="row ">
+      <h6 class="col-sm-12">
+        Recent Campaign
+      </h6>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="table-responsive ">
+          <table datatable [dtOptions]="dtOptions" class="table mb-2" >
+            <tbody *ngIf="emailresult?.length != 0">
+              <tr *ngFor="let  res of emailresult">
+                
+                <td>{{ res.CampaignID}}</td>
+                <td>{{ res.MailingName }}</td>
+                <td>{{ res.CreatedDate | date: 'MM/dd/yyyy' }}</td>
+                <td>{{ res.Status}}</td>
+                <td>
+                  <div *ngIf="res.ContactsTargeted; then firstTemplate; else secondTemplate"></div>
+                  <ng-template #firstTemplate>{{res.ContactsTargeted}}</ng-template>
+                  <ng-template #secondTemplate>--</ng-template>
+                  </td>
+                <td>
+                  <div *ngIf="res.SuccessfullDelivered; then firstTemplate; else secondTemplate"></div>
+                  <ng-template #firstTemplate>{{res.SuccessfullDelivered}}</ng-template>
+                  <ng-template #secondTemplate>--</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="res.Bounced; then firstTemplate; else secondTemplate"></div>
+                  <ng-template #firstTemplate>{{res.Bounced}}</ng-template>
+                  <ng-template #secondTemplate>--</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="res.TotalOpens; then firstTemplate; else secondTemplate"></div>
+                  <ng-template #firstTemplate>{{res.TotalOpens}}</ng-template>
+                  <ng-template #secondTemplate>--</ng-template>
+                </td>
+                <td>
+                  <div *ngIf="res.TotalClicks; then firstTemplate; else secondTemplate"></div>
+                  <ng-template #firstTemplate>{{res.TotalClicks}}</ng-template>
+                  <ng-template #secondTemplate>--</ng-template>
+                </td>
+      
+                    
+                
+              </tr>
+            </tbody>
+            <tbody *ngIf="emailresult?.length == 0">
+              <tr>
+                <td colspan="9" class="no-data-available" style="text-align: center;">No data!</td>
+              </tr>
+            </tbody>
+      
+          </table>
+        </div>
+      </div>
+    </div>
+    
+
+    
+    
+  </app-card>

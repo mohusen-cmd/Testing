@@ -1,0 +1,209 @@
+
+<app-ui-modal>
+    <div class="app-modal-header" #InvoiceMailTemplate>
+        <!-- <div class="app-modal-body" #myParagraph> -->
+        <div style="width:640px; margin:auto; padding:15px; background:#fff;">
+            <table class="content-div" width="640" cellpadding="0" cellspacing="0"
+                style="width: 100%; margin: auto; background:#fff;">
+                <tbody>
+                    <tr>
+                        <td align="left" valign="top" style="line-height: 10px;">
+                            <img src="./assets/images/{{companylogo}}" alt="{{companylogo}}" class="img">
+                            <p style="white-space:nowrap "> {{ model.CompanyName}} </p>
+                            <p style="white-space: nowrap;">{{userDetails?.AddressLine1}}</p>
+                            <p style="white-space: nowrap;">{{userDetails?.AddressLine2}}</p>
+                            <p style="white-space: nowrap; ">{{userDetails?.City}},{{userDetails?.StateName}}
+                                {{userDetails?.Zipcode}}</p> <br />
+
+                        </td>
+                        <td align="left" valign="top" style="width:80%; padding-left:-40%;">
+                            <table width="100%" style="width:100%;" cellpadding="7" cellspacing="0" border="0">
+                                <tbody>
+
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;margin-right: 20px;">
+                                            Invoice Number:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoceObj.InvoiceNo}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" align="left" style="font-weight:bold;">
+                                            Date:
+                                        </td>
+                                        <td width="50%" align="left">
+                                            {{InvoceObj.CreatedDate|date:'dd-MM-yyyy'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding-bottom: 40px; ">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="left" valign="top" style="font-weight:bold; width:100px;"> Bill To:
+                                        {{billingaddress}}
+                                        <br />
+                                    </td>
+                                    <td align="left" valign="top" style="line-height:10px;">
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+                                        <p style="white-space:nowrap "></p>
+
+                                        <p style="white-space:nowrap "></p>
+
+
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <table class="table itemtable">
+
+                        <tr>
+
+                            <th>Item Name <span style="color: red">*</span></th>
+                            <th>Quantity<span style="color: red">*</span></th>
+                            <th>Sale Price ($)</th>
+                            <th>Amount&nbsp;($)</th>
+                            <th></th>
+                        </tr>
+
+
+                        <tr *ngFor="let item of InvoceObj.Listinvoiceitems;let i=index;">
+
+                            <td style="padding: 5px">{{item.ItemName}}</td>
+                            <td style="padding: 10px">{{item.Quantity}}</td>
+                            <td style="padding: 10px">{{item.RatePerUnit}}</td>
+                            <td style="padding: 10px">{{item.ItemTotal}}</td>
+                        </tr>
+
+                    </table>
+                    <tr>
+                        <td colspan="2">
+                            <div style="border: 0px solid #ccc; width: 100%; margin-bottom: 30px"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding-bottom:15px;" colspan="2">
+                            <div id="dvAmount">
+                                <div style="font-weight:bold; padding-bottom:15px;">
+                                    A&nbsp;convenience&nbsp;fee&nbsp;of&nbsp;3.5%&nbsp;will&nbsp;apply&nbsp;to&nbsp;all&nbsp;credit&nbsp;card&nbsp;transactions.
+                                </div>
+                                <table width="100%" cellpadding="5" cellspacing="0" border="0">
+                                    <tbody>
+                                        <tr>
+                                            <td align="right">
+                                                Sub Total Amount:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                {{InvoceObj.InvoiceAmount}}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td align="right">
+                                                Discount:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                {{InvoceObj.Discount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">
+                                                Tax:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                {{InvoceObj.TaxAmount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td align="right">
+                                                Convenience Fee ($):
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                {{InvoceObj.MiscellaneousAmount}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td align="right">
+                                                Total due if paid by credit card:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right">
+                                                {{InvoceObj.GrandTotal}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" style="padding-top:25px;">
+                                                Total due if paying with any other accepted method:
+                                            </td>
+                                            <td id="lblBalanceamount" width="28%" align="right"
+                                                style="padding-top:25px;">
+                                                {{InvoceObj.MaterialAmount}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table cellpadding="5" cellspacing="0" border="0" style="width:100%;">
+                                    <tr>
+                                        <td style="padding-top:35px; font-weight:bold;" >
+                                            <label id="lblmsg">Click here to Pay Invoice!</label><br />
+                                            <a style="text-decoration: none !important;" 
+                                            target="_blank"
+                                            [href]="'https://crm.psplhyd.com/QuickPayment?InvoiceID=' + InvoceObj.InvoiceID +
+                                                     '&AmountPaid=' + InvoceObj.InvoiceAmount + 
+                                                     '&BearerToken=' + BearerToken + 
+                                                     '&ApiUsername=' + clientDetails.ApiUsername + 
+                                                     '&ApiPassword=' + clientDetails.ApiPassword + 
+                                                     '&UserId=' + UserId + 
+                                                     '&ClientID=' + clientDetails.ClientID">
+                                            QuickPayments
+                                         </a>
+                                         
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="font-weight:bold; padding-top:20px;">
+                                            Please make checks payable to:
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left"
+                                            style="line-height: 10px; padding-bottom: 30px;">
+                                            <p style="white-space:nowrap "> {{model.CompanyName}} </p>
+                                            <p style="white-space: nowrap;">{{userDetails.AddressLine1}}</p>
+                                            <p style="white-space: nowrap;">{{userDetails.AddressLine2}}</p>
+                                            <p style="white-space: nowrap; ">
+                                                {{userDetails.City}},{{userDetails.StateName}} {{userDetails.Zipcode}}
+                                            </p> <br />
+                                        </td>
+                                        <td align="right" valign="top" style="line-height:20px;">
+
+                                            <a href="https://inugocrm.com/inugo-billing/">
+                                                <img style="width:300px;height:90px;"
+                                                    src="https://dev.psplhyd.com/CRM/Content/CompanyLogos/inugologoorangeinvoice.png" /><br /><br />
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lblBalanceamount" align="left"
+                                            style="background:#ccc; text-align:center; padding:10px;">
+                                            Thank you for your business!
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</app-ui-modal>

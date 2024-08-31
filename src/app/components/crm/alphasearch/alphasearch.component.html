@@ -1,0 +1,53 @@
+<style>
+    div.alphabet {
+        display: table;
+        margin: 10px 0px;
+        text-align: center;
+        width: 80%;
+        position: absolute;
+        z-index: 100;
+        background: green;
+    }
+    .alphabet-seperator {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .alphabet-box {
+        border: 1px solid black;
+        padding: 5px;
+        width: 30px;
+        text-align: center;
+        background-color: aqua;
+    }
+    div.alphabet span {
+        display: table-cell;
+        color: #ffffff;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    div.alphabet span:hover {
+        text-decoration: none;
+        background: orange;
+        color: #ffffff;
+    }
+
+    div.alphabet span.active {
+        color: #ffffff;
+        background: orange;
+        border-radius: 0px;
+        font-weight: bold;
+    }
+    #DataTables_Table_0_wrapper ::ng-deep .dataTables_wrapper .dataTables_length {
+        float: right !important;
+    }
+</style>
+
+<div class="alphabet">
+    <!-- <div class="alphabet-seperator"> -->
+    <span *ngFor="let item of AlphaSearch; let i = index" [class.active]="i == SelectedCharecter" (click)="AlphaSearchData(item, i)">
+        {{ item }}
+    </span>
+    <!-- </div> -->
+</div>

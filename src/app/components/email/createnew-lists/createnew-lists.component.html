@@ -1,0 +1,68 @@
+<div class="page-header">
+  <div class="page-block">
+      <div class="row align-items-center">
+          <div class="col-sm-12">
+              <div class="page-header-title">
+                  <h5 class="m-b-10">Create New Lists</h5>
+              </div>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item">
+                      <a href="index.html">
+                          <i class="feather icon-home"></i>
+                      </a>
+                  </li>
+                  <li class="breadcrumb-item">
+                      <a >Email</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Lists</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a>Create New Lists</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row" >
+  <div class="col-sm-12">
+    <!-- Tab variant tab card start -->
+
+    <app-card [blockClass]="'tab-icon'" cardTitle="Create New List" >
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="md-tabs">
+            <ul ngbNav #navPills="ngbNav" class="nav-pills" >
+              <li [ngbNavItem]="1">
+                <a ngbNavLink>Lead Detail</a>
+                <ng-template ngbNavContent>
+                  <app-list-leads ></app-list-leads>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="2">
+                <a ngbNavLink>Contacts</a>
+                <ng-template ngbNavContent>
+                  <app-list-contacts></app-list-contacts>
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="3">
+                <a ngbNavLink>Opportunities</a>
+                <ng-template ngbNavContent>
+                  <app-list-opper></app-list-opper>
+                </ng-template>
+              </li>
+
+            </ul>
+            <div [ngbNavOutlet]="navPills" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+    </app-card>
+  </div>
+</div>
+
+
+
+

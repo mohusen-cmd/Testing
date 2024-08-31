@@ -1,0 +1,669 @@
+<div class="page-header">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-sm-12">
+                <div class="page-header-title">
+                    <h5 class="m-b-10">Create Opportunity</h5>
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">
+                            <i class="feather icon-home"></i>
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>CRM</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Opportunity</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a>Create Opportunity</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card [title]="'Create Opportunities'" cardTitle="Create Opportunities" [blockClass]="'tab-icon'">
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    <form [formGroup]="registerForm" novalidate>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group float-right">
+                                    <button
+                                        type="button"
+                                        (click)="createOrUpdateOpportunity('savenew')"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        #SaveNew
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save & New</button
+                                    >&nbsp;
+                                    <button
+                                        type="button"
+                                        (click)="createOrUpdateOpportunity('save')"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                        #SaveNew
+                                    >
+                                        <i class="fa fa-floppy-o pr-1"></i>Save</button
+                                    >&nbsp;
+                                    <button
+                                        type="button"
+                                        (click)="NavigateOpportunityBackList()"
+                                        class="btn btn-sm btn-round waves-effect waves-light btn-success"
+                                    >
+                                        <i class="fa fa-backward pr-1"></i>Back</button
+                                    >&nbsp;
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <app-card title="Opportunity Detail" cardTitle="Opportunity Detail" [classHeader]="true">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <ng-container
+                                                        *ngIf="
+                                                            oppdetails.AccountObj.RoleID == 1 ||
+                                                                oppdetails.AccountObj.RoleName == 'Admin' ||
+                                                                oppdetails.AccountObj.RoleName == 'Master Admin';
+                                                            else second
+                                                        "
+                                                    >
+                                                        <div class="form-group">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <label class="col-form-label">Opportunity Owner :</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="input-group">
+                                                                        <input
+                                                                            type="text"
+                                                                            class="form-control"
+                                                                            formControlName="ownership"
+                                                                            name="owner"
+                                                                            [(ngModel)]="oppdetails.AccountObj.Ownership"
+                                                                            disabled="true"
+                                                                        />
+                                                                        <span class="input-group-append">
+                                                                            <button
+                                                                                (click)="GetSearchUsersList($event)"
+                                                                                class="input-group-text"
+                                                                            >
+                                                                                <i class="fa fa-search"></i>
+                                                                            </button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #second>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="form-group">
+                                                                    <label class="col-form-label">Opportunity Owner :</label>
+                                                                    <input
+                                                                        type="text"
+                                                                        class="form-control"
+                                                                        formControlName="ownership"
+                                                                        name="owner"
+                                                                        [(ngModel)]="oppdetails.AccountObj.Ownership"
+                                                                        disabled="true"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label class="col-form-label"
+                                                                    >Opportunity Name :<span style="color: red">*</span></label
+                                                                >
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="oppname"
+                                                                    name="oppname"
+                                                                    [(ngModel)]="oppdetails.AccountObj.Name"
+                                                                    [ngClass]="{
+                                                                        'is-invalid':
+                                                                            (submitted && f.oppname.errors) ||
+                                                                            (!f.oppname.valid && f.oppname.touched && f.oppname.errors)
+                                                                    }"
+                                                                />
+
+                                                                <div
+                                                                    *ngIf="(submitted && f.oppname.errors) || (!f.valid && f.touched)"
+                                                                    class="invalid-feedback"
+                                                                ></div>
+                                                                <div *ngIf="f.oppname.errors?.required" class="invalid-feedback">
+                                                                    Name is required
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Estimated Close Date :</label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="oppclosedate"
+                                                                    [(ngModel)]="oppdetails.AccountObj.CloseDate"
+                                                                    name="oppCloseDate"
+                                                                    [value]="registerForm.get('oppclosedate').value | date : 'MMM/dd/yyyy'"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"
+                                                                    >Company Name:<span style="color: red">*</span></label
+                                                                >
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="input-group">
+                                                                    <input
+                                                                        type="text"
+                                                                        class="form-control"
+                                                                        formControlName="companyname"
+                                                                        name="companyname"
+                                                                        [(ngModel)]="oppdetails.AccountObj.CompanyName"
+                                                                        [ngClass]="{
+                                                                            'is-invalid':
+                                                                                (submitted && f.companyname.errors) ||
+                                                                                (!f.companyname.valid &&
+                                                                                    f.companyname.touched &&
+                                                                                    f.companyname.errors)
+                                                                        }"
+                                                                    />
+                                                                    <span class="input-group-append">
+                                                                        <button
+                                                                            (click)="GetSearchCompanyListModal($event)"
+                                                                            class="input-group-text"
+                                                                        >
+                                                                            <i class="fa fa-search"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                    <div
+                                                                        *ngIf="
+                                                                            (submitted && f.companyname.errors) || (!f.valid && f.touched)
+                                                                        "
+                                                                        class="invalid-feedback"
+                                                                    ></div>
+
+                                                                    <div *ngIf="f.companyname.errors?.required" class="invalid-feedback">
+                                                                        Company Name is Required
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"
+                                                                    >Buying Stage :<span style="color: red">*</span></label
+                                                                >
+                                                                <select
+                                                                    class="form-control"
+                                                                    formControlName="stage"
+                                                                    name="stage"
+                                                                    [(ngModel)]="oppdetails.AccountObj.StageID"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.stage.errors }"
+                                                                >
+                                                                    <option value="">--All--</option>
+                                                                    <option
+                                                                        *ngFor="let stage of oppdetails.StageList"
+                                                                        value="{{ stage.StageId }}"
+                                                                    >
+                                                                        {{ stage.StageName }}
+                                                                    </option>
+                                                                </select>
+
+                                                                <div *ngIf="submitted && f.stage.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.stage.errors?.required">Stage is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"
+                                                                    >Type :<span style="color: red">*</span></label
+                                                                >
+                                                                <select
+                                                                    class="form-control"
+                                                                    formControlName="businesstypeid"
+                                                                    name="BusinessTypeID"
+                                                                    [(ngModel)]="oppdetails.AccountObj.BusinessTypeID"
+                                                                    [ngClass]="{ 'is-invalid': submitted && f.businesstypeid.errors }"
+                                                                >
+                                                                    <option value="">--All--</option>
+                                                                    <option
+                                                                        *ngFor="let opptype of oppdetails.OppotypeList"
+                                                                        value="{{ opptype.OTId }}"
+                                                                    >
+                                                                        {{ opptype.TypeName }}
+                                                                    </option>
+                                                                </select>
+
+                                                                <div *ngIf="submitted && f.businesstypeid.errors" class="invalid-feedback">
+                                                                    <div *ngIf="f.businesstypeid.errors?.required">Type is required</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Probabilty: </label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="probability"
+                                                                    name="probability"
+                                                                    [(ngModel)]="oppdetails.AccountObj.Probability"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Expected Budget ($):</label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    maxlength="16"
+                                                                    formControlName="revenue"
+                                                                    name="revenue"
+                                                                    [(ngModel)]="oppdetails.AccountObj.ExpectedRevenue"
+                                                                    appDecimalNumber
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Opportunity Source:</label>
+                                                                <select
+                                                                    class="form-control"
+                                                                    formControlName="oppsource"
+                                                                    name="oppsource"
+                                                                    [(ngModel)]="oppdetails.AccountObj.OppurtunitySourceID"
+                                                                >
+                                                                    <option value="">--All--</option>
+                                                                    <option
+                                                                        *ngFor="let oppsource of oppdetails.LeadSourceList"
+                                                                        value="{{ oppsource.OSId }}"
+                                                                    >
+                                                                        {{ oppsource.SourceName }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label"> Contact :</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <div class="input-group">
+                                                                    <input
+                                                                        type="text"
+                                                                        class="form-control"
+                                                                        formControlName="oppcontactname"
+                                                                        name="oppcontactName"
+                                                                        [(ngModel)]="oppdetails.AccountObj.ContactName"
+                                                                        [ngClass]="{ 'is-invalid': submitted && f.oppcontactname.errors }"
+                                                                    />
+                                                                    <span class="input-group-append">
+                                                                        <button
+                                                                            (click)="GetSearchContactListModal($event)"
+                                                                            class="input-group-text"
+                                                                        >
+                                                                            <i class="fa fa-search"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                    <div
+                                                                        *ngIf="submitted && f.oppcontactname.errors"
+                                                                        class="invalid-feedback"
+                                                                    >
+                                                                        <div *ngIf="f.oppcontactname.errors?.required">
+                                                                            Contact is required
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Email: </label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="email"
+                                                                    name="email"
+                                                                    [(ngModel)]="oppdetails.AccountObj.Email"
+                                                                    readonly
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Phone:</label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="phone"
+                                                                    name="phone"
+                                                                    [(ngModel)]="oppdetails.AccountObj.Phone"
+                                                                    readonly
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <div class="row">
+                                                            <div class="col-sm-12">
+                                                                <label class="col-form-label">Extension :</label>
+                                                                <input
+                                                                    type="text"
+                                                                    class="form-control"
+                                                                    formControlName="ext"
+                                                                    name="owner"
+                                                                    [(ngModel)]="oppdetails.AccountObj.PhoneExt"
+                                                                    readonly
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </app-card>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card title="Notes" cardTitle="Notes" [classHeader]="true">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <textarea
+                                            rows="5"
+                                            cols="5"
+                                            class="form-control"
+                                            name="Description"
+                                            [(ngModel)]="oppdetails.AccountObj.Description"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card title="Attachment" cardTitle="Attachment" [classHeader]="true">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label class="col-form-label">Attachment :</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input
+                                                            type="file"
+                                                            #myuploadInput
+                                                            name="attachment"
+                                                            class="form-control"
+                                                            (change)="getFileDetails($event)"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <button
+                                                class="btn btn-success btn-round btn-sm waves-effect waves-light float-right"
+                                                (click)="ClearFiles()"
+                                            >
+                                                <i class="fa fa-eraser pr-1"></i>Clear
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <app-card title="Additional Information" cardTitle="Additional Information" [classHeader]="true">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            <div class="col-sm-3" *ngFor="let item of oppdetails.listCustomfields">
+                                                <div class="form-group" *ngIf="item.Column_Type == 'dropdown'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <select class="form-control" name="DefaultValue" [(ngModel)]="item.DefaultValue">
+                                                        <option value="0">--Please Select--</option>
+                                                        <option *ngFor="let type of item.lstCustomOptions" value="{{ type.DrpValueId }}">
+                                                            {{ type.DrpValue }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textbox'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textarea'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        style="height: 35px"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    >
+                                                    </textarea>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'textfield'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'date'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'numeric'">
+                                                    <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        name="DefaultValue"
+                                                        [(ngModel)]="item.DefaultValue"
+                                                    />
+                                                </div>
+                                                <div class="form-group form-radio m-b-30" *ngIf="item.Column_Type == 'radiobutton'">
+                                                    <div class="row" style="margin-left: -37px">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == true"
+                                                            >
+                                                                <label style="margin-left: 15px">
+                                                                    <input
+                                                                        type="radio"
+                                                                        checked="checked"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div
+                                                                class="radio radiofill radio-primary radio-inline"
+                                                                *ngIf="item1.IsDefault == false"
+                                                            >
+                                                                <label style="margin-left: 15px">
+                                                                    <input
+                                                                        type="radio"
+                                                                        name="{{ item.Column_Label }}"
+                                                                        value="{{ item1.DrpValueId }}"
+                                                                        (change)="
+                                                                            onChange(item1.FieldId, item1.DrpValueId, $event.target.checked)
+                                                                        "
+                                                                    />
+                                                                    <i class="helper"></i>{{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" *ngIf="item.Column_Type == 'checkbox'">
+                                                    <div class="row" style="margin-left: -16px">
+                                                        <div class="col-sm-12">
+                                                            <label class="col-form-label">{{ item.Column_Label }} :</label>
+                                                        </div>
+                                                        <div class="col-sm-4" *ngFor="let item1 of item.lstCustomOptions">
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == true">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    checked="checked"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                            <div class="checkbox-color checkbox-primary" *ngIf="item1.IsDefault == false">
+                                                                <input
+                                                                    [id]="item1.DrpValueId"
+                                                                    type="checkbox"
+                                                                    (change)="
+                                                                        onChangeCheckBox(
+                                                                            item1.FieldId,
+                                                                            item1.DrpValueId,
+                                                                            $event.target.checked
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <label for="{{ item1.DrpValueId }}">
+                                                                    {{ item1.DrpValue }}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </app-card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>
+
+<app-users-modal *ngIf="showSearchUsersmodal" (usersstatus)="usersStatus($event)" (status)="saveStatus($event)"></app-users-modal>
+<app-company-model
+    *ngIf="ShowCompanyListModal"
+    (companylistmodalstatus)="companyliststatus($event)"
+    (status)="saveStatus($event)"
+></app-company-model>
+<app-contact-list
+    *ngIf="ShowContactListModal"
+    [companyid]="oppdetails.AccountObj.CompanyID"
+    (activitydetailsStatus)="activitydetailsStatus($event)"
+    (status)="saveStatus($event)"
+></app-contact-list>
