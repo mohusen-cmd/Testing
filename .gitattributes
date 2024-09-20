@@ -1,3 +1,5 @@
+*.file_extension filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
 /assets-fonts-fa-brands-400.ttf filter=lfs diff=lfs merge=lfs -text
 /assets-fonts-fa-solid-900.ttf filter=lfs diff=lfs merge=lfs -text
 /assets/fonts/cryptocoins.ttf filter=lfs diff=lfs merge=lfs -text
