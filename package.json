@@ -1,8 +1,6 @@
 {
   "name": "able-pro-angular-ts",
   "version": "8.0.5",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "node server.js"
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -86,7 +84,7 @@
     "peity": "^3.3.0",
     "primeicons": "^6.0.1",
     "primeng": "^13.2.0",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.6.7",
     "screenfull": "^5.1.0",
     "sweetalert2": "^9.15.2",
     "text-mask-addons": "^3.8.0",
